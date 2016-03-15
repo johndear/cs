@@ -56,9 +56,10 @@ public class CustomService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-
-
+	
+	public void unexpectedOffline(){
+		
+	}
 	
 	
 }
