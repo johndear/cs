@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name="csos_customer")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
-public class Customer extends Model {
+public class CustomerModel extends Model {
 
 	@Column(name="customer_id")
 	private Long customerId;
@@ -36,7 +36,7 @@ public class Customer extends Model {
 	@Column(name="status")
 	private int status;
 	
-	public Customer() {
+	public CustomerModel() {
 	}
 	
 	public Long getCustomerId() {

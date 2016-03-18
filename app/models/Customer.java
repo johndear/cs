@@ -5,7 +5,7 @@ import java.util.List;
 
 import play.db.jpa.Model;
 
-public class CustomerDTO {
+public class Customer {
 	
 	public Long id;
 	
@@ -21,6 +21,6 @@ public class CustomerDTO {
 	public Long scheduleId;
 	
 	
-	List<DialogDTO> intoDialogs = new ArrayList<DialogDTO>();
+	List<Dialog> intoDialogs = new ArrayList<Dialog>();
 
 }

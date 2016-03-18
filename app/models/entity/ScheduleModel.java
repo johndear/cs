@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name="csos_schedule")
 @NamedQuery(name="Schedule.findAll", query="SELECT s FROM Schedule s")
-public class Schedule extends Model {
+public class ScheduleModel extends Model {
 
 	@Column(name="dept_id")
 	private BigInteger deptId;
@@ -34,7 +34,7 @@ public class Schedule extends Model {
 //	@OneToMany(mappedBy="csosSchedule")
 //	private List<CustomerSchedule> csosCustomerSchedules;
 
-	public Schedule() {
+	public ScheduleModel() {
 	}
 
 	public BigInteger getDeptId() {

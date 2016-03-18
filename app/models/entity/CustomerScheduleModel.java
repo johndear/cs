@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="csos_customer_schedule")
-public class CustomerSchedule extends Model {
+public class CustomerScheduleModel extends Model {
 
 	@Column(name="change_count")
 	private int changeCount;
@@ -44,7 +44,7 @@ public class CustomerSchedule extends Model {
 //	@JoinColumn(name="customer_id")
 //	private Customer csosCustomer;
 
-	public CustomerSchedule() {
+	public CustomerScheduleModel() {
 	}
 
 	public int getChangeCount() {

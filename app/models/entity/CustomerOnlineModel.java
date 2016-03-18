@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name="csos_customer_online")
 @NamedQuery(name="CustomerOnline.findAll", query="SELECT c FROM CustomerOnline c")
-public class CustomerOnline implements Serializable {
+public class CustomerOnlineModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,7 +23,7 @@ public class CustomerOnline implements Serializable {
 	@Column(name="last_active_time")
 	private Date lastActiveTime;
 
-	public CustomerOnline() {
+	public CustomerOnlineModel() {
 	}
 
 	public String getCustomerId() {

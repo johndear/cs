@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name="csos_skillgroup")
 @NamedQuery(name="Skillgroup.findAll", query="SELECT s FROM Skillgroup s")
-public class Skillgroup extends Model {
+public class SkillgroupModel extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="skillgroup_name")
@@ -29,7 +29,7 @@ public class Skillgroup extends Model {
 //	@OneToMany(mappedBy="csosSkillgroup")
 //	private List<Source> csosSources;
 
-	public Skillgroup() {
+	public SkillgroupModel() {
 	}
 
 	public String getSkillgroupName() {

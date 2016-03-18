@@ -13,7 +13,7 @@ import play.db.jpa.Model;
 @Entity
 @Table(name="csos_source")
 @NamedQuery(name="Source.findAll", query="SELECT s FROM Source s")
-public class Source extends Model {
+public class SourceModel extends Model {
 	private static final long serialVersionUID = 1L;
 
 
@@ -23,9 +23,9 @@ public class Source extends Model {
 	//bi-directional many-to-one association to Skillgroup
 	@ManyToOne
 	@JoinColumn(name="skillgroup_id")
-	private Skillgroup csosSkillgroup;
+	private SkillgroupModel csosSkillgroup;
 
-	public Source() {
+	public SourceModel() {
 	}
 
 
@@ -37,11 +37,11 @@ public class Source extends Model {
 		this.sourceName = sourceName;
 	}
 
-	public Skillgroup getCsosSkillgroup() {
+	public SkillgroupModel getCsosSkillgroup() {
 		return this.csosSkillgroup;
 	}
 
-	public void setCsosSkillgroup(Skillgroup csosSkillgroup) {
+	public void setCsosSkillgroup(SkillgroupModel csosSkillgroup) {
 		this.csosSkillgroup = csosSkillgroup;
 	}
 

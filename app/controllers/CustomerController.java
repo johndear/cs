@@ -5,9 +5,9 @@ import java.util.Map;
 
 import api.CsimParameter;
 import base.SecureController;
-import models.CustomerDTO;
+import models.Customer;
 import models.Principal;
-import models.entity.Customer;
+import models.entity.CustomerModel;
 import play.Play;
 import services.CustomService;
 import services.impl.zhywb.Work;
@@ -15,7 +15,7 @@ import services.impl.zhywb.Work;
 public class CustomerController extends SecureController{
 	
 	// 在线客服
-	public static Map<Long, CustomerDTO> customers = new HashMap<Long, CustomerDTO>();
+	public static Map<Long, Customer> customers = new HashMap<Long, Customer>();
 
 	public static CustomService customService;
 	
@@ -29,7 +29,7 @@ public class CustomerController extends SecureController{
 	
 	// 进工作台
     public static void index() {
-    	CustomerDTO customerDto = getCurrent();
+    	Customer customerDto = getCurrent();
 //        if (AccountStatus.FREEZE == customerDto.getStatus()) {
 //            return "您的账号被冻结！不允许进入工作台，如有疑问请联系管理员";
 //        }
