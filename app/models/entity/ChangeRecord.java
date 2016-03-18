@@ -2,6 +2,9 @@ package models.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.Model;
+
 import java.math.BigInteger;
 
 
@@ -12,20 +15,12 @@ import java.math.BigInteger;
 @Entity
 @Table(name="csos_change_record")
 @NamedQuery(name="ChangeRecord.findAll", query="SELECT c FROM ChangeRecord c")
-public class ChangeRecord implements Serializable {
+public class ChangeRecord extends Model {
 	private static final long serialVersionUID = 1L;
 
-	private BigInteger id;
 
 	public ChangeRecord() {
 	}
 
-	public BigInteger getId() {
-		return this.id;
-	}
-
-	public void setId(BigInteger id) {
-		this.id = id;
-	}
 
 }

@@ -1,4 +1,4 @@
-package services;
+package base;
 
 public interface IDialogMessageService {
 	

@@ -3,6 +3,8 @@ package models.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import play.db.jpa.Model;
+
 
 /**
  * The persistent class for the csos_source database table.
@@ -11,11 +13,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="csos_source")
 @NamedQuery(name="Source.findAll", query="SELECT s FROM Source s")
-public class Source implements Serializable {
+public class Source extends Model {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String id;
 
 	@Column(name="source_name")
 	private String sourceName;
@@ -28,13 +28,6 @@ public class Source implements Serializable {
 	public Source() {
 	}
 
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getSourceName() {
 		return this.sourceName;

@@ -2,6 +2,9 @@ package models.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.Model;
+
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -14,11 +17,7 @@ import java.util.List;
 @Entity
 @Table(name="csos_schedule")
 @NamedQuery(name="Schedule.findAll", query="SELECT s FROM Schedule s")
-public class Schedule implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	private String id;
+public class Schedule extends Model {
 
 	@Column(name="dept_id")
 	private BigInteger deptId;
@@ -31,19 +30,11 @@ public class Schedule implements Serializable {
 	@Column(name="start_time")
 	private Date startTime;
 
-	//bi-directional many-to-one association to CustomerSchedule
-	@OneToMany(mappedBy="csosSchedule")
-	private List<CustomerSchedule> csosCustomerSchedules;
+//	//bi-directional many-to-one association to CustomerSchedule
+//	@OneToMany(mappedBy="csosSchedule")
+//	private List<CustomerSchedule> csosCustomerSchedules;
 
 	public Schedule() {
-	}
-
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public BigInteger getDeptId() {
@@ -70,26 +61,26 @@ public class Schedule implements Serializable {
 		this.startTime = startTime;
 	}
 
-	public List<CustomerSchedule> getCsosCustomerSchedules() {
-		return this.csosCustomerSchedules;
-	}
+//	public List<CustomerSchedule> getCsosCustomerSchedules() {
+//		return this.csosCustomerSchedules;
+//	}
+//
+//	public void setCsosCustomerSchedules(List<CustomerSchedule> csosCustomerSchedules) {
+//		this.csosCustomerSchedules = csosCustomerSchedules;
+//	}
 
-	public void setCsosCustomerSchedules(List<CustomerSchedule> csosCustomerSchedules) {
-		this.csosCustomerSchedules = csosCustomerSchedules;
-	}
-
-	public CustomerSchedule addCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
-		getCsosCustomerSchedules().add(csosCustomerSchedule);
-		csosCustomerSchedule.setCsosSchedule(this);
-
-		return csosCustomerSchedule;
-	}
-
-	public CustomerSchedule removeCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
-		getCsosCustomerSchedules().remove(csosCustomerSchedule);
-		csosCustomerSchedule.setCsosSchedule(null);
-
-		return csosCustomerSchedule;
-	}
+//	public CustomerSchedule addCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
+//		getCsosCustomerSchedules().add(csosCustomerSchedule);
+//		csosCustomerSchedule.setCsosSchedule(this);
+//
+//		return csosCustomerSchedule;
+//	}
+//
+//	public CustomerSchedule removeCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
+//		getCsosCustomerSchedules().remove(csosCustomerSchedule);
+//		csosCustomerSchedule.setCsosSchedule(null);
+//
+//		return csosCustomerSchedule;
+//	}
 
 }

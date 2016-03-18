@@ -2,6 +2,9 @@ package models.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.Model;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -12,9 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="csos_customer_schedule")
-@NamedQuery(name="CustomerSchedule.findAll", query="SELECT c FROM CustomerSchedule c")
-public class CustomerSchedule implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class CustomerSchedule extends Model {
 
 	@Column(name="change_count")
 	private int changeCount;
@@ -33,15 +34,15 @@ public class CustomerSchedule implements Serializable {
 	@Column(name="service_num")
 	private int serviceNum;
 
-	//bi-directional many-to-one association to Schedule
-	@ManyToOne
-	@JoinColumn(name="schedule_id")
-	private Schedule csosSchedule;
-
-	//bi-directional many-to-one association to Customer
-	@ManyToOne
-	@JoinColumn(name="customer_id")
-	private Customer csosCustomer;
+//	//bi-directional many-to-one association to Schedule
+//	@ManyToOne
+//	@JoinColumn(name="schedule_id")
+//	private Schedule csosSchedule;
+//
+//	//bi-directional many-to-one association to Customer
+//	@ManyToOne
+//	@JoinColumn(name="customer_id")
+//	private Customer csosCustomer;
 
 	public CustomerSchedule() {
 	}
@@ -86,20 +87,20 @@ public class CustomerSchedule implements Serializable {
 		this.serviceNum = serviceNum;
 	}
 
-	public Schedule getCsosSchedule() {
-		return this.csosSchedule;
-	}
-
-	public void setCsosSchedule(Schedule csosSchedule) {
-		this.csosSchedule = csosSchedule;
-	}
-
-	public Customer getCsosCustomer() {
-		return this.csosCustomer;
-	}
-
-	public void setCsosCustomer(Customer csosCustomer) {
-		this.csosCustomer = csosCustomer;
-	}
+//	public Schedule getCsosSchedule() {
+//		return this.csosSchedule;
+//	}
+//
+//	public void setCsosSchedule(Schedule csosSchedule) {
+//		this.csosSchedule = csosSchedule;
+//	}
+//
+//	public Customer getCsosCustomer() {
+//		return this.csosCustomer;
+//	}
+//
+//	public void setCsosCustomer(Customer csosCustomer) {
+//		this.csosCustomer = csosCustomer;
+//	}
 
 }

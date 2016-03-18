@@ -2,6 +2,9 @@ package models.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.Model;
+
 import java.math.BigInteger;
 import java.util.List;
 
@@ -13,8 +16,7 @@ import java.util.List;
 @Entity
 @Table(name="csos_customer")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
-public class Customer implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Customer extends Model {
 
 	@Id
 	private String id;
@@ -29,33 +31,25 @@ public class Customer implements Serializable {
 	private String portalCode;
 
 	private int priority;
-
+	
 	//bi-directional many-to-one association to CustomerSchedule
-	@OneToMany(mappedBy="csosCustomer")
-	private List<CustomerSchedule> csosCustomerSchedules;
-
-	//bi-directional many-to-many association to Skillgroup
-	@ManyToMany
-	@JoinTable(
-		name="csos_customer_skillgroup"
-		, joinColumns={
-			@JoinColumn(name="customer_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="skillgroup_id")
-			}
-		)
-	private List<Skillgroup> csosSkillgroups;
+//	@OneToMany(mappedBy="csosCustomer")
+//	private List<CustomerSchedule> csosCustomerSchedules;
+//
+//	//bi-directional many-to-many association to Skillgroup
+//	@ManyToMany
+//	@JoinTable(
+//		name="csos_customer_skillgroup"
+//		, joinColumns={
+//			@JoinColumn(name="customer_id")
+//			}
+//		, inverseJoinColumns={
+//			@JoinColumn(name="skillgroup_id")
+//			}
+//		)
+//	private List<Skillgroup> csosSkillgroups;
 
 	public Customer() {
-	}
-
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public BigInteger getDeptId() {
@@ -90,34 +84,19 @@ public class Customer implements Serializable {
 		this.priority = priority;
 	}
 
-	public List<CustomerSchedule> getCsosCustomerSchedules() {
-		return this.csosCustomerSchedules;
-	}
 
-	public void setCsosCustomerSchedules(List<CustomerSchedule> csosCustomerSchedules) {
-		this.csosCustomerSchedules = csosCustomerSchedules;
-	}
-
-	public CustomerSchedule addCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
-		getCsosCustomerSchedules().add(csosCustomerSchedule);
-		csosCustomerSchedule.setCsosCustomer(this);
-
-		return csosCustomerSchedule;
-	}
-
-	public CustomerSchedule removeCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
-		getCsosCustomerSchedules().remove(csosCustomerSchedule);
-		csosCustomerSchedule.setCsosCustomer(null);
-
-		return csosCustomerSchedule;
-	}
-
-	public List<Skillgroup> getCsosSkillgroups() {
-		return this.csosSkillgroups;
-	}
-
-	public void setCsosSkillgroups(List<Skillgroup> csosSkillgroups) {
-		this.csosSkillgroups = csosSkillgroups;
-	}
+//	public CustomerSchedule addCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
+//		getCsosCustomerSchedules().add(csosCustomerSchedule);
+//		csosCustomerSchedule.setCsosCustomer(this);
+//
+//		return csosCustomerSchedule;
+//	}
+//
+//	public CustomerSchedule removeCsosCustomerSchedule(CustomerSchedule csosCustomerSchedule) {
+//		getCsosCustomerSchedules().remove(csosCustomerSchedule);
+//		csosCustomerSchedule.setCsosCustomer(null);
+//
+//		return csosCustomerSchedule;
+//	}
 
 }
