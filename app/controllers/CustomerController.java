@@ -29,8 +29,8 @@ public class CustomerController extends SecureController{
 	
 	// 进工作台
     public static void index() {
-    	Customer customerDto = getCurrent();
-//        if (AccountStatus.FREEZE == customerDto.getStatus()) {
+    	Customer customer = getCurrent();
+//        if (AccountStatus.FREEZE == customer.getStatus()) {
 //            return "您的账号被冻结！不允许进入工作台，如有疑问请联系管理员";
 //        }
         
@@ -53,7 +53,7 @@ public class CustomerController extends SecureController{
 //        principal.userId=1L;
 
         //csim请求参数
-        CsimParameter csimParameter = new CsimParameter(customerDto.id);
+        CsimParameter csimParameter = new CsimParameter(customer.id);
         // 工单接口前缀
         String cswsUrlPrefix = Play.configuration.getProperty("csws.url.prefix");
         // csos接口前缀
@@ -74,15 +74,14 @@ public class CustomerController extends SecureController{
         //服务商
         String jymServicerList = Play.configuration.getProperty("jym_servicer");
 
-		render("cs/index.html", customerDto, csimParameter, BENCH_MONITOR_TIME, cswsUrlPrefix, csosUrlPrefix, zhishiUrl,
+		render("cs/index.html", customer, csimParameter, BENCH_MONITOR_TIME, cswsUrlPrefix, csosUrlPrefix, zhishiUrl,
 				interval, csNotifyNumber, stopNumber, socketServerAddress, socketServerPort, jymServicerList);
 	}
 	
 	// 自营、u客服
 	public void onWork(){
-		customerDto.isSelf = false;
-		customerDto.scheduleId = 0L;
-        customers.put(customerDto.id, customerDto);
+		Customer customer = getCurrent();
+        customers.put(customer.id, customer);
 	        
 		customService.onWork();
 		renderTemplate(null);
@@ -90,7 +89,8 @@ public class CustomerController extends SecureController{
 	
 	// 自营、u客服
 	public void offWork(){
-		customers.remove(customerDto);
+		Customer customer = getCurrent();
+		customers.remove(customer);
 		
 		customService.offWork();
 		renderTemplate(null);

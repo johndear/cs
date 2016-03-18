@@ -16,7 +16,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="csos_schedule")
-@NamedQuery(name="Schedule.findAll", query="SELECT s FROM Schedule s")
 public class ScheduleModel extends Model {
 
 	@Column(name="dept_id")

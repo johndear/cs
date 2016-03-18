@@ -7,7 +7,6 @@ import models.entity.CustomerModel;
 public class SecureController extends BaseController{
 	
 	public static Principal principal = new Principal();
-	public static Customer customerDto = null;
 	static{
 		 //todo取session中的用户信息并用于页面显示
         principal.deptId =1;
@@ -28,7 +27,7 @@ public class SecureController extends BaseController{
 	 */
 	public static Customer getCurrent(){
 		CustomerModel customer = CustomerModel.find("customerId=?", principal.userId).first();
-		customerDto = new Customer();
+		Customer customerDto = new Customer();
 		customerDto.id= customer.getCustomerId();
 		customerDto.username = customer.getPortalCode();
 		customerDto.isSelf = false;

@@ -14,7 +14,6 @@ import java.math.BigInteger;
  */
 @Entity
 @Table(name="csos_change_record")
-@NamedQuery(name="ChangeRecord.findAll", query="SELECT c FROM ChangeRecord c")
 public class ChangeRecordModel extends Model {
 	private static final long serialVersionUID = 1L;
 

@@ -15,7 +15,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name="csos_dialog")
-@NamedQuery(name="Dialog.findAll", query="SELECT d FROM Dialog d")
 public class DialogModel extends Model {
 
 	@Temporal(TemporalType.TIMESTAMP)

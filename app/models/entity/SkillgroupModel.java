@@ -14,7 +14,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="csos_skillgroup")
-@NamedQuery(name="Skillgroup.findAll", query="SELECT s FROM Skillgroup s")
 public class SkillgroupModel extends Model {
 	private static final long serialVersionUID = 1L;
 

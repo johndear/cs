@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="csos_customer")
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class CustomerModel extends Model {
 
 	@Column(name="customer_id")

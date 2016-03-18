@@ -11,7 +11,6 @@ import java.util.Date;
  */
 @Entity
 @Table(name="csos_customer_online")
-@NamedQuery(name="CustomerOnline.findAll", query="SELECT c FROM CustomerOnline c")
 public class CustomerOnlineModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
