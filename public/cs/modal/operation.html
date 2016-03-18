@@ -1,0 +1,19 @@
+<div class="modal top am-fade-and-slide-top" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" ng-show="title">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+                <h4 class="modal-title" ng-bind-html="title">Title</h4></div>
+            <div class="modal-body" ng-show="content" style="padding-left: 40px;padding-right: 40px">
+                <div class="col-mg-6">
+                    <label></label>
+                    <textarea class="form-control" placeholder="{{msg}}" ng-model="reason"></textarea>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$hide()">取消</button>
+                <button ng-if="type==1" type="button" class="btn btn-primary" ng-click="reminding(orderId,reason);">催单</button>
+                <button ng-if="type==17" type="button" class="btn btn-primary" ng-click="addInfo(orderId,reason);">追加</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<!--
+<div class="aside left am-slide-left" tabindex="-1" role="dialog" style="display: block;">
+    <div class="aside-dialog">
+        <div class="aside-content">
+            <div class="aside-header" ng-show="title">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+                <h2 class="page-header" style="text-align: center">
+                    <i class="fa fa-globe"></i> {{title }}
+                </h2>
+            </div>
+            <div class="aside-body" style="position: fixed; bottom: 100px;top: 44px;width: 320px; overflow-y: auto;background-color: #D6DEEA;">
+                <div class="box-body">
+                    <div class="col-md-12">
+                        {{detailProblem}}
+                    </div>
+                    <br>
+                    <br>
+                    历史聊天记录：
+                    <div class="col-md-12">
+                        {{chatRecord}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+
+<head>
+    <title id="headTitle"></title>
+    <link rel="stylesheet" href="/csos/public/angularjs/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/csos/public/angularjs/bower_components/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/csos/public/angularjs/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" id="title"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="detailProblem"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><label style="font-size: 20;">历史聊天记录：</label></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="chatRecord"></div>
+    </div>
+</body>
+
+<script>
+    var detailProblemArr = window.opener.document.getElementById("newTab_detailProblem");
+    var chatRecordArr = window.opener.document.getElementById("newTab_chatRecord");
+    var orderIdArr = window.opener.document.getElementById("newTab_orderId");
+    $("#headTitle").append(orderIdArr.value);
+    $("#title").append("<label style='font-size: 30;'>工单" + orderIdArr.value + "详情</label>");
+    $("#detailProblem").append(detailProblemArr.value);
+    $("#chatRecord").append(chatRecordArr.value);
+</script>

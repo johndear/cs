@@ -1,0 +1,170 @@
+<div class="plugin-style" ng-controller="serviceRecordController">
+   <ul id="plugins_head" class="nav nav-tabs nav-background">
+      <li class="active">
+          <a href="#tab1{{user.dialogId}}" data-toggle="tab">知识库</a>
+      </li>
+	  <li ng-if="csInfo.isSelfEmployed"><a href="#tab2{{user.dialogId}}" data-toggle="tab">工单查询</a></li>
+
+      <li id='servicer_li_{{user.dialogId}}'><a href="#tab3{{user.dialogId}}" data-toggle="tab" ng-click="initQuery(user.dialogId);">服务记录查询</a></li>
+           
+      <li ng-if="csInfo.deptId==Dept.jym"><a href="#tab4{{user.dialogId}}" data-toggle="tab" ng-click="lastOrderQuery()">订单查询</a></li>
+      <!--  <li ng-if="Dept.jym==1"><a href="#tab4{{user.dialogId}}" data-toggle="tab" ng-click="orderQuery()">订单查询</a></li>-->
+   </ul>
+   <div id="plugin_Content" class="tab-content">
+      <div class="tab-pane fade in active" id="tab1{{user.dialogId}}">
+         <iframe src ='${zhishiUrl}' class="iframe-style" frameborder=0></iframe>
+      </div>
+      <div class="tab-pane fade" id="tab2{{user.dialogId}}">
+          <!-- http://test.kf.uc.cn:9004/csws/workbench/query?timestamp=1393843800776&caller=workorder&requestid=1715d8a0-53b6-4c1e-9dff-37640e4906c6&keysign=73f84d230cc90fe79cda9c47d36a1780&portalId=caily&portalName=蔡龙颜-->
+         <iframe src = "${cswsUrlPrefix}workbench/csosquery?timestamp=1393843800776&caller=workorder&requestid=1715d8a0-53b6-4c1e-9dff-37640e4906c6&keysign=73f84d230cc90fe79cda9c47d36a1780&portalId=${principal.portalCode}&portalName=${principal.username}&isCsos=true" class="iframe-style" frameborder=0 ></iframe>
+      </div>
+      <div class="tab-pane fade" id="tab3{{user.dialogId}}">
+          <div class="box box-primary">
+                  <div class="box-body" style="padding-top: 20px">
+                  		<div class="row">
+						<div class="col-md-2">
+							<label>提单开始时间</label> <input type="text" ng-model="fromDate"
+								data-max-date="{{untilDate}}" date-type="string"
+								date-format="yyyy-MM-dd" autoclose="true"
+								model-date-format="yyyy-MM-dd" placeholder="开始日期"
+								bs-datepicker="" ng-change="changeFromDate();">
+						</div>
+						<div class="col-md-2">
+							<label>提单结束时间</label> <input type="text" ng-model="toDate"
+								data-min-date="{{fromDate}}" data-max-date="{{maxToDate}}" date-type="string"
+								date-format="yyyy-MM-dd" autoclose="true"
+								model-date-format="yyyy-MM-dd" placeholder="截止日期"
+								bs-datepicker="">
+						</div>
+						<div class="col-md-2">
+							<label>提单人</label> <input type="text" placeholder="提单人"
+								ng-model="inputOrderAuthor">
+						</div>
+						<div class="col-md-2">
+							<label>来电号码</label> <input ng-model="phone"
+								type="text" placeholder="来电号码">
+						</div>
+						</div>
+					<div class="row">
+						<div class="col-md-2">
+							<label>用户ID</label> <input ng-model="uid"
+								type="text" placeholder="用户ID">
+						</div>
+						<div class="col-md-2">
+							<label>订单号</label> <input ng-model="gcmallOrderNo"
+								type="text" placeholder="订单号">
+						</div>
+						<div class="col-md-3">
+							<label></label><br/><br/>
+							<button type="submit" ng-click="queryByCondition();">按条件查询</button>
+							<button type="submit" ng-click="query();">默认查询</button>
+				    	</div>
+					</div>
+                      <table class="table table-bordered" style="font-size: 12px;">
+                          <tr>
+                              <th>提单时间</th>
+                              <th>工单编号</th>
+                              <th>提单客服</th>
+                              <th>问题分类</th>
+                              <th>工单流转</th>
+                              <th>工单状态</th>
+                              <th>详细记录</th>
+                              <th ng-if="csInfo.deptId==Dept.jym" style="width: 65px;">操作</th>
+                          </tr>
+                          <tbody>
+                          <tr ng-repeat="serviceRecord in serviceRecords">
+                              <td>{{serviceRecord.createTime}}</td>
+                              <td>{{serviceRecord.orderId}}</td>
+                              <td>{{serviceRecord.inputOrderAuthor}}</td>
+                              <td>{{serviceRecord.problemCategoryStr}}</td>
+                              <td>{{serviceRecord.firstOperateTypeStr}}</td>
+                              <td>{{serviceRecord.orderStatusStr}}</td>
+                              <td><a href="javascript:void(0)" ng-click="showOrderDetail(serviceRecord)">查看</a></td>
+                              <td ng-if="csInfo.deptId==Dept.jym && serviceRecord.orderStatusStr != '已归档'">
+                              	<a href="javascript:void(0)" ng-click="operation(1,serviceRecord.orderId);">催单</a><br/>
+                              	<a href="javascript:void(0)" ng-click="operation(17,serviceRecord.orderId);">追加信息</a>
+                              </td>
+                          </tr>
+                          </tbody></table>
+                  </div><!-- /.box-body -->
+                  <div>
+                      <tm-pagination conf="serviceRecordPaginationConf"></tm-pagination>
+                  </div>
+          </div>
+         
+      </div>
+      <!-- 订单查询 -->
+      <div class="tab-pane fade" id="tab4{{user.dialogId}}">
+        <br>
+		<div class="control-group pcCg">
+			<label class="control-label">&nbsp;&nbsp;&nbsp; 订单号:&nbsp;&nbsp;&nbsp;</label>			
+				<input style="width:200px" id="orderNum"
+					type="text" ng-model="orderSearchData.orderNo" placeholder="输入订单号查询" /><input type="button" value="查询" ng-click="orderQuery()"/>		
+		</div>
+		<br>
+		<div>
+			<table class="table" style="font-size: 12px;">
+				<tr>
+					<td class="smallTd">商品类型:</td>
+					<td class="largeTd">{{orderQueryResult.categoryName}}</td>
+					<td class="smallTd">商品名称:</td>
+					<td class="largeTd">{{orderQueryResult.realTitle}}</td>
+				</tr>
+				<tr>
+					<td>所属游戏:</td>
+					<td class="largeTd">{{orderQueryResult.gameName}}</td>
+					<td>客服端:</td>
+					<td class="largeTd">{{orderQueryResult.publisherName}}</td>
+				</tr>
+				<tr>
+					<td>游戏区服:</td>
+					<td class="largeTd">{{orderQueryResult.serverName}}</td>
+					<td>服务商:</td>
+					<td class="largeTd">{{orderQueryResult.companyName}}</td>
+				</tr>
+				<tr>
+					<td>数量:</td>
+					<td class="largeTd">{{orderQueryResult.num}}</td>
+					<td></td>
+					<td></td>					
+				</tr>
+				
+			</table>
+		</div>
+		
+		<div>
+			<table class="table" style="font-size: 12px;">
+				<tr>
+					<td style="width:10%">订单状态:</td>
+					<td style="width:30%;font-weight:bold" >{{orderQueryResult.orderStatus}}</td>
+					<td style="width:10%">创建时间:</td>
+					<td style="width:30%;font-weight:bold" >{{orderQueryResult.cTime}}</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td style="width:10%">支付时间:</td>
+					<td style="width:30%;font-weight:bold" >{{orderQueryResult.PayTime}}</td>
+					<td style="width:10%">发货时间:</td>
+					<td style="width:30%;font-weight:bold" >{{orderQueryResult.deliverTime}}</td>
+					<td><input type="button" value="催发货" ng-if="orderQueryResult.canExpedite" ng-click="urgeDeliver()"></td>
+				</tr>				
+				
+			</table>
+		</div>
+		
+		<div>
+			<table class="table" style="font-size: 12px;">
+				<tr>
+					<td style="width:10%">核对状态:</td>
+					<td style="width:20%;font-weight:bold" >{{orderQueryResult.tradeStatus}}</td>
+					<td><input type="button" value="核对状态" ng-if="orderQueryResult.canReconcile" ng-click="checkStatus()">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="重新发起转账" ng-if="orderQueryResult.canRetryTransfer" ng-click="reTransfer()"></td>
+					<td></td>					
+				</tr>				
+			</table>
+		</div>
+	</div> 
+   </div>
+</div>
+<input id="newTab_detailProblem" hidden="hidden">
+<input id="newTab_chatRecord" hidden="hidden">
+<input id="newTab_orderId" hidden="hidden">

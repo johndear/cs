@@ -1,0 +1,30 @@
+<!-- Navigation -->
+<div class="navbar navbar-fixed-top scroll-hide" ng-controller="headCtrl">
+    <div class="container-fluid top-bar">
+        <a class="logo"></a>
+        <div class="pull-right">
+            <ul class="nav navbar-nav pull-right">
+                <!--
+                <li>
+                    <span class="glyphicon glyphicon-list-alt class-subtotal"> 班务小计</span>
+                <li>
+                -->
+                <li>
+                    <button type="button" class="btn btn-primary btn-diy"  data-placement="bottom" data-html="true" ng-hide="status=='已离线'" title="{{popover.title}}" data-content="{{popover.content}}" data-trigger="focus" bs-popover ng-click="getScheduleStatistic()">{{scheduleText}}</button>
+                    <button type="button" class="btn btn-primary btn-diy" ng-click="rest()" ng-hide="restHide" ng-disabled="disRest">{{restText}}</button>
+                    <button type="button" class="btn btn-primary btn-diy" ng-click="offline()" ng-hide="offHide" ng-disabled="disOffline">{{offlineText}}</button>
+                    <button type="button" class="btn btn-primary btn-diy" ng-click="cancelRest()" ng-hide="cancelRestHide" ng-disabled="disCancelRest">{{cancelRestText}}</button>
+                </li>
+                <li class="glyphicon-cloud user-status">
+                    <span> {{status}}</span>
+                <li>
+                <li class="dropdown user hidden-xs">
+                    <a class="user-head">
+                        <img class="user-img" ng-src="{{serviceAvatar}}">
+                        {{csInfo.username}}-{{csInfo.deptName}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

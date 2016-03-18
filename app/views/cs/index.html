@@ -1,0 +1,173 @@
+<html lang="en" ng-app="chatApp">
+<script type="text/javascript">
+    var userId = '${principal.userId}';
+    var userName = '${principal.username}';
+    var deptId = ${principal.deptId};
+    var cswsUrlPrefix = '${cswsUrlPrefix}';
+    var csosUrlPrefix = '${csosUrlPrefix}';
+    var zhishiUrl = '${zhishiUrl}';
+    var bench_monitor_time = '${BENCH_MONITOR_TIME}';
+    var csNotifyNumber = ${csNotifyNumber};
+    var stopNumber = ${stopNumber};
+    var servicerId = ${principal.userId};
+    var interval = ${interval};
+    window['servicerId'] = ${principal.userId};
+    window['interval'] = ${interval};
+    window.isSelfEmp = '${principal.isSelfEmployed}';
+  	//意见反馈websocket地址，端口
+    var socketServerAddress = '${socketServerAddress}';
+    var socketServerPort = '${socketServerPort}';
+    var jymServicerList = '${jymServicerList}';
+</script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>U客服平台</title>
+
+    <!-- 浏览器tab图片 -->
+    <link rel="shortcut icon" type="image/x-icon" href="@{'public/cs/img/favicon.png'}"/>
+    <link rel="stylesheet" href="@{'public/angularjs/bower_components/bootstrap/dist/css/bootstrap.min.css'}"></link>
+    <link rel="stylesheet" href="@{'public/cs/css/style.css'}"></link>
+    <link rel="stylesheet" href="@{'public/angularjs/bower_components/angular-tree/abn_tree.css'}"></link>
+    <link rel="stylesheet" href="@{'public/AdminLTE/css/AdminLTE.min.css'}">
+
+    <!-- 公共类 -->
+    <script type="text/javascript" src="@{'public/angularjs/bower_components/jquery/jquery.js'}"></script>
+    <script type="text/javascript" src="@{'public/angularjs/bower_components/angular/angular.js'}"></script>
+    <script type="text/javascript" src="@{'public/javascripts/jquery.form.min.js'}"></script>
+    <script type="text/javascript"
+            src="@{'public/angularjs/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+    <script type="text/javascript" src="@{'public/cs/js/app.js'}"></script>
+    <script type="text/javascript"
+            src="@{'public/angularjs/bower_components/angular-tree/abn_tree_directive.js'}"></script>
+    <script type="text/javascript" src="@{'public/angularjs/bower_components/http/http_factory.js'}"></script>
+    <script type="text/javascript"
+            src="@{'public/angularjs/bower_components/angular-resource/angular-resource.min.js'}"></script>
+    <script type="text/javascript" src="@{'public/angularjs/bower_components/angular-bootbox/bootbox.min.js'}"></script>
+    <script type="text/javascript"
+            src="@{'public/angularjs/bower_components/angular-bootbox/angular-bootbox.js'}"></script>
+    <script type="text/javascript"
+            src="@{'public/angularjs/bower_components/angular-strap-master/angular-strap.min.js'}"></script>
+    <script type="text/javascript"
+            src="@{'public/angularjs/bower_components/angular-strap-master/angular-strap.tpl.min.js'}"></script>
+    <script type="text/javascript" src="@{'public/javascripts/pagination.js'}"></script>
+    <script type="text/javascript" src="@{'public/javascripts/DateUtil.js'}?v=1.0.3"></script>
+
+    <!-- 业务相关 -->
+    <script type="text/javascript" src="@{'public/cs/js/notify.js'}"></script>
+    <script type="text/javascript" src="@{'public/javascripts/online_checker.js'}"></script>
+    <script type="text/javascript" src="@{'public/cs/js/msg-control.js'}?v=1.0.1"></script>
+    <script type="text/javascript" src="@{'public/cs/js/head-control.js'}"></script>
+    <script type="text/javascript" src="@{'public/cs/js/service-record-control.js'}"></script>
+    <script type="text/javascript" src="@{'public/javascripts/service_monitor.js'}"></script>
+    <script type="text/javascript" src="@{'public/cs/js/upgrade-control.js'}"></script>
+    <script type="text/javascript" src="@{'public/cs/js/resource.js'}"></script>
+
+    <!--聊天页面专用-->
+    <script src="@{'public/cs/chat/chat_action.js'}"></script>
+    <link rel="stylesheet" href="@{'public/cs/chat/css/style.css'}">
+    <script src="@{'public/cs/chat/scripts/scrollglue.js'}"></script>
+    <script src="@{'public/cs/chat/scripts/chat.js'}?v=1.0.1"></script>
+    <script src="@{'public/cs/chat/chat_page.js'}"></script>
+    <script src="@{'public/cs/chat/scripts/expression.js'}"></script>
+    <script src="@{'public/cs/chat/scripts/bigger_pic.js'}"></script>
+
+    <script type="text/javascript"
+            src="${csimParameter.imRoot}/longPolling.js?userId=${principal.userId}&userType=${csimParameter.servicerType}&sceneKey=${csimParameter.sceneKey}&timestamp=${csimParameter.timestamp}&sign=${csimParameter.sign}"
+            charset="UTF-8"></script>
+
+
+    <style>
+        .page-list .pagination {
+            float: left;
+        }
+
+        .page-list .pagination span {
+            cursor: pointer;
+        }
+
+        .page-list .pagination .separate span {
+            cursor: default;
+            border-top: none;
+            border-bottom: none;
+        }
+
+        .page-list .pagination .separate span:hover {
+            background: none;
+        }
+
+        .page-list .page-total {
+            float: left;
+            margin: 25px 20px;
+        }
+
+        .page-list .page-total input, .page-list .page-total select {
+            height: 26px;
+            border: 1px solid #ddd;
+        }
+
+        .page-list .page-total input {
+            width: 40px;
+            padding-left: 3px;
+        }
+
+        .page-list .page-total select {
+            width: 50px;
+        }
+    </style>
+</head>
+
+
+<body ng-controller="csosCtrl" ng-click="closeDiv();" onbeforeunload="checkLeave()">
+<div class="modal-shiftfix">
+
+    <!-- 头部区 -->
+#{include './head.html'/}
+    <div class="container-fluid main-content">
+        <!-- 内容区 -->
+        <div class="app-content">
+            <!-- 会话列表区 -->
+            <div class="app-left">
+            #{include './user-list.html'/}
+            </div>
+
+            <div class="row app-sub-content" ng-repeat="user in userList" ng-hide="activeUser != user.dialogId">
+                <!-- 聊天区 -->
+                <div class="col-md-5 app-chat">
+                #{include './chat.html'/}
+                </div>
+                <div class="col-md-7 app-right">
+                    <!-- iframe 插件区 -->
+                #{include './app-plugins.html'/}
+
+                    <!-- 升级/归档区 -->
+                #{include './upgrade.html'/}
+                </div>
+            </div>
+            <div class="row app-sub-content" ng-repeat="user in feedbackList" ng-hide="activeUser != user.dialogId">
+                <!-- 聊天区 -->
+                <div class="col-md-5 app-chat">
+                #{include './chat.html'/}
+                </div>
+                <div class="col-md-7 app-right">
+                    <!-- iframe 插件区 -->
+                #{include './app-plugins.html'/}
+
+                    <!-- 升级/归档区 -->
+                #{include './upgrade.html'/}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+<!-- 离线遮盖 -->
+<div class="shade"></div>
+<!-- 延时提示 -->
+<div id="tips" class="tips"></div>
+
+</body>
+
+</html>

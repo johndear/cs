@@ -1,0 +1,43 @@
+
+<div class="contact-list">
+    <ul class="online-user" >
+        <li ng-repeat="user in userList" ng-if="!user.closed" ng-class="{'contact-active': selectedUserId == user.dialogId}" ng-click="clickContact(user, $index)">
+            <a>
+                <img width="25" height="25" ng-src="{{serviceAvatar}}">
+                <span ng-if="user.change==1">
+                	<p title="{{user.nickName}}"><span class="input-tool-icon glyphicon-share-alt" style="width: 13px"></span>{{user.nickName}}</p>
+                </span>
+                <span ng-if="user.change!=1">
+                	<p title="{{user.nickName}}">{{user.nickName}}</p>
+                </span>
+                <i class="icon-remove pull-right" ng-click="closeContact($index, user)"></i>
+                <i class="user-time reply-time" reply-time timer="user.timer_obj"></i>
+            </a>
+        </li>
+    </ul>
+
+	<div class="offline-bar">意见反馈</div>
+	<ul class="feeback-user">
+		<li ng-repeat="user in feedbackList"
+			ng-class="{'contact-active': selectedUserId == user.dialogId}"
+			ng-click="clickFeedback(user, $index)"><a> <img width="25"
+				height="25" ng-src="{{serviceAvatar}}"> 
+				<span>
+					<p title="{{user.uid || user.dialogId}}">{{user.uid || user.dialogId}}</p>
+			</span>
+		</a></li>
+	</ul>
+
+	<div class="offline-bar">
+        已结束（{{offlineSize}}个）
+    </div>
+    <ul class="offline-user">
+        <li ng-repeat="user in userList" ng-if="user.closed" ng-class="{'contact-active': selectedUserId == user.dialogId}" ng-click="clickContact(user, $index)">
+            <a>
+                <img width="25" height="25" ng-src="{{serviceAvatar}}">
+                <p title="{{user.nickName}}">{{user.nickName}}</p>
+                <i class="icon-remove pull-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>

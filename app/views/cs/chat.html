@@ -1,0 +1,112 @@
+<div class="chat-container-box" ng-controller="ChatRoot">
+    <div class="panel-heading chat-top-bar">
+        <li class="col-md-4 col-xs-4">
+        <div>手机平台：
+            <span class="text-nowrap" ng-bind="user.baseInfo.platform"  title="{{user.baseInfo.platform}}"></span>
+        </div>
+        </li>
+        <li class="col-md-4 col-xs-4">
+            <div>产品版本：<span class="text-nowrap" ng-bind="user.baseInfo.version" title="{{user.baseInfo.version}}"></span></div>
+        </li>
+        <li class="col-md-4 col-xs-4">
+            <div>机型：<span class="text-nowrap" ng-bind="user.baseInfo.mi" title="{{user.baseInfo.mi}}"></span></div>
+        </li>
+
+        <li class="col-md-4 col-xs-4">
+            <div>归属地：<span class="text-nowrap" ng-bind="user.baseInfo.city" title="{{user.baseInfo.city}}"></span></div>
+        </li>
+        <li class="col-md-4 col-xs-4">
+            <div>接入点：<span class="text-nowrap" ng-bind="user.baseInfo.nw" title="{{user.baseInfo.nw}}"></span></div>
+        </li>
+        <li class="col-md-4 col-xs-4">
+            <div>网络制式：<span class="text-nowrap" ng-bind="user.baseInfo.nt" title="{{user.baseInfo.nt}}"></span></div>
+        </li>
+
+        <li class="col-md-4 col-xs-4">
+            <div>业务入口：<span class="text-nowrap" ng-bind="user.baseInfo.instanceName" title="{{user.baseInfo.instanceName}}"></span></div>
+        </li>
+        <li class="col-md-4 col-xs-4">
+            <div>用户账号：<span class="text-nowrap" ng-bind="user.baseInfo.account" title="{{user.baseInfo.account}}"></span></div>
+        </li>
+        <!--
+        <li class="col-md-4 col-xs-4">
+            <div class="glyphicon glyphicon-plus-sign show-more-ext" ng-show="user.baseInfo.moreInfo" data-toggle="popover" data-container="body" data-placement="bottom" title="更多信息" data-content="{{user.baseInfo.moreInfo}}" ></div>
+        </li>
+        -->
+        <div class="ext-div" ng-bind="'扩展属性：'+user.baseInfo.exAttr" >扩展属性</div>
+        <div class="glyphicon show-more-ext" ng-class="{'glyphicon-plus-sign':!showExt,'glyphicon-minus-sign':showExt}" ng-click="showExt=!showExt" ng-show="user.baseInfo.exAttr" data-toggle="popover" data-container="body"
+             data-placement="bottom" title="更多信息" data-html="true"
+             data-content="<label>详细扩展属性：</label><br>{{user.baseInfo.exAttr}}<br><label>其余信息：</label><br>{{user.baseInfo.moreInfo}}"></div>
+    </div>
+    <div ng-controller="Chat as vm">
+        <irontec-simple-chat ng-if="!vm.user.feedbackId"
+                messages="vm.messages"
+                writing-message = "vm.writingMessage"
+                user="vm.user"
+                username="vm.username"
+                user-id="vm.userId"
+                sender="vm.sender"
+                receiver="vm.receiver"
+                liked="vm.liked"
+                input-placeholder-text="输入内容,[Ctrl+Enter]发送"
+                forward-button-text="转交任务"
+                submit-button-text="发送"
+                theme="material"
+                show-history = "true"
+                show-more-function="vm.showMore()"
+                submit-function="vm.sendMessage(message, username,isPic)"
+                send-img="vm.sendImg(url)"
+                system-notice="vm.systemNotice"
+                start-date="vm.startDate"
+                show-big-pic="vm.showBigImg(url)"
+                show-exp="vm.showExp()"
+                forwarding="vm.forwarding()">
+        </irontec-simple-chat>
+        <irontec-simple-chat ng-if="vm.user.feedbackId"
+                messages="vm.messages"
+                writing-message = "vm.writingMessage"
+                user="vm.user"
+                username="vm.username"
+                user-id="vm.userId"
+                sender="vm.sender"
+                receiver="vm.receiver"
+                liked="vm.liked"
+                input-placeholder-text="输入内容,[Ctrl+Enter]发送"
+                forward-button-text="转交任务"
+                submit-button-text="回复"
+                theme="material"
+                show-history = "false"
+                show-more-function="vm.showMore()"
+                submit-function="vm.sendMessage(message, username,isPic)"
+                system-notice="vm.systemNotice"
+                start-date="vm.startDate"
+                show-big-pic="vm.showBigImg(url)"
+                show-exp="vm.showExp()"
+                forwarding="vm.forwarding()">
+        </irontec-simple-chat>
+    </div>
+    <div ng-controller="ExpBox as eb">
+        <uc-chat-expression
+                expressions="eb.expressions"
+                showing="eb.showing"
+                choose-function="eb.chooseExp(expression)">
+        </uc-chat-expression>
+    </div>
+    <div ng-controller="BigPic as bigPic">
+        <uc-bigger-pic
+                showing="bigPic.showing"
+                pic-url="bigPic.picUrl"
+                show-pic="bigPic.showPic(expression)"
+                >
+        </uc-bigger-pic>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+
+</script>
+

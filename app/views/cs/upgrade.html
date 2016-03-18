@@ -1,0 +1,74 @@
+<form role="form" name="userForm" novalidate ng-controller="upgradeCtrl">
+    <div class="app-upgrade">
+        <div class="control-group pcCg" ng-if="csInfo.deptId==Dept.jym" id="jymDiv">
+            <label class="control-label">订单号<span class="span">*</span>:</label>
+            <div class="controls pcCont">
+               &nbsp;&nbsp;&nbsp; <input type="text" ng-class="{'errorBor' : jymOrderCss == user.dialogId}" style="width:200px" placeholder="请填写订单号" id="jymOrderNumber" ng-model="orderData.jymOrderNumber" maxlength="100">         
+            </div>
+             <div class="controls radioCont" ng-class="{'has-error' : jymProviderCss == user.dialogId}">
+	             <label class="control-label">&nbsp;&nbsp;&nbsp;服务商<span class="span">*</span>:</label>                   
+		         <label class="checkbox-inline" ng-repeat="serviceProvider in jymServicerList">
+		              <input type="radio" name="jymProvider" ng-model="orderData.jymProvider" value="{{serviceProvider}}" >{{serviceProvider}}</input>
+		         </label>  
+	         </div> 
+	              
+        </div>
+    
+        <div class="control-group group">
+            <label class="control-label">业务分类<span class="span">*</span>:</label>
+            <div class="controls radioCont" ng-class="{'has-error' : ptCss == user.dialogId}">
+                <label class="checkbox-inline">
+                    <input type="radio" value="CHARGE" ng-model="problemType">
+                    咨询投诉
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" value="SUGGEST" ng-model="problemType">
+                    用户建议
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" value="NOTHING" ng-model="problemType">
+                    无关业务/非处理范围业务
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group pcCg">
+            <label class="control-label">问题分类<span class="span">*</span>:</label>
+            <div class="controls pcCont">
+                <input class="pcText" ng-class="{'errorBor' : pcCss == user.dialogId}" id="problemCategory" ng-model="problemCategory" ng-click="show_tree()"  ng-keyup='key_select($event)' ng-disabled="disPCate" type="text" placeholder="搜索">
+                <abn-tree class="pcTree" ng-hide="treeCss == user.dialogId" id="abnTree" tree-data="my_data" tree-control="my_tree" on-select="my_tree_handler(branch)" expand-level="1"></abn-tree>
+                <input type="hidden" ng-model="problemCateId">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-9">
+                <div class="control-group group">
+
+                    <div class="col-xs-2" >
+                        <label class="control-label col-xs-2 problemDesc-label" style="margin-left: -15px;">问题描述:</label>
+                        <button ng-show="enableUpg" ng-disabled="disUpgTemp"  ng-class="{'btn-disabled': disUpgTemp}" type="button" class="btn btnCont btnUpgrade"  style="margin-left: -15px;height: 65px;" ng-click="showProblemDescTemplateModal()">
+                            模版
+                        </button>
+                    </div>
+                    <div class="controls col-xs-10 problemDesc-div"  style="position: absolute;left: 83px;margin-right:20px;">
+                        <div ng-class="{'errorBor' : pdCss == user.dialogId}" style="margin-left:20px">                        
+                            <textarea ng-model="problemDescription"  class="form-control-desc" rows="4" maxlength="1500"></textarea>                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-3" style="text-align:left;">
+                <button type="button" class="btn btnCont btnArchived" ng-click="doSubmit($index, 0,user)" ng-show="user.showArchived">
+                    归档
+                </button>
+                <br>
+                <button type="button" class="btn btnCont btnUpgrade" ng-click="doSubmit($index, 1,user)" ng-show="user.showUpgrade" >
+                升级
+                </button>
+            </div>
+
+        </div>
+    </div>
+</form>

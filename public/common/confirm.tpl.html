@@ -1,0 +1,16 @@
+<div class="modal top am-fade-and-slide-top" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border: none;">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+                <h4 class="modal-title" ng-bind-html="title"></h4></div>
+            <div class="modal-body"  style="padding-left: 40px;padding-right: 40px">
+
+                <div class="center-box-padding-forty" ng-bind-html="content"></div>
+                <div class="modal-footer" style="border: none;    text-align: center;">
+                    <button class="btn btn-primary" ng-click="confirm()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
