@@ -18,9 +18,9 @@ import java.util.List;
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class Customer extends Model {
 
-	@Id
-	private String id;
-
+	@Column(name="customer_id")
+	private Long customerId;
+	
 	@Column(name="dept_id")
 	private BigInteger deptId;
 
@@ -30,27 +30,38 @@ public class Customer extends Model {
 	@Column(name="portal_code")
 	private String portalCode;
 
+	@Column(name="priority")
 	private int priority;
 	
-	//bi-directional many-to-one association to CustomerSchedule
-//	@OneToMany(mappedBy="csosCustomer")
-//	private List<CustomerSchedule> csosCustomerSchedules;
-//
-//	//bi-directional many-to-many association to Skillgroup
-//	@ManyToMany
-//	@JoinTable(
-//		name="csos_customer_skillgroup"
-//		, joinColumns={
-//			@JoinColumn(name="customer_id")
-//			}
-//		, inverseJoinColumns={
-//			@JoinColumn(name="skillgroup_id")
-//			}
-//		)
-//	private List<Skillgroup> csosSkillgroups;
-
+	@Column(name="status")
+	private int status;
+	
 	public Customer() {
 	}
+	
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+
+
+	public int getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
 
 	public BigInteger getDeptId() {
 		return this.deptId;

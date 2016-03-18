@@ -5,7 +5,15 @@ import java.util.List;
 
 import play.db.jpa.Model;
 
-public class CustomerDTO extends Model{
+public class CustomerDTO {
+	
+	public Long id;
+	
+	public String username;
+	
+	public String portalCode;
+	
+	public Long deptId;
 	
 	public boolean isSelf;
 

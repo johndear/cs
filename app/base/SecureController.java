@@ -27,10 +27,13 @@ public class SecureController extends BaseController{
 	 * create on: 2016年3月15日
 	 */
 	public static CustomerDTO getCurrent(){
-		Customer customer = Customer.find("servicerId=?", customerDto.id).first();
+		Customer customer = Customer.find("customerId=?", principal.userId).first();
 		customerDto = new CustomerDTO();
+		customerDto.id= customer.getCustomerId();
+		customerDto.username = customer.getPortalCode();
 		customerDto.isSelf = false;
 		customerDto.scheduleId = 0L;
+		customerDto.portalCode = customer.getPortalCode();
 		return customerDto;
 	}
 	

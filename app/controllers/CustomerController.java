@@ -43,9 +43,17 @@ public class CustomerController extends SecureController{
 //        if(!BlankUtil.isBlank(checkInMsg)){
 //            error(checkInMsg);
 //        }
+    	
+    	 //todo取session中的用户信息并用于页面显示
+//    	Principal principal = new Principal();
+//        principal.deptId =1;
+//        principal.portalCode="u001";
+//        principal.nickname="李四";
+//        principal.username="李四";
+//        principal.userId=1L;
 
         //csim请求参数
-        CsimParameter csimParameter = new CsimParameter(principal.userId);
+        CsimParameter csimParameter = new CsimParameter(customerDto.id);
         // 工单接口前缀
         String cswsUrlPrefix = Play.configuration.getProperty("csws.url.prefix");
         // csos接口前缀
@@ -66,7 +74,7 @@ public class CustomerController extends SecureController{
         //服务商
         String jymServicerList = Play.configuration.getProperty("jym_servicer");
 
-		render("cs/index.html", principal, csimParameter, BENCH_MONITOR_TIME, cswsUrlPrefix, csosUrlPrefix, zhishiUrl,
+		render("cs/index.html", customerDto, csimParameter, BENCH_MONITOR_TIME, cswsUrlPrefix, csosUrlPrefix, zhishiUrl,
 				interval, csNotifyNumber, stopNumber, socketServerAddress, socketServerPort, jymServicerList);
 	}
 	
@@ -74,7 +82,7 @@ public class CustomerController extends SecureController{
 	public void onWork(){
 		customerDto.isSelf = false;
 		customerDto.scheduleId = 0L;
-        customers.put(customerDto.getId(), customerDto);
+        customers.put(customerDto.id, customerDto);
 	        
 		customService.onWork();
 		renderTemplate(null);

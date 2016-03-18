@@ -1,19 +1,19 @@
 <html lang="en" ng-app="chatApp">
 <script type="text/javascript">
-    var userId = '${principal.userId}';
-    var userName = '${principal.username}';
-    var deptId = ${principal.deptId};
+    var userId = '${customerDto.id}';
+    var userName = '${customerDto.username}';
+    var deptId = '${customerDto.deptId}';
     var cswsUrlPrefix = '${cswsUrlPrefix}';
     var csosUrlPrefix = '${csosUrlPrefix}';
     var zhishiUrl = '${zhishiUrl}';
     var bench_monitor_time = '${BENCH_MONITOR_TIME}';
     var csNotifyNumber = ${csNotifyNumber};
     var stopNumber = ${stopNumber};
-    var servicerId = ${principal.userId};
+    var servicerId = ${customerDto.id};
     var interval = ${interval};
-    window['servicerId'] = ${principal.userId};
+    window['servicerId'] = ${customerDto.id};
     window['interval'] = ${interval};
-    window.isSelfEmp = '${principal.isSelfEmployed}';
+    window.isSelfEmp = '${customerDto.isSelf}';
   	//意见反馈websocket地址，端口
     var socketServerAddress = '${socketServerAddress}';
     var socketServerPort = '${socketServerPort}';
@@ -72,7 +72,7 @@
     <script src="@{'public/cs/chat/scripts/bigger_pic.js'}"></script>
 
     <script type="text/javascript"
-            src="${csimParameter.imRoot}/longPolling.js?userId=${principal.userId}&userType=${csimParameter.servicerType}&sceneKey=${csimParameter.sceneKey}&timestamp=${csimParameter.timestamp}&sign=${csimParameter.sign}"
+            src="${csimParameter.imRoot}/longPolling.js?userId=${customerDto.id}&userType=${csimParameter.servicerType}&sceneKey=${csimParameter.sceneKey}&timestamp=${csimParameter.timestamp}&sign=${csimParameter.sign}"
             charset="UTF-8"></script>
 
 
