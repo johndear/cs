@@ -1,4 +1,4 @@
-package services.impl.zhywb;
+package services.impl;
 
 import javax.inject.Inject;
 
@@ -8,7 +8,7 @@ import services.interfaces.IWork;
 public class Work implements IWork{
 
 	@Inject
-	CustomDao customDao;
+	private static CustomDao customDao;
 	
 	@Override
 	public void onWork() {

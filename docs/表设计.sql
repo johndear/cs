@@ -30,8 +30,10 @@ CREATE TABLE csos_customer
 	id bigint NOT NULL COMMENT 'id',
 	portal_code varchar(100) COMMENT 'portal_code',
 	nick_name varchar(100) COMMENT '昵称',
-	priority int COMMENT 'priority',
-	dept_id bigint COMMENT 'dept_id',
+	priority int COMMENT '优先级',
+	dept_id bigint COMMENT '部门id',
+	customer_id bigint COMMENT '客服id',
+	status int COMMENT '状态',
 	PRIMARY KEY (id)
 ) COMMENT = '客服表';
 
