@@ -2,9 +2,11 @@ package services.impl;
 
 import javax.inject.Inject;
 
+import play.modules.guice.InjectSupport;
 import services.impl.zhywb.dao.CustomDao;
 import services.interfaces.IWork;
 
+@InjectSupport
 public class Work implements IWork{
 
 	@Inject

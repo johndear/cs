@@ -19,12 +19,9 @@ public class CustomerController extends SecureController{
 	// 在线客服
 	public static Map<Long, Customer> customers = new HashMap<Long, Customer>();
 	
-	@Inject
-	private static CustomDao customDao;
-	
 	// 临时固定
-	@Inject
 	static CustomService customService = new CustomService(new Work(),null,null);
+	
 	// 动态注入
 	public CustomerController(String type){
 		if("jym".equals(type)){
@@ -36,7 +33,6 @@ public class CustomerController extends SecureController{
 	
 	// 客服进入工作台
     public static void index() {
-    	customDao.update(null);
     	Customer customer = getCurrent();
         if (customer.status == AccountStatus.FREEZE) {
             renderFailure("您的账号被冻结！不允许进入工作台，如有疑问请联系管理员");
@@ -47,7 +43,7 @@ public class CustomerController extends SecureController{
         }
         
         // 开始上班
-//        onWork();
+        onWork();
         
         //csim请求参数
         CsimParameter csimParameter = new CsimParameter(customer.id);
@@ -83,7 +79,8 @@ public class CustomerController extends SecureController{
 		Customer customer = getCurrent();
         customers.put(customer.id, customer);
 	        
-		renderTemplate(null);
+//		renderTemplate(null);
+        renderSuccess("success");
 	}
 
 	// 客服下班
