@@ -9,8 +9,8 @@ import models.Customer;
 import models.enums.AccountStatus;
 import play.Play;
 import services.CustomService;
+import services.DialogService;
 import services.impl.Work;
-import services.impl.zhywb.dao.CustomDao;
 import api.CsimParameter;
 import base.SecureController;
 
@@ -18,6 +18,9 @@ public class CustomerController extends SecureController{
 	
 	// 在线客服
 	public static Map<Long, Customer> customers = new HashMap<Long, Customer>();
+	
+	@Inject
+	static DialogService dialogService;
 	
 	// 临时固定
 	@Inject
@@ -148,6 +151,16 @@ public class CustomerController extends SecureController{
 		// dialog.update
 		
 		
+	}
+	
+	// 主动关闭
+	public static void closeDialog(){
+		dialogService.close();
+	}
+	
+	// 超时关闭
+	public static void timeoutCloseDialog(){
+		dialogService.unexpectedClose();
 	}
 	
 }

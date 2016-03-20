@@ -8,7 +8,7 @@ import services.DialogService;
 public class UserController {
 	
 	@Inject
-	DialogService dialogService;
+	static DialogService dialogService;
 
 	public void into(){
 		// 创建会话
@@ -20,6 +20,10 @@ public class UserController {
 		// 拿该用户最近的一次会话
 		
 		Long customerId = dialogService.assignment(0L);
+	}
+	
+	public static void leave(Long dialogId){
+		dialogService.unexpectedClose();
 	}
 	
 }
