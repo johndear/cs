@@ -141,7 +141,8 @@ public class CustomerController extends SecureController{
 		}
 	}
 		
-	public static void change(Long dialogId){
+	// 转交
+	public static void transfer(Long dialogId){
 		// dialogservice.assignment()
 		
 		// dialog.update
