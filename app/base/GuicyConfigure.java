@@ -1,4 +1,4 @@
-package controllers;
+package base;
 
 import play.modules.guice.GuiceSupport;
 import com.google.inject.Guice;

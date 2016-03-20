@@ -20,7 +20,8 @@ public class CustomerController extends SecureController{
 	public static Map<Long, Customer> customers = new HashMap<Long, Customer>();
 	
 	// 临时固定
-	static CustomService customService = new CustomService(new Work(),null,null);
+	@Inject
+	static CustomService customService;// = new CustomService(new Work(),null,null);
 	
 	// 动态注入
 	public CustomerController(String type){
@@ -31,9 +32,10 @@ public class CustomerController extends SecureController{
 		}
 	}
 	
-	// 客服进入工作台
+	// 客服进入工作台/刷新
     public static void index() {
     	Customer customer = getCurrent();
+    	
         if (customer.status == AccountStatus.FREEZE) {
             renderFailure("您的账号被冻结！不允许进入工作台，如有疑问请联系管理员");
         }
@@ -42,8 +44,15 @@ public class CustomerController extends SecureController{
         	renderFailure("没有要服务的班次");
         }
         
-        // 开始上班
-        onWork();
+        // 刷新工作台
+        if(customers.containsKey(customer.id)){
+        	// TODO 可以考虑是否将该客服由其他状态（小休中、离线中）置为上线
+        }else{
+        	// 清空服务量（原）
+        	
+        	// 开始上班
+        	onWork();
+        }
         
         //csim请求参数
         CsimParameter csimParameter = new CsimParameter(customer.id);
@@ -70,33 +79,68 @@ public class CustomerController extends SecureController{
 		render("cs/index.html", customer, csimParameter, BENCH_MONITOR_TIME, cswsUrlPrefix, csosUrlPrefix, zhishiUrl,
 				interval, csNotifyNumber, stopNumber, socketServerAddress, socketServerPort, jymServicerList);
 	}
-
+    
     // 客服上班
 	public static void onWork(){
-		// 自营、u客服
-		customService.onWork();
-
 		Customer customer = getCurrent();
+		
+		// 自营、u客服
+		customService.onWork(customer.id, customer.scheduleId);
+
+		// 添加上班客服
         customers.put(customer.id, customer);
-	        
-//		renderTemplate(null);
-        renderSuccess("success");
 	}
 
 	// 客服下班
 	public static void offWork(){
-		// 自营、u客服
-		customService.offWork();
-
 		Customer customer = getCurrent();
-		customers.remove(customer);
+
+		// 自营、u客服
+		customService.offWork(customer.id, customer.scheduleId);
 		
-		renderTemplate(null);
+		// 移除上班客服
+		customers.remove(customer);
 	}
 	
 	public static void applyRest(){
+		Customer customer = getCurrent();
+
+		// 是否可以申请小休
+		boolean success = customService.restApply(customer.id, customer.scheduleId);
+		
+		// 如果可以，就改变客服状态为：申请小休中。如果没有对话，可以直接小休
+		if(success){
+			if(customer.dialogCount()==0){
+				customService.resting(customer.id, customer.scheduleId);			
+			}else{
+				// 申请小休中
+				renderSuccess("申请小休成功！");
+			}
+		}else{
+			renderFailure("申请小休失败！请尝试在5分钟后重新申请");
+		}
+
+	}
+
+	public static void applyOffline(){
+		// 是否可以离线
+		
+		// 如果可以，就改变客服状态为：申请离线中
+		
+		// 自营不做下班处理，记录退出时间，u客服做下班处理
 	}
 	
+	public static void applyOnline(){
+		Customer customer = getCurrent();
+		
+		// 计算小休时长、离线时长
+		if(true){
+			customService.restFinished();
+		}else if(false){
+			customService.offlineFinished();
+		}
+	}
+		
 	public static void change(Long dialogId){
 		// dialogservice.assignment()
 		

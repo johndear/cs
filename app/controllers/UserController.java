@@ -5,13 +5,13 @@ import javax.inject.Inject;
 
 import services.DialogService;
 
-public class DialogController {
+public class UserController {
 	
 	@Inject
 	DialogService dialogService;
 
-	// 创建会话
 	public void into(){
+		// 创建会话
 		
 	}
 	

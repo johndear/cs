@@ -16,6 +16,12 @@ import java.util.Date;
 @Entity
 @Table(name="csos_customer_schedule")
 public class CustomerScheduleModel extends Model {
+	
+	@Column(name="customer_id")
+	private Long customerId;
+	
+	@Column(name="schedule_id")
+	private Long scheduleId;
 
 	@Column(name="change_count")
 	private int changeCount;
@@ -24,8 +30,14 @@ public class CustomerScheduleModel extends Model {
 	@Column(name="offwork_time")
 	private Date offworkTime;
 
-	@Column(name="online_time")
-	private BigInteger onlineTime;
+	@Column(name="rest_timelong")
+	private BigInteger restTimelong;
+
+	@Column(name="offline_timelong")
+	private BigInteger offlineTimelong;
+
+	@Column(name="online_timelong")
+	private BigInteger onlineTimelong;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="onwork_time")
@@ -47,6 +59,26 @@ public class CustomerScheduleModel extends Model {
 	public CustomerScheduleModel() {
 	}
 
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
+	}
+
+
+	public Long getScheduleId() {
+		return scheduleId;
+	}
+
+
+	public void setScheduleId(Long scheduleId) {
+		this.scheduleId = scheduleId;
+	}
+
+
 	public int getChangeCount() {
 		return this.changeCount;
 	}
@@ -63,12 +95,28 @@ public class CustomerScheduleModel extends Model {
 		this.offworkTime = offworkTime;
 	}
 
-	public BigInteger getOnlineTime() {
-		return this.onlineTime;
+	public BigInteger getRestTimelong() {
+		return restTimelong;
 	}
 
-	public void setOnlineTime(BigInteger onlineTime) {
-		this.onlineTime = onlineTime;
+	public void setRestTimelong(BigInteger restTimelong) {
+		this.restTimelong = restTimelong;
+	}
+
+	public BigInteger getOfflineTimelong() {
+		return offlineTimelong;
+	}
+
+	public void setOfflineTimelong(BigInteger offlineTimelong) {
+		this.offlineTimelong = offlineTimelong;
+	}
+
+	public BigInteger getOnlineTimelong() {
+		return onlineTimelong;
+	}
+
+	public void setOnlineTimelong(BigInteger onlineTimelong) {
+		this.onlineTimelong = onlineTimelong;
 	}
 
 	public Date getOnworkTime() {

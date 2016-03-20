@@ -23,7 +23,11 @@ public class Customer {
 	// 正在服务的班次
 	public Long scheduleId;
 	
+	// 正在服务的对话
+	List<Dialog> dialogs = new ArrayList<Dialog>();
 	
-	List<Dialog> intoDialogs = new ArrayList<Dialog>();
+	public int dialogCount(){
+		return dialogs.size();
+	}
 
 }

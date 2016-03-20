@@ -3,8 +3,8 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 /* Drop Tables */
 
 DROP TABLE IF EXISTS csos_change_record;
-DROP TABLE IF EXISTS csos_customer_schedule;
 DROP TABLE IF EXISTS csos_customer_skillgroup;
+DROP TABLE IF EXISTS csos_customer_schedule;
 DROP TABLE IF EXISTS csos_customer;
 DROP TABLE IF EXISTS csos_customer_online;
 DROP TABLE IF EXISTS csos_dialog;
@@ -54,8 +54,11 @@ CREATE TABLE csos_customer_schedule
 	customer_id bigint NOT NULL COMMENT '客服id',
 	onwork_time datetime COMMENT '上班时间',
 	offwork_time datetime COMMENT '下班时间',
+	exist_time datetime COMMENT '退出时间',
+	rest_timelong bigint COMMENT '小休时长',
+	offline_timelong bigint COMMENT '离线时长',
+	online_timelong bigint COMMENT '在线时长',
 	service_num int COMMENT '服务量',
-	online_time bigint COMMENT '在线时长',
 	change_count int COMMENT '转交次数'
 ) COMMENT = '客服班次表';
 
@@ -114,7 +117,7 @@ CREATE TABLE csos_source
 
 /* Create Foreign Keys */
 
-ALTER TABLE csos_customer_schedule
+ALTER TABLE csos_customer_skillgroup
 	ADD FOREIGN KEY (customer_id)
 	REFERENCES csos_customer (id)
 	ON UPDATE RESTRICT
@@ -122,7 +125,7 @@ ALTER TABLE csos_customer_schedule
 ;
 
 
-ALTER TABLE csos_customer_skillgroup
+ALTER TABLE csos_customer_schedule
 	ADD FOREIGN KEY (customer_id)
 	REFERENCES csos_customer (id)
 	ON UPDATE RESTRICT
@@ -138,7 +141,7 @@ ALTER TABLE csos_customer_schedule
 ;
 
 
-ALTER TABLE csos_source
+ALTER TABLE csos_customer_skillgroup
 	ADD FOREIGN KEY (skillgroup_id)
 	REFERENCES csos_skillgroup (id)
 	ON UPDATE RESTRICT
@@ -146,7 +149,7 @@ ALTER TABLE csos_source
 ;
 
 
-ALTER TABLE csos_customer_skillgroup
+ALTER TABLE csos_source
 	ADD FOREIGN KEY (skillgroup_id)
 	REFERENCES csos_skillgroup (id)
 	ON UPDATE RESTRICT
