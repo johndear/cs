@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import play.db.jpa.Model;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 
@@ -29,15 +28,19 @@ public class CustomerScheduleModel extends Model {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="offwork_time")
 	private Date offworkTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="exist_time")
+	private Date existTime;
 
 	@Column(name="rest_timelong")
-	private BigInteger restTimelong;
+	private Long restTimelong;
 
 	@Column(name="offline_timelong")
-	private BigInteger offlineTimelong;
+	private Long offlineTimelong;
 
 	@Column(name="online_timelong")
-	private BigInteger onlineTimelong;
+	private Long onlineTimelong;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="onwork_time")
@@ -58,6 +61,17 @@ public class CustomerScheduleModel extends Model {
 
 	public CustomerScheduleModel() {
 	}
+
+	
+	public Date getExistTime() {
+		return existTime;
+	}
+
+
+	public void setExistTime(Date existTime) {
+		this.existTime = existTime;
+	}
+
 
 	public Long getCustomerId() {
 		return customerId;
@@ -95,27 +109,27 @@ public class CustomerScheduleModel extends Model {
 		this.offworkTime = offworkTime;
 	}
 
-	public BigInteger getRestTimelong() {
+	public Long getRestTimelong() {
 		return restTimelong;
 	}
 
-	public void setRestTimelong(BigInteger restTimelong) {
+	public void setRestTimelong(Long restTimelong) {
 		this.restTimelong = restTimelong;
 	}
 
-	public BigInteger getOfflineTimelong() {
+	public Long getOfflineTimelong() {
 		return offlineTimelong;
 	}
 
-	public void setOfflineTimelong(BigInteger offlineTimelong) {
+	public void setOfflineTimelong(Long offlineTimelong) {
 		this.offlineTimelong = offlineTimelong;
 	}
 
-	public BigInteger getOnlineTimelong() {
+	public Long getOnlineTimelong() {
 		return onlineTimelong;
 	}
 
-	public void setOnlineTimelong(BigInteger onlineTimelong) {
+	public void setOnlineTimelong(Long onlineTimelong) {
 		this.onlineTimelong = onlineTimelong;
 	}
 

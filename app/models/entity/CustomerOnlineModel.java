@@ -2,6 +2,9 @@ package models.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import play.db.jpa.Model;
+
 import java.util.Date;
 
 
@@ -11,25 +14,36 @@ import java.util.Date;
  */
 @Entity
 @Table(name="csos_customer_online")
-public class CustomerOnlineModel implements Serializable {
+public class CustomerOnlineModel extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="customer_id")
-	private String customerId;
+	private Long customerId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="last_active_time")
 	private Date lastActiveTime;
+	
+//	@Column(name="status")
+	private int status;
 
 	public CustomerOnlineModel() {
 	}
+	
+	public int getStatus() {
+		return status;
+	}
 
-	public String getCustomerId() {
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Long getCustomerId() {
 		return this.customerId;
 	}
 
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 

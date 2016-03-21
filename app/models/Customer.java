@@ -3,8 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.enums.AccountStatus;
-import play.db.jpa.Model;
+import models.enums.ServicerStatus;
 
 public class Customer {
 	
@@ -18,7 +17,10 @@ public class Customer {
 	
 	public boolean isSelf;
 	
-	public AccountStatus status = AccountStatus.NORMAL;
+	// 是否被冻结
+	public boolean isFreeze;
+	
+	public ServicerStatus status;
 
 	// 正在服务的班次
 	public Long scheduleId;

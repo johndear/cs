@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import models.Customer;
 import models.enums.AccountStatus;
+import models.enums.ServicerStatus;
 import play.Play;
 import services.CustomService;
 import services.DialogService;
@@ -38,8 +39,7 @@ public class CustomerController extends SecureController{
 	// 客服进入工作台/刷新
     public static void index() {
     	Customer customer = getCurrent();
-    	
-        if (customer.status == AccountStatus.FREEZE) {
+        if (customer.isFreeze) {
             renderFailure("您的账号被冻结！不允许进入工作台，如有疑问请联系管理员");
         }
         
@@ -51,8 +51,6 @@ public class CustomerController extends SecureController{
         if(customers.containsKey(customer.id)){
         	// TODO 可以考虑是否将该客服由其他状态（小休中、离线中）置为上线
         }else{
-        	// 清空服务量（原）
-        	
         	// 开始上班
         	onWork();
         }
@@ -86,7 +84,6 @@ public class CustomerController extends SecureController{
     // 客服上班
 	public static void onWork(){
 		Customer customer = getCurrent();
-		
 		// 自营、u客服
 		customService.onWork(customer.id, customer.scheduleId);
 
@@ -97,7 +94,6 @@ public class CustomerController extends SecureController{
 	// 客服下班
 	public static void offWork(){
 		Customer customer = getCurrent();
-
 		// 自营、u客服
 		customService.offWork(customer.id, customer.scheduleId);
 		
@@ -107,15 +103,16 @@ public class CustomerController extends SecureController{
 	
 	public static void applyRest(){
 		Customer customer = getCurrent();
-
 		// 是否可以申请小休
-		boolean success = customService.restApply(customer.id, customer.scheduleId);
+		boolean success = customService.allowRest(customer.id, customer.scheduleId);
 		
-		// 如果可以，就改变客服状态为：申请小休中。如果没有对话，可以直接小休
 		if(success){
 			if(customer.dialogCount()==0){
+				// 如果没有对话，可以直接小休
 				customService.resting(customer.id, customer.scheduleId);			
 			}else{
+				// 更新客服状态为：申请小休中
+				customService.restApply(customer.id, customer.scheduleId);
 				// 申请小休中
 				renderSuccess("申请小休成功！");
 			}
@@ -126,9 +123,22 @@ public class CustomerController extends SecureController{
 	}
 
 	public static void applyOffline(){
-		// 是否可以离线
-		
-		// 如果可以，就改变客服状态为：申请离线中
+		Customer customer = getCurrent();
+		// 更新客服状态为：申请离线中，
+		if(customer.dialogCount()==0){
+			if(customer.isSelf){
+				// 自营客服，可以直接离线中
+				customService.offlining(customer.id, customer.scheduleId);			
+			}else{
+				// u客服下班
+				offWork();
+			}
+		}else{
+			// 更新客服状态为：申请离线中
+			customService.offlineApply(customer.id, customer.scheduleId);
+			// 申请小休中
+			renderSuccess("申请离线成功！");
+		}
 		
 		// 自营不做下班处理，记录退出时间，u客服做下班处理
 	}
@@ -137,11 +147,13 @@ public class CustomerController extends SecureController{
 		Customer customer = getCurrent();
 		
 		// 计算小休时长、离线时长
-		if(true){
-			customService.restFinished();
-		}else if(false){
-			customService.offlineFinished();
+		if(customer.status == ServicerStatus.REST){
+			customService.restFinished(customer.id, customer.scheduleId);
+		}else if(customer.status == ServicerStatus.OFFLINE){
+			customService.offlineFinished(customer.id, customer.scheduleId);
 		}
+		
+		customService.onlineApply(customer.id, customer.scheduleId);
 	}
 		
 	// 转交
@@ -155,6 +167,8 @@ public class CustomerController extends SecureController{
 	
 	// 主动关闭
 	public static void closeDialog(){
+		// 关闭最后一个会话的时候，如果客服状态是申请小休中、申请离线中，就更新状态为小休中、离线中
+		
 		dialogService.close();
 	}
 	
