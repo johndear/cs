@@ -28,7 +28,7 @@ import base.Constants;
  * @version 1.0.0
  * create on: 2015-06-01
  */
-public class DialogService {
+public class DialogAPI {
 
     /**
      * csim服务端创建对话api

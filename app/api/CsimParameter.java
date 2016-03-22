@@ -51,10 +51,10 @@ public class CsimParameter {
 	 */
 	private long dialogId;
 	
-	private static DialogService dialogService;
+	private static DialogAPI dialogService;
 	static{
 		if(null == dialogService){
-			dialogService = new DialogService();
+			dialogService = new DialogAPI();
 		}
 	}
 
