@@ -15,9 +15,7 @@ import java.util.Date;
 @Entity
 @Table(name="csos_customer_online")
 public class CustomerOnlineModel extends Model {
-	private static final long serialVersionUID = 1L;
 
-	@Id
 	@Column(name="customer_id")
 	private Long customerId;
 

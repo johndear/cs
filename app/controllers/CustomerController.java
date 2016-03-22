@@ -1,7 +1,9 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
@@ -17,8 +19,8 @@ import base.SecureController;
 
 public class CustomerController extends SecureController{
 	
-	// 在线客服
-	public static Map<Long, Customer> customers = new HashMap<Long, Customer>();
+	// 在线客服--需要在启动的时候初始化（防止服务器重启将在线客服丢失，造成重新上班的情况）
+	static Map<Long, Customer> customers = new HashMap<Long, Customer>();
 	
 	@Inject
 	static DialogService dialogService;
@@ -50,6 +52,7 @@ public class CustomerController extends SecureController{
         // 刷新工作台
         if(customers.containsKey(customer.id)){
         	// TODO 可以考虑是否将该客服由其他状态（小休中、离线中）置为上线
+        	
         }else{
         	// 开始上班
         	onWork();
@@ -98,7 +101,7 @@ public class CustomerController extends SecureController{
 		customService.offWork(customer.id, customer.scheduleId);
 		
 		// 移除上班客服
-		customers.remove(customer);
+		customers.remove(customer.id);
 	}
 	
 	public static void applyRest(){

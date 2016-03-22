@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -77,7 +78,7 @@ public class CustomService {
 		customerScheduleModel.save();
 		
 		// 更新客服状态
-		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=", customerId).first();
+		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=?", customerId).first();
 		customerOnlineModel.setStatus(ServicerStatus.REST.ordinal());
 		customerOnlineModel.save();
 	}
@@ -90,7 +91,7 @@ public class CustomService {
 	}
 
 	public void offlineApply(Long customerId, Long scheduleId) {
-		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=", customerId).first();
+		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=?", customerId).first();
 		customerOnlineModel.setStatus(ServicerStatus.OFFLINE_APPLYING.ordinal());
 		customerOnlineModel.save();
 	}
@@ -102,7 +103,7 @@ public class CustomService {
 		customerScheduleModel.save();
 		
 		// 更新客服状态
-		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=", customerId).first();
+		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=?", customerId).first();
 		customerOnlineModel.setStatus(ServicerStatus.OFFLINE.ordinal());
 		customerOnlineModel.save();
 	}
@@ -115,7 +116,7 @@ public class CustomService {
 	}
 	
 	public void onlineApply(Long customerId, Long scheduleId) {
-		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=", customerId).first();
+		CustomerOnlineModel customerOnlineModel = CustomerOnlineModel.find("customerId=?", customerId).first();
 		customerOnlineModel.setStatus(ServicerStatus.ONLINE.ordinal());
 		customerOnlineModel.save();
 	}

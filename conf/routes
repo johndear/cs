@@ -16,3 +16,4 @@ GET      /cs/index                              controllers.CustomerController.i
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
+*       /{package}/{controller}/{action}        {package}.{controller}.{action}

@@ -2,7 +2,7 @@
 
 'use strict';
 
-var path='/csos';
+var path='';
 
 //客服状态 服务中/小休申请中/小休
 var SERVING = "在线中";
