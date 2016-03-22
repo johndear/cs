@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import play.db.jpa.Model;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 
@@ -22,7 +21,7 @@ public class DialogModel extends Model {
 	private Date assignTime;
 
 	@Column(name="customer_id")
-	private BigInteger customerId;
+	private Long customerId;
 
 	@Column(name="response_count")
 	private int responseCount;
@@ -32,11 +31,34 @@ public class DialogModel extends Model {
 	private Date responseTime;
 
 	@Column(name="source_id")
-	private BigInteger sourceId;
+	private Long sourceId;
+	
+	@Column(name="instance")
+	private String instance;
+	
+	@Column(name="uid")
+	private Long uid;
 
+	@Column(name="status")
 	private int status;
 
 	public DialogModel() {
+	}
+
+	public String getInstance() {
+		return instance;
+	}
+
+	public void setInstance(String instance) {
+		this.instance = instance;
+	}
+
+	public Long getUid() {
+		return uid;
+	}
+
+	public void setUid(Long uid) {
+		this.uid = uid;
 	}
 
 	public Date getAssignTime() {
@@ -47,11 +69,11 @@ public class DialogModel extends Model {
 		this.assignTime = assignTime;
 	}
 
-	public BigInteger getCustomerId() {
+	public Long getCustomerId() {
 		return this.customerId;
 	}
 
-	public void setCustomerId(BigInteger customerId) {
+	public void setCustomerId(Long customerId) {
 		this.customerId = customerId;
 	}
 
@@ -71,11 +93,11 @@ public class DialogModel extends Model {
 		this.responseTime = responseTime;
 	}
 
-	public BigInteger getSourceId() {
+	public Long getSourceId() {
 		return this.sourceId;
 	}
 
-	public void setSourceId(BigInteger sourceId) {
+	public void setSourceId(Long sourceId) {
 		this.sourceId = sourceId;
 	}
 
