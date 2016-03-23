@@ -34,9 +34,9 @@
      * @constructor
      */
     var Notifications = function(title, option) {
-    	var icon = '../public/images/service_avatar.png';
+    	var icon = '/cs/public/images/service_avatar.png';
     	if(deptId && deptId == 2){
-    		icon = '../public/images/service_avatar_jym.png';
+    		icon = '/cs/public/images/service_avatar_jym.png';
     	}
         // 判断浏览器是否支持Notification
         if (!("Notification" in window)) {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body class="bg">
+	<div class="header">交易猫登录</div>
+	<div class="contpar">
+		<div class="cont">
+			<dl class="imgmsg">
+				<input type="button" value="登录" onclick="login();" />
+			</dl>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+	function login() {
+		var url = decodeURIComponent(getQueryString("csosUrl"));
+		location.href = url + '&token=123456';
+	}
+</script>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+<script>
+    //设置cookie
+    function setCookie(cname, cvalue) {
+        document.cookie = cname + "=" + cvalue + ";path=/csos/";
+    }
+    //获取cookie
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+    
+    var sys = '${sys}';
+    var islogin = '${islogin}';
+    var sourceCount = '${sourceCount}';
+</script>
+<script>
+    //用于判断是否为浏览器返回操作，是的话，需要重新加载页面
+    var flagCookieName= '${flagCookieName}';
+    var refresh = getCookie(flagCookieName);
+    if(refresh === true || refresh === 'true'){
+        //location.reload();
+    }else{
+        //setCookie(flagCookieName, "true");
+    }
+</script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" CONTENT="0">
+    <meta http-equiv="Pragma" CONTENT="no-cache">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>UC在线客服</title>
+    <link rel="shortcut icon" href="http://www.ucweb.com/favicon.ico">
+    <link rel="stylesheet" href="@@{'/public/customer/css/chat.css'}">
+</head>
+<body>
+<div class="wrap">
+    <div class="main" id="main">
+        <div class="chatroom" id="chatroom">
+        </div>
+    </div>
+    <div class="footer" id="footer">
+        <ul class="input-panel flex-wrap" id="input_panel">
+            <li>
+                <a href="javascript:void(0)" class="call-widge" id="call_widge_btn">更多功能</a>
+            </li>
+            <li class="flex-grid">
+                <textarea class="input-box" placeholder="请输入问题" id="input_box"></textarea>
+            </li>
+            <li>
+                <input type="button" value="发送" class="send-btn" id="send_btn">
+            </li>
+        </ul>
+        <div class="widge-panel" id="widge_panel">
+            <ul class="widge-list">
+                <li>
+                    <a href="javascript:void(0)" class="widge-face-btn" id="widge_face_btn">表情</a>
+                </li>
+                #{if isImge}
+                    <li>
+                        <form id="imgFileForm" method="POST" enctype="multipart/form-data">
+                            <div class="fileInputContainer">
+                                <input class="fileInput" type="file" id="imgFile" name="imgFile" onchange="uploadImg();">图片
+                            </div>
+                        </form>
+                    </li>
+                #{/if}
+            </ul>
+        </div>
+        <div class="widge-face-wrap" id="face_wrap">
+            <ul class="widge-face" id="face_ul">
+                <li>
+                    <ul class="face-list">
+                        <li><img src="@@{'/public/images/face/1.png'}"></li>
+                        <li><img src="@@{'/public/images/face/2.png'}"></li>
+                        <li><img src="@@{'/public/images/face/8.png'}"></li>
+                    </ul>
+                    <ul class="face-list">
+                        <li><img src="@@{'/public/images/face/10.png'}"></li>
+                        <li><img src="@@{'/public/images/face/14.png'}"></li>
+                        <li><img src="@@{'/public/images/face/19.png'}"></li>
+                    </ul>
+                </li>
+            </ul>
+            <div id="slide_point" class="face-list-point">
+                *{<span class="current"></span>}*
+                *{<span></span>}*
+            </div>
+        </div>
+    </div>
+</div>
+<div class="evaluate-wrap" id="evaluate_wrap">
+    <div class="evaluate-dialog">
+        <div class="evaluate-dialog-header">
+            <p>请您为我的服务进行评价</p>
+        </div>
+        <ul class="evaluate-dialog-score flex-wrap" id="evaluate_score">
+            <li class="flex-grid evaluate-lol"><a href="javascript:void(0)" data-score="SATISFY">满意</a></li>
+            <li class="flex-grid evaluate-peace"><a href="javascript:void(0)" data-score="NORMAL">一般</a></li>
+            <li class="flex-grid evaluate-sad"><a href="javascript:void(0)" data-score="BAD">不满意</a></li>
+        </ul>
+        <textarea class="evaluate-dialog-textarea" id="evaluate_textarea" placeholder="说说您的意见，我们会努力改善的（最多200字）"
+                  maxlength="200"></textarea>
+        <a href="javascript:void(0)" class="evaluate-cancel-btn" id="evaluate_cancel_btn">取消</a>
+        <a href="javascript:void(0)" class="evaluate-submit-btn" id="evaluate_submit_btn">提交</a>
+        <p class="evaluate-dialog-invalid" id="evaluate_invalid">您对我们的服务是否满意？</p>
+    </div>
+</div>
+<div class="pic-modal" id="pic_modal">
+    <img src="">
+</div>
+<input type="hidden" id="serving" value="${!isNew}"/>
+<input type="hidden" id="dialogId" value="${dialogId}"/>
+<input type="hidden" id="userId" value="${userId}"/>
+<input type="hidden" id="userType" value="${csimParameter.customerType}"/>
+<input type="hidden" id="imRoot" value="${csimParameter.imRoot}"/>
+<input type="hidden" id="sign" value="${csimParameter.sign}"/>
+<input type="hidden" id="sceneKey" value="${csimParameter.sceneKey}"/>
+<input type="hidden" id="timestamp" value="${csimParameter.timestamp}"/>
+</body>
+<script type="text/html" id="talk_tmpl">
+    <div class="<%=role%>-item flex-wrap">
+        <% if(role === 'service') { %>
+        <div class="avatar">
+            <img src="<%=avatar%>">
+            <% if(!isSystem) { %>
+            <a href="javascript:evaluate.show()" title="评价" id="avatar_evaluate" >+评价</a>
+            <% } %>
+        </div>
+        <div class="content flex-grid">
+            <div class="talk"><%=content%></div>
+        </div>
+        <% } else if(role === 'user') { %>
+        <div class="content flex-grid">
+            <div class="talk"><%=content%></div>
+        </div>
+        <div class="avatar">
+            <img src="<%=avatar%>">
+        </div>
+        <% } %>
+    </div>
+</script>
+<script type="text/html" id="pic_tmpl">
+    <div class="<%=role%>-item flex-wrap">
+        <% if(role === 'service') { %>
+        <div class="avatar">
+            <img src="<%=avatar%>" >
+            <% if(!isSystem) { %>
+            <a href="javascript:evaluate.show()" title="评价" id="avatar_evaluate" >+评价</a>
+            <% } %>
+        </div>
+        <div class="content flex-grid">
+            <div class="pic" id="<%=picId%>">
+                <i></i>
+                <img src="" >
+            </div>
+        </div>
+        <% } else if(role === 'user') { %>
+        <div class="content flex-grid">
+            <div class="pic" id="<%=picId%>">
+                <i></i>
+                <img src="" >
+            </div>
+        </div>
+        <div class="avatar">
+            <img src="<%=avatar%>" >
+        </div>
+        <% } %>
+    </div>
+</script>
+<script type="text/html" id="face_tmpl">
+    <div class="<%=role%>-item flex-wrap">
+        <% if(role === 'service') { %>
+        <div class="avatar">
+            <img src="<%=avatar%>">
+            <% if(!isSystem) { %>
+            <a href="javascript:evaluate.show()" title="评价" id="avatar_evaluate" >+评价</a>
+            <% } %>
+        </div>
+        <div class="content flex-grid">
+            <img src="<%=img%>" class="face">
+        </div>
+        <% } else if(role === 'user') { %>
+        <div class="content flex-grid">
+            <img src="<%=img%>" class="face">
+        </div>
+        <div class="avatar">
+            <img src="<%=avatar%>">
+        </div>
+        <% } %>
+    </div>
+</script>
+<script type="text/html" id="tips_tmpl">
+    <div class="chatroom-tips">
+        <div class="chatroom-tips-content"><%=content%></div>
+    </div>
+</script>
+<script type="text/html" id="time_tmpl">
+    <div class="chatroom-time">
+        <div class="chatroom-time-content"><%=content%></div>
+    </div>
+</script>
+<script>
+    window['uae_text_root'] = '${uaeCompressRoot}';
+    window['uae_image_root'] = '${uaeCompressRoot}';
+    window['customer_username'] = '${talkerName}';
+    window['customer_wait_minute'] = ${customerParameter.waitMinute};
+    window['customer_delay_second'] = ${customerParameter.delaySecond};
+    window['wait_response_second'] = ${customerParameter.waitResponseSecond};
+    window['max_reply_time'] = ${customerParameter.maxReplyTime};
+    window['reply_interval'] = ${customerParameter.replayInterval};
+    window['feedback'] = '${customerParameter.feedbackUrl}';
+</script>
+#{if isDev}
+<script type="text/javascript" src="@@{'/public/javascripts/tmpl.js'}"></script>
+<script type="text/javascript" src="@@{'/public/javascripts/fastclick.min.js'}"></script>
+<script type="text/javascript" src="@@{'/public/javascripts/slide.js'}"></script>
+<script type="text/javascript" src="@@{'/public/javascripts/json.js'}" charset="UTF-8"></script>
+<script type="text/javascript" src="@@{'/public/javascripts/jquery-1.6.4.min.js'}" charset="UTF-8"></script>
+<script type="text/javascript" src="@@{'/public/javascripts/jquery.form.min.js'}" charset="UTF-8"></script>
+<script type="text/javascript" src="@@{'/public/javascripts/DateUtil.js'}"></script>
+<script type="text/javascript" src="@@{'/public/user/js/main.js'}"></script>
+<script type="text/javascript" src="@@{'/public/user/js/chat.js'}"></script>
+<script type="text/javascript" src="@@{'/public/user/js/ixd.js'}"></script>
+#{/if}
+#{if !isNew}
+<script type="text/javascript" src="${csimParameter.imRoot}/longPolling.js?userId=${userId}&userType=${csimParameter.customerType}&dialogId=${dialogId}&sceneKey=${csimParameter.sceneKey}&timestamp=${csimParameter.timestamp}&sign=${csimParameter.sign}" charset="UTF-8"></script>
+<script>imHandler.start();imHandler.history();</script>
+#{/if}
+#{else}
+<script>
+    chatroom.sendTimeTips();
+    chatroom.send({
+        start: false,
+        isSystem: true,
+        role: 'service',
+        type: 'talk',
+        avatar: "${uaeCompressRoot}/cs/public/images/service_avatar.png",
+        content: '您好，请一句话完整描述您的问题，以便我们为您安排专业的客服。'
+    });
+</script>
+#{/else}
+</html>

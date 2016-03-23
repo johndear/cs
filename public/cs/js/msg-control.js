@@ -191,12 +191,12 @@ chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, csInfoF
     $scope.activeUserObj = {};
 
     //客服，用户聊天头像
-    $scope.serviceAvatar = "../public/images/service_avatar.png";
-    $scope.userAvatar = "../public/images/user_avatar.png";
+    $scope.serviceAvatar = "/cs/public/images/service_avatar.png";
+    $scope.userAvatar = "/cs/public/images/user_avatar.png";
     //判断交易猫头像
     if(deptId == $scope.Dept.jym){
-    	$scope.serviceAvatar = "../public/images/service_avatar_jym.png";
-        $scope.userAvatar = "../public/images/user_avatar_jym.png";
+    	$scope.serviceAvatar = "/cs/public/images/service_avatar_jym.png";
+        $scope.userAvatar = "/cs/public/images/user_avatar_jym.png";
     }
 
     /**

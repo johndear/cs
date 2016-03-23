@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import javax.inject.Inject;
 
 import models.Customer;
+import models.entity.DialogModel;
 import models.enums.AccountStatus;
 import models.enums.ServicerStatus;
 import play.Play;
@@ -27,7 +29,7 @@ public class CustomerController extends SecureController{
 	
 	// 临时固定
 	@Inject
-	static CustomService customService;// = new CustomService(new Work(),null,null);
+	static CustomService customService;
 	
 	// 动态注入
 	public CustomerController(String type){
@@ -60,26 +62,18 @@ public class CustomerController extends SecureController{
         
         //csim请求参数
         CsimParameter csimParameter = new CsimParameter(customer.id);
-        // 工单接口前缀
-        String cswsUrlPrefix = Play.configuration.getProperty("csws.url.prefix");
-        // csos接口前缀
-        String csosUrlPrefix = Play.configuration.getProperty("csos.url.prefix");
-        // 知识库地址
-        String zhishiUrl = Play.configuration.getProperty("zhishi.url");
-        //工作台ping时间间隔
-        String interval = Play.configuration.getProperty("bench.interval", "10");
-        //客服端监控用户多久没有回复，超过该时长作为掉线处理，单位/min
-        String BENCH_MONITOR_TIME = Play.configuration.getProperty("bench.monitor.time", "10");
-        //达到多少会话之后，再进线会提示归档/升级
-        String csNotifyNumber = Play.configuration.getProperty("cs.notify.number", "20");
-        //达到多少会话之后，停止进单
-        String stopNumber = Play.configuration.getProperty("cs.stop.number", "30");
-        //意见反馈websocket地址，端口
-        String socketServerAddress = Play.configuration.getProperty("socket_server_address");
-        String socketServerPort = Play.configuration.getProperty("socket_server_port");
-        //服务商
-        String jymServicerList = Play.configuration.getProperty("jym_servicer");
-
+        
+        Properties properties = Play.configuration;
+        String cswsUrlPrefix = properties.getProperty("csws.url.prefix");// 工单接口前缀
+        String csosUrlPrefix = properties.getProperty("csos.url.prefix"); // csos接口前缀
+        String zhishiUrl = properties.getProperty("zhishi.url"); // 知识库地址
+        String interval = properties.getProperty("bench.interval", "10"); //工作台ping时间间隔
+        String BENCH_MONITOR_TIME = properties.getProperty("bench.monitor.time", "10"); //客服端监控用户多久没有回复，超过该时长作为掉线处理，单位/min
+        String csNotifyNumber = properties.getProperty("cs.notify.number", "20");//达到多少会话之后，再进线会提示归档/升级
+        String stopNumber = properties.getProperty("cs.stop.number", "30");//达到多少会话之后，停止进单
+        String socketServerAddress = properties.getProperty("socket_server_address");//意见反馈websocket地址，端口
+        String socketServerPort = properties.getProperty("socket_server_port");
+        String jymServicerList = properties.getProperty("jym_servicer");//服务商
 		render("cs/index.html", customer, csimParameter, BENCH_MONITOR_TIME, cswsUrlPrefix, csosUrlPrefix, zhishiUrl,
 				interval, csNotifyNumber, stopNumber, socketServerAddress, socketServerPort, jymServicerList);
 	}
@@ -116,7 +110,6 @@ public class CustomerController extends SecureController{
 			}else{
 				// 更新客服状态为：申请小休中
 				customService.restApply(customer.id, customer.scheduleId);
-				// 申请小休中
 				renderSuccess("申请小休成功！");
 			}
 		}else{
@@ -139,7 +132,6 @@ public class CustomerController extends SecureController{
 		}else{
 			// 更新客服状态为：申请离线中
 			customService.offlineApply(customer.id, customer.scheduleId);
-			// 申请小休中
 			renderSuccess("申请离线成功！");
 		}
 		
@@ -159,11 +151,42 @@ public class CustomerController extends SecureController{
 		customService.onlineApply(customer.id, customer.scheduleId);
 	}
 		
-	// 转交
-	public static void transfer(Long dialogId){
-		// dialogservice.assignment()
+	// 转交-手动、自动
+	public static void transfer(Long dialogId, int type){
+		DialogModel dialogModel = DialogModel.findById(dialogId);
+		// 不同单处理逻辑不一样
+		if("online"==dialogModel.getInstance()){
+			Long customerId = dialogService.assignment(dialogId);
+
+			boolean success = false;
+			if(type==1){// 手动
+				// 手动转单失败，则不转出去
+				if(customerId == null){
+				}else{
+					success = true;
+				}
+				
+			}else{// 自动
+				// 自动转单失败，则关闭会话，且正在服务量-1
+				if(customerId == null){
+					
+				}else{
+					success = true;
+				}
+			}
+
+			if(success){
+				// 转单成功，上一个客服量-1，下一个客服量+1
+				
+				// dialog.update 更新到最新客服
+			}
+			
+			
+		}else if("feedback"==dialogModel.getInstance()){
+			// feedback 回收到意见反馈池，不需要及时转交（等待重新分配）
+			
+		}
 		
-		// dialog.update
 		
 		
 	}
@@ -171,7 +194,6 @@ public class CustomerController extends SecureController{
 	// 主动关闭
 	public static void closeDialog(){
 		// 关闭最后一个会话的时候，如果客服状态是申请小休中、申请离线中，就更新状态为小休中、离线中
-		
 		dialogService.close();
 	}
 	
