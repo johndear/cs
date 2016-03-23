@@ -2,16 +2,22 @@ package controllers;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.session.SqlSession;
+
 import models.Customer;
 import models.entity.DialogModel;
 import models.enums.AccountStatus;
 import models.enums.ServicerStatus;
+import models.mappers.GuestBook;
+import models.mappers.GuestBookMapper;
+import mybatisplay.IbatisSessionFactory;
 import play.Play;
 import services.CustomService;
 import services.DialogService;
@@ -40,8 +46,14 @@ public class CustomerController extends SecureController{
 		}
 	}
 	
+	
 	// 客服进入工作台/刷新
     public static void index() {
+    	SqlSession session = IbatisSessionFactory.get().openSession();
+    	GuestBookMapper guestBookMapper = session.getMapper(GuestBookMapper.class);
+    	List<GuestBook> list = guestBookMapper.selectAll();
+    	System.out.println(list);
+    	
     	Customer customer = getCurrent();
         if (customer.isFreeze) {
             renderFailure("您的账号被冻结！不允许进入工作台，如有疑问请联系管理员");
