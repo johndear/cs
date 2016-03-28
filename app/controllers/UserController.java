@@ -40,7 +40,7 @@ public class UserController extends BaseController{
 		
 		Map<String,Object> pageParamters = new HashMap<String,Object>();
 		boolean isNew = false;
-		Long dialogId = 9999L;
+		Long dialogId = 123456L;
 		Long userId = 1L;
 		String talkerName = null;
 		String uaeCompressRoot = null;
@@ -64,7 +64,7 @@ public class UserController extends BaseController{
 		String serverDate = null;
 		
 		// 临时创建会话,满足前端初始化$.csim()
-		String createResult = dialogAPI.create(dialogId, userId.toString(), 300, "lisi");
+//		String createResult = dialogAPI.create(dialogId, userId.toString(), 300, "lisi");
 		
 		render("user/chat.html", isNew, dialogId, userId, talkerName, uaeCompressRoot, uaeUncompressRoot, isDev,
 				cookieName, flagCookieName, customerParameter, csimParameter, instance, isImge, sys, islogin,
@@ -74,7 +74,7 @@ public class UserController extends BaseController{
 	}
 	
 	// 用户发送消息
-	public void send(Long uid, Long dialogId, String content){
+	public static void send(Long uid, Long dialogId, String content){
 		
 		// 创建会话
 		String createResult = dialogAPI.create(dialogId, "1", 300, "lisi");
@@ -87,7 +87,8 @@ public class UserController extends BaseController{
 		
 		 // 发送第一条消息- （建议在后台进行消息发送）
 //        dialogService.send(customerId,dialogId, "CHAT", JSONObject.toJSONString(contentParams), Constants.IM_CUSTOMER_SCENE_KEY);
-		dialogAPI.send(customerId.toString(), dialogId, "CHAT", content, Constants.IM_CUSTOMER_SCENE_KEY);
+		String sendResult = dialogAPI.send(customerId.toString(), dialogId, "CHAT", content, Constants.IM_CUSTOMER_SCENE_KEY);
+		System.out.print(sendResult);
 		
 	}
 	

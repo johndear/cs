@@ -49,12 +49,12 @@ function serviceExecutor(){
                     if(false === data['success']){
                         if('ERROR' == data['type']){
                             chatroom.sendTimeTips();
-                           // chatroom.sendTips(data['extendMsg']);
-                            chatroom.sendTips(templateProp[data['extendMsg']]);
+                           chatroom.sendTips(data['extendMsg']);
+                            //chatroom.sendTips(templateProp[data['extendMsg']]);
                         }else if('REFUSE' == data['type']){
                             chatroom.sendTimeTips();
-                            //chatroom.sendTips("亲，现在反馈的人太多了。为避免您长时间等待，建议您到 <a href='"+ window['feedback'] + "' target='_blank'>意见反馈</a> 反馈相关问题建议。");
-                            chatroom.sendTips(formatLink(templateProp['apply_failed'],"<a href='"+ window['feedback'] + "' target='_blank'>","</a>"));
+                            chatroom.sendTips("亲，现在反馈的人太多了。为避免您长时间等待，建议您到 <a href='"+ window['feedback'] + "' target='_blank'>意见反馈</a> 反馈相关问题建议。");
+                           // chatroom.sendTips(formatLink(templateProp['apply_failed'],"<a href='"+ window['feedback'] + "' target='_blank'>","</a>"));
                         }else{
                             setTimeout(function(){applyService(url, dialogId, userId, content)}, interval);
                         }
@@ -104,8 +104,8 @@ function serviceExecutor(){
         	}catch(e){
         		console.log(e.message);
         		monitorMaper['customer'].contactErrorDisconnect();
-        		//chatroom.sendTips('由于网络原因，您无法与客服建立连接，若还需要客服的服务，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">刷新重连</a>或重新从帮助中心进入');
-        		chatroom.sendTips(formatLink(templateProp['timer_networkIssue'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
+        		chatroom.sendTips('由于网络原因，您无法与客服建立连接，若还需要客服的服务，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">刷新重连</a>或重新从帮助中心进入');
+        		//chatroom.sendTips(formatLink(templateProp['timer_networkIssue'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
         	}
         });
     };
@@ -286,10 +286,10 @@ var startCustomerMonitor = function(){
     var data = {
         wait: waitMinute * 60,  // 不说话断开连接，单位s
         delay: delaySecond,  // 延时断开, 单位s
-        //tips: '亲，您已超过' + waitMinute + '分钟没有说话，倒数 <b>xxx</b> s后会自动断开连接。若您还需要客服的服务，请反馈问题',
-        //disconnect: '亲，由于您' + timeout + '分钟内没有任何操作，已经自动退出客服会话，如需帮助，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>'
-        tips: format(templateProp['timer_closing'],waitMinute,'<b>xxx</b>'),
-        disconnect: formatLink(format(templateProp['timer_closed'],timeout),"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>")
+        tips: '亲，您已超过' + waitMinute + '分钟没有说话，倒数 <b>xxx</b> s后会自动断开连接。若您还需要客服的服务，请反馈问题',
+        disconnect: '亲，由于您' + timeout + '分钟内没有任何操作，已经自动退出客服会话，如需帮助，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>'
+        //tips: format(templateProp['timer_closing'],waitMinute,'<b>xxx</b>'),
+        //disconnect: formatLink(format(templateProp['timer_closed'],timeout),"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>")
     };
     return customerMonitor(data);
 };
@@ -461,11 +461,11 @@ function customerMonitor(data) {
         if($("#dialogId").val() == eventDialogId) {
             chatroom.sendTimeTips();
             if("auto"==type){
-            	//chatroom.sendTips('因网络问题，已重新连接客服为您服务。');
-            	chatroom.sendTips(templateProp['change_reconnectTips']);
+            	chatroom.sendTips('因网络问题，已重新连接客服为您服务。');
+            	//chatroom.sendTips(templateProp['change_reconnectTips']);
             }else if(templateProp[key]){
-            	//chatroom.sendTips('已转由客服'+ nickName +'为您服务。');
-            	chatroom.sendTips(format(templateProp[key],nickName));
+            	chatroom.sendTips('已转由客服'+ nickName +'为您服务。');
+            	//chatroom.sendTips(format(templateProp[key],nickName));
             }
         }
     };
@@ -473,16 +473,16 @@ function customerMonitor(data) {
         if($("#dialogId").val() == eventDialogId) {
             imHandler.close(eventDialogId);
             chatroom.sendTimeTips();
-            //chatroom.sendTips('由于网络原因，您已经与客服断开连接，若还需要客服的服务，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>');
-            chatroom.sendTips(formatLink(templateProp['offline_NetworkIssueQuit'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
+            chatroom.sendTips('由于网络原因，您已经与客服断开连接，若还需要客服的服务，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>');
+            //chatroom.sendTips(formatLink(templateProp['offline_NetworkIssueQuit'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
             revalue();
         }
     };
     function onlineClose(eventDialogId){
         if($("#dialogId").val() == eventDialogId) {
             chatroom.sendTimeTips();
-           // chatroom.sendTips('亲，本次服务已结束。请您为我的服务评价。祝您生活愉快！');
-            chatroom.sendTips(templateProp['evaluate_closedTips']);
+            chatroom.sendTips('亲，本次服务已结束。请您为我的服务评价。祝您生活愉快！');
+            //chatroom.sendTips(templateProp['evaluate_closedTips']);
             revalue();
             imHandler.close($("#dialogId").val());
         }
@@ -490,8 +490,8 @@ function customerMonitor(data) {
     function offlineClose(eventDialogId){
         if($("#dialogId").val() == eventDialogId) {
             chatroom.sendTimeTips();
-            //chatroom.sendTips('亲，您已经与客服断开连接，若还需要客服的服务，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>');
-            chatroom.sendTips(formatLink(templateProp['offline_closed'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
+            chatroom.sendTips('亲，您已经与客服断开连接，若还需要客服的服务，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>');
+            //chatroom.sendTips(formatLink(templateProp['offline_closed'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
             revalue();
         }
     };
@@ -599,8 +599,8 @@ var uploadImg = function () {
                                 chatroom.scrollBottom();
                             });
                         } else {
-                            //chatroom.sendTips(data['message']);
-                        	chatroom.sendTips(templateProp[data['message']]);
+                            chatroom.sendTips(data['message']);
+                        	//chatroom.sendTips(templateProp[data['message']]);
                         }
                     },
                     error: function (xhr) {
@@ -609,8 +609,8 @@ var uploadImg = function () {
                     }
                 });
             } else {
-                //chatroom.sendTips('上传的文件格式有误，请以.jpg,.jpeg,.png的图片上传。');
-            	chatroom.sendTips(templateProp[data['message']]);
+                chatroom.sendTips('上传的文件格式有误，请以.jpg,.jpeg,.png的图片上传。');
+            	//chatroom.sendTips(templateProp[data['message']]);
                 return false;
             }
         } else {

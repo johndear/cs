@@ -15,18 +15,18 @@ faceInit();
 // 优化手机点击事件
 window.FastClick.attach(document.body);
 // demo -- 获取模板信息
-var templateProp = eval('('+$('#templateProp').val()+')');
+// var templateProp = eval('('+$('#templateProp').val()+')');
 
 var messages = {
-	title : templateProp['chat_title'],
-	welcome : templateProp['chat_welcome'],
+	title : 'UC在线客服',
+	welcome : '您好，请一句话完整描述您的问题，以便我们为您安排专业的客服。',
 	notlogin : '',
-	connecting : templateProp['chat_conneting'],
+	connecting : '亲，正在为您连接客服，请耐心等待。',
 	//connected : '客服连接成功。客服{0}已进入会话为您服务。',
-	connected : templateProp['apply_connected'],
+	connected : '客服连接成功。客服{0}已进入会话为您服务。',
 	//evaluation : '为了更好地帮助UC姐成长，请稍后对本次服务评价，么么哒~',
-	evaluation : templateProp['chat_evaluation'],
-	wait : templateProp['chat_wait']
+	evaluation : '为了更好地帮助UC姐成长，请稍后对本次服务评价，么么哒。',
+	wait : '亲，正在为您跟进，请您耐心等待。'
 }
 
 /**
@@ -135,7 +135,9 @@ function chatroomInit() {
                     send(data);
                     if(serviceExecutor.isRestart() === false){
                         data['content'] = content;
-                        imHandler.send(data);//发送消息
+//                        alert(JSON.stringify(data));
+                        sendServer(data);
+                        //imHandler.send(data);//发送消息
                         //startServiceMonitor();//开启客服回复监控
                     }
                 }else{
@@ -146,8 +148,8 @@ function chatroomInit() {
                     data['content'] = content;
                     serviceExecutor.addContents(data);
                     if((monitorMaper['customer'].isDisconnected() === true) && (serviceExecutor.isRestart() === false)) {
-                        //sendTips('亲，由于您已经退出客服会话，如需帮助，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>');
-                    	sendTips(formatLink(templateProp['offiline_quit'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
+                        sendTips('亲，由于您已经退出客服会话，如需帮助，请<a href="javascript:void(0);" onclick="serviceExecutor.restartExecutor(this);" style="">重新连接</a>');
+                    	//sendTips(formatLink(templateProp['offiline_quit'],"<a href='javascript:void(0);' onclick='serviceExecutor.restartExecutor(this);' style=''>","</a>"));
                     }else{
                         sendTips(messages.connecting);
                     }
@@ -155,6 +157,15 @@ function chatroomInit() {
                 input.value = '';
             }
         });
+
+        function sendServer(data){
+             $.ajax({
+                        url: '../../cs/UserController/send',
+                        data: {uid:$("#userId").val(), dialogId: $("#dialogId").val(), content: JSON.stringify(data)},
+                        dataType: "script",
+                        cache: true
+                    });
+        }
 
         myUtil.addHandle(input, 'blur', function(){
             if (input.value && keyboardFlag) {
@@ -263,7 +274,7 @@ function chatroomInit() {
             	//如果系统已经提示倒计时信息，创建一条新的倒计时信息
             	if(isReciprocal == true && !data.isSystem){
             		updateEvaluateBtn();
-            		data.content = format(templateProp['timer_closing'],waitMinute,'<b> &nbsp;&nbsp; </b>');
+            		data.content = format('亲，您已超过{0}分钟没有说话，倒数 {1} s后会自动断开连接。若您还需要客服的服务，请反馈问题。',waitMinute,'<b> &nbsp;&nbsp; </b>');
             		render(tmpl('talk_tmpl', data));
                 }
                 /**客服发送消息，开启用户回复的监控，并取消对自己的监控，如果3分钟无回复，则显示提醒，倒计时60秒**/
@@ -522,8 +533,8 @@ function evaluateInit() {
                 hide();
                 chatroom.hideWidge();
                 chatroom.sendTimeTips();
-                //chatroom.sendTips('评价成功。谢谢亲的建议！');
-                chatroom.sendTips(templateProp['evaluate_evaluateSuccess']);
+                chatroom.sendTips('评价成功。谢谢亲的建议！');
+                //chatroom.sendTips(templateProp['evaluate_evaluateSuccess']);
                 
                 // 评价时，如果开始倒数，保留倒计时
                 if(chatroom.isReciprocal()){
