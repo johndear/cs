@@ -77,17 +77,17 @@ public class UserController extends BaseController{
 	public static void send(Long uid, Long dialogId, String content){
 		
 		// 创建会话
-		String createResult = dialogAPI.create(dialogId, "1", 300, "lisi");
+		String createResult = dialogAPI.create(dialogId, uid.toString(), 300, "lisi");
 		
 		// 拿该用户最近的一次会话
 		
 		// 如果该会话分配过客服，就取上一次的客服进行对话
 		
-		Long customerId = dialogService.assignment(0L);
+		Long customerId = dialogService.assignment(3005L);
 		
 		 // 发送第一条消息- （建议在后台进行消息发送）
 //        dialogService.send(customerId,dialogId, "CHAT", JSONObject.toJSONString(contentParams), Constants.IM_CUSTOMER_SCENE_KEY);
-		String sendResult = dialogAPI.send(customerId.toString(), dialogId, "CHAT", content, Constants.IM_CUSTOMER_SCENE_KEY);
+		String sendResult = dialogAPI.send(uid.toString(), dialogId, "CHAT", content, Constants.IM_CUSTOMER_SCENE_KEY);
 		System.out.print(sendResult);
 		
 	}

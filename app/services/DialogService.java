@@ -8,7 +8,7 @@ public class DialogService {
 	// 按优先级、最大处理量、正在服务量顺序，分配客服（考虑：1、同部门；2、客服服务量必须小于最大量-区分不同渠道）
 	public Long assignment(Long dialogId) {
 		
-		return 0L;
+		return dialogId;
 	}
 	
 	// 会话主动关闭
