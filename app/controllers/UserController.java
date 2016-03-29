@@ -41,7 +41,8 @@ public class UserController extends BaseController{
 		Map<String,Object> pageParamters = new HashMap<String,Object>();
 		boolean isNew = false;
 		Long dialogId = 123456L;
-		Long userId = 1L;
+		Long userId = uid;
+		Long servicerId = 3005L;
 		String talkerName = null;
 		String uaeCompressRoot = null;
 		String uaeUncompressRoot = null;
@@ -63,8 +64,8 @@ public class UserController extends BaseController{
 		String isUCen = null;
 		String serverDate = null;
 		
-		// 临时创建会话,满足前端初始化$.csim()
-//		String createResult = dialogAPI.create(dialogId, userId.toString(), 300, "lisi");
+		// 创建会话
+		String createResult = dialogAPI.create(dialogId, userId.toString(), servicerId, "lisi");
 		
 		render("user/chat.html", isNew, dialogId, userId, talkerName, uaeCompressRoot, uaeUncompressRoot, isDev,
 				cookieName, flagCookieName, customerParameter, csimParameter, instance, isImge, sys, islogin,
@@ -75,9 +76,6 @@ public class UserController extends BaseController{
 	
 	// 用户发送消息
 	public static void send(Long uid, Long dialogId, String content){
-		
-		// 创建会话
-		String createResult = dialogAPI.create(dialogId, uid.toString(), 300, "lisi");
 		
 		// 拿该用户最近的一次会话
 		
