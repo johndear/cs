@@ -127,89 +127,92 @@ function getSmpFormatDateByLong(long, isFull) {
 	return getSmpFormatDate(new Date(long), isFull); 
 } 
 
-// 获取服务器当前时间
-function getServerTime(){
-    var xmlHttp = false;
-	try {
-		xmlHttp = new XMLHttpRequest();
-	}catch(e) {
-		var IEXHRVers =["Msxml3.XMLHTTP", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP"];
-		for (var i=0, len=IEXHRVers.length; i< len;i++) {
-			try {
-				xmlHttp = new ActiveXObject(IEXHRVers[i]);
-			}catch(e) {
-				continue;
-			}
-		}
-	}
-     
-    xmlHttp.open("HEAD",  "/csos/customer/CustomersController/getServerTime?rnd=" + new Date().valueOf(), false);
-    xmlHttp.setRequestHeader("Range", "bytes=-1");
-    xmlHttp.send(null);
-    
-    // 从response header中,获取服务器当前时间
- // 从response header中,获取用户端时区标准时间
-    var ServerDate = xmlHttp.getResponseHeader("ServerDate");
-    if(!ServerDate){
-    	ServerDate = new Date();
-    }else{
-    	ServerDate = parseDate(ServerDate);
-    }
-    return ServerDate;
-}
+//// 获取服务器当前时间
+//function getServerTime(){
+//    var xmlHttp = false;
+//	try {
+//		xmlHttp = new XMLHttpRequest();
+//	}catch(e) {
+//		var IEXHRVers =["Msxml3.XMLHTTP", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP"];
+//		for (var i=0, len=IEXHRVers.length; i< len;i++) {
+//			try {
+//				xmlHttp = new ActiveXObject(IEXHRVers[i]);
+//			}catch(e) {
+//				continue;
+//			}
+//		}
+//	}
+//
+//    xmlHttp.open("HEAD",  "/csos/customer/CustomersController/getServerTime?rnd=" + new Date().valueOf(), false);
+//    xmlHttp.setRequestHeader("Range", "bytes=-1");
+//    xmlHttp.send(null);
+//
+//    // 从response header中,获取服务器当前时间
+// // 从response header中,获取用户端时区标准时间
+//    var ServerDate = xmlHttp.getResponseHeader("ServerDate");
+//    if(!ServerDate){
+//    	ServerDate = new Date();
+//    }else{
+//    	ServerDate = parseDate(ServerDate);
+//    }
+//    return ServerDate;
+//}
+//
+//// 获取本地时区时间
+//function getLocalTime(){
+//	// 当地时区(比如北京为东八区为8,美国华盛顿为西5区为-5)
+//	var timezone = (new Date().getTimezoneOffset()/60)*(-1);
+//
+//	var xmlHttp = false;
+//	try {
+//		xmlHttp = new XMLHttpRequest();
+//	}catch(e) {
+//		var IEXHRVers =["Msxml3.XMLHTTP", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP"];
+//		for (var i=0, len=IEXHRVers.length; i< len;i++) {
+//			try {
+//				xmlHttp = new ActiveXObject(IEXHRVers[i]);
+//			}catch(e) {
+//				continue;
+//			}
+//		}
+//	}
+//
+//    xmlHttp.open("HEAD",  "/csos/customer/CustomersController/getLocalTime?timeZoneOffset=" + timezone + "&rnd="+ new Date().valueOf(), false);
+//    xmlHttp.setRequestHeader("Range", "bytes=-1");
+//    xmlHttp.send(null);
+//
+//    // 从response header中,获取用户端时区标准时间
+//    var LocalDate = xmlHttp.getResponseHeader("LocalDate");
+//    if(!LocalDate){
+//    	LocalDate = new Date();
+//    }else{
+//    	LocalDate = parseDate(LocalDate);
+//    }
+//    return LocalDate;
+//}
+//
+//// 用户所在时区
+//var timezone = (new Date().getTimezoneOffset()/60)*(-1);
+//
+//// liusu 本地计时器，客服北京时间、用户标准时间计时表（避免重复向后台发送请求）
+//var serverTimer = null;
+//var serverDate = null;
+//var localDate = null;
+//var serverTime = getServerTime().getTime();
+//var localTime = timezone == 8 ? serverTime : getLocalTime().getTime();
+//function serverTimedCount(){
+//	serverTime = serverTime + 1000;
+//	localTime = timezone == 8 ? serverTime : localTime + 1000;
+//	serverDate = parseDate(getFormatDateByLong(serverTime, 'yyyy-MM-dd HH:mm:ss'));
+//	localDate = parseDate(getFormatDateByLong(localTime, 'yyyy-MM-dd HH:mm:ss'));
+////	console.log(serverTime +"==="+ localTime);
+//
+//	serverTimer = setTimeout(serverTimedCount, 1000);
+//}
+//serverTimedCount();
 
-// 获取本地时区时间
-function getLocalTime(){
-	// 当地时区(比如北京为东八区为8,美国华盛顿为西5区为-5)
-	var timezone = (new Date().getTimezoneOffset()/60)*(-1);
-	
-	var xmlHttp = false;
-	try {
-		xmlHttp = new XMLHttpRequest();
-	}catch(e) {
-		var IEXHRVers =["Msxml3.XMLHTTP", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP"];
-		for (var i=0, len=IEXHRVers.length; i< len;i++) {
-			try {
-				xmlHttp = new ActiveXObject(IEXHRVers[i]);
-			}catch(e) {
-				continue;
-			}
-		}
-	}
-     
-    xmlHttp.open("HEAD",  "/csos/customer/CustomersController/getLocalTime?timeZoneOffset=" + timezone + "&rnd="+ new Date().valueOf(), false);
-    xmlHttp.setRequestHeader("Range", "bytes=-1");
-    xmlHttp.send(null);
-    
-    // 从response header中,获取用户端时区标准时间
-    var LocalDate = xmlHttp.getResponseHeader("LocalDate");
-    if(!LocalDate){
-    	LocalDate = new Date();
-    }else{
-    	LocalDate = parseDate(LocalDate);
-    }
-    return LocalDate;
-}
-
-// 用户所在时区
-var timezone = (new Date().getTimezoneOffset()/60)*(-1);
-
-// liusu 本地计时器，客服北京时间、用户标准时间计时表（避免重复向后台发送请求）
-var serverTimer = null;
-var serverDate = null;
-var localDate = null;
-var serverTime = getServerTime().getTime();
-var localTime = timezone == 8 ? serverTime : getLocalTime().getTime();
-function serverTimedCount(){
-	serverTime = serverTime + 1000;
-	localTime = timezone == 8 ? serverTime : localTime + 1000;
-	serverDate = parseDate(getFormatDateByLong(serverTime, 'yyyy-MM-dd HH:mm:ss'));
-	localDate = parseDate(getFormatDateByLong(localTime, 'yyyy-MM-dd HH:mm:ss'));
-//	console.log(serverTime +"==="+ localTime);
-	
-	serverTimer = setTimeout(serverTimedCount, 1000);
-}
-serverTimedCount();
+var serverDate = new Date();
+var localDate = new Date();
 
 /**
  * 测试
