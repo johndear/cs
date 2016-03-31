@@ -2,4 +2,29 @@ https://www.playframework.com/modules/mybatisplay
 
 http://showcase.ngnice.com/
 
+Idea
 https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_version
+
+
+
+
+
+
+
+
+
+
+前端ui
+Bootstrap 2.3（支持  IE7.0+）
+Bootstrap 3（支持  IE8.0+） 
+Foundation（支持  IE9.0+）
+前端框架
+Backbone.js      http://www.css88.com/doc/backbone/
+Underscore.js    http://www.css88.com/doc/underscore/
+jQuery
+RequireJS
+Zepto.js（文件小，移动端开发更好，不支持IE，与jquery不兼容）  http://www.css88.com/doc/zeptojs_api/
+sass（支持动态css）
+
+Google developers
+Make the Web Faster静态资源引用：https://developers.google.com/speed/libraries/
