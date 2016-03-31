@@ -51,7 +51,7 @@ public class UserController extends BaseController{
 		String flagCookieName = null;
 		CustomerParameter customerParameter = new CustomerParameter("", 1l, instance, "");
 		 //csim请求参数
-        CsimParameter csimParameter = new CsimParameter(userId);
+        CsimParameter csimParameter = new CsimParameter(userId.toString(), dialogId);
 		String isImge = null;
 		String sys = "";
 		String islogin = null;
