@@ -41,9 +41,24 @@ public class DialogModel extends Model {
 
 	@Column(name="status")
 	private int status;
+	
+	@Column(name="create_date")
+	private Date createDate;
 
 	public DialogModel() {
 	}
+	
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+
 
 	public String getInstance() {
 		return instance;

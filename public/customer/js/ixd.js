@@ -91,7 +91,8 @@ function serviceExecutor(){
             cache: true
         }).done(function() {
         	try{
-        		imHandler.start();
+        		alert('123');
+//        		imHandler.start();
                 chatroom.sendTimeTips();
             	chatroom.sendTips(format(messages.connected, data['extendMsg']['nickName']));
                 chatroom.sendTips(messages.evaluation);

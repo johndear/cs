@@ -137,7 +137,7 @@ function chatroomInit() {
                         data['content'] = content;
 //                        alert(JSON.stringify(data));
                         sendServer(data);
-                        //imHandler.send(data);//发送消息
+//                        imHandler.send(data);//发送消息
                         //startServiceMonitor();//开启客服回复监控
                     }
                 }else{
@@ -161,7 +161,7 @@ function chatroomInit() {
         function sendServer(data){
              $.ajax({
                         url: '../../cs/UserController/send',
-                        data: {uid:$("#userId").val(), dialogId: $("#dialogId").val(), content: JSON.stringify(data)},
+                        data: {userId:$("#userId").val(), dialogId: $("#dialogId").val(), content: JSON.stringify(data)},
                         dataType: "script",
                         cache: true
                     });

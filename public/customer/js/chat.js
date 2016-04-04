@@ -231,6 +231,7 @@ var cImHandler = function(){
     		for (var index = 0; index < events.length; index++) {
                 var event = events[index];
                 var eventType = event.type;
+                console.log('--- dialogHandler '+eventType + ',method:' + method);
                 switch (eventType) {
                     case 'INIT_DIALOG':
                         console.log("INIT_DIALOG..............");
@@ -292,6 +293,7 @@ var cImHandler = function(){
         userId = $("#userId").val();
         userType = $("#userType").val();
         dialogId = $("#dialogId").val();
+        console.log('--- 1 start');
         customerIM = $.csim({
             isSimple : true,
             packetSize : 100,
@@ -302,6 +304,7 @@ var cImHandler = function(){
         customerIM.select(dialogId, 0);
     };
     var history = function(){
+    	console.log('--- 2 history');
         dialogId = $("#dialogId").val();
         customerIM.history(dialogId, 0);
     }
