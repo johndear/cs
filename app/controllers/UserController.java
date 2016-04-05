@@ -32,9 +32,11 @@ public class UserController extends BaseController{
 	@Inject
 	static DialogService dialogService;
 
-	// 用户进线
+	// 用户进线 -- 1、新用户； 2、老用户-刷新,加载longpolling.js和历史记录
 	public static void into(String instance, Long sourceId, Long userId){
 		// TODO 安全校验 add by suff 2015-06-11
+		
+		boolean isNew = false;
 				
 		// 如果当前用户有现成的会话，就不用创建新的会话
 		DialogModel dialog = DialogModel.find("uid=? and status=?", userId, models.enums.DialogState.ASSIGNMENT.ordinal()).first();
@@ -42,6 +44,8 @@ public class UserController extends BaseController{
 			// 登录成功后回调到用户端聊天区
 //			redirect("");
 		}else{
+			isNew = true;
+			
 			// 创建新的会话
 			dialog = new DialogModel();
 			dialog.setSourceId(sourceId);
@@ -50,13 +54,6 @@ public class UserController extends BaseController{
 			dialog.setUid(userId);
 			dialog.setCreateDate(new Date());
 			dialog.save();
-			
-			// temp
-			Long customerId = 3005L; // TODO 在用户发第一句话之后
-			// 创建会话 -- 正常逻辑：等用户发第一句的时候才调用
-			String createResult = dialogAPI.create(dialog.getId(), userId.toString(), customerId, "lisi");
-			System.out.println("... into :" + createResult);
-			
 		}
 		
 		Long dialogId = dialog.getId();
@@ -82,7 +79,6 @@ public class UserController extends BaseController{
 		String serverDate = null;
 		
 		Map<String,Object> pageParamters = new HashMap<String,Object>();
-		boolean isNew = false; // 是否是新进来的用户true代表新建来，false代表是在聊天中刷新页面 false：加载longpolling.js和历史记录
 		render("user/chat.html", isNew, dialogId, userId, talkerName, uaeCompressRoot, uaeUncompressRoot, isDev,
 				cookieName, flagCookieName, customerParameter, csimParameter, instance, isImge, sys, islogin,
 				jymLoginUrl, jymUserUrl,isReportable,csosUrl,customerId,sourceCount,isUCen, serverDate);
