@@ -54,6 +54,7 @@ public class UserController extends BaseController{
 			dialog.setUid(userId);
 			dialog.setCreateDate(new Date());
 			dialog.save();
+			
 		}
 		
 		Long dialogId = dialog.getId();
