@@ -25,6 +25,14 @@ import services.impl.Work;
 import api.CsimParameter;
 import base.SecureController;
 
+/**
+ * 重点：
+ * 1、客服聊天记录时间显示
+ * 2、客服工作台用户服务量
+ * 
+ * @author Administrator
+ *
+ */
 public class CustomerController extends SecureController{
 	
 	// 在线客服--需要在启动的时候初始化（防止服务器重启将在线客服丢失，造成重新上班的情况）
