@@ -106,7 +106,7 @@ public class UserController extends BaseController{
 		}
 		
 		if(dialog.getCustomerId()==null){
-			// 在用户发第一句话之后
+			// 在用户发第一句话之后  -- 可以重试12次
 			Long customerId = dialogService.assignment(3005L);
 			
 			// 创建会话
@@ -122,18 +122,26 @@ public class UserController extends BaseController{
 	         }
 		}
 
-		// 如果该会话分配过客服，就取上一次的客服进行对话
-		
-		 // 发送第一条消息- （建议在后台进行消息发送）
-//        dialogService.send(customerId,dialogId, "CHAT", JSONObject.toJSONString(contentParams), Constants.IM_CUSTOMER_SCENE_KEY);
 		String sendResult = dialogAPI.send(userId.toString(), dialogId, "CHAT", content, Constants.IM_CUSTOMER_SCENE_KEY);
 		System.out.println(sendResult);
+	}
+	
+	// 用户在线超时关闭 -- 倒计时1分钟由前端触发（不可靠）
+	public static void onlineTimeoutClose(Long uid, Long dialogId){
+		DialogModel dialog = dialogService.unexpectedClose(dialogId);
+		
+		// 通知客服
+		dialogAPI.notifyServicer(dialog.getCustomerId(), dialogId, uid.toString(), Constants.EVENT_ONLINE_CLOSE, null);
 		
 	}
 	
-	// 用户离开
-	public static void leave(Long uid, Long dialogId){
-		dialogService.unexpectedClose();
+	// 用户关闭浏览器、网络异常断开 -- 系统实时监控（怎么做到实时监控用户掉线了？）
+	public static void unexpectedClose(Long uid, Long dialogId){
+		DialogModel dialog = dialogService.unexpectedClose(dialogId);
+		
+		// 通知客服
+		dialogAPI.notifyServicer(dialog.getCustomerId(), dialogId, uid.toString(), Constants.EVENT_OFFLINE_CLOSE, null);
+
 	}
 	
 	
