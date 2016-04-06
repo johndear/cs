@@ -139,7 +139,7 @@ public class UserController extends BaseController{
 		
 	}
 	
-	// 用户关闭浏览器、网络异常断开 -- 系统实时监控（怎么做到实时监控用户掉线了？）
+	// 用户关闭浏览器、网络异常断开 -- 系统实时监控（怎么做到实时监控用户掉线了？）--推荐方案：websocket
 	public static void unexpectedClose(Long uid, Long dialogId){
 		DialogModel dialog = dialogService.unexpectedClose(dialogId);
 		
