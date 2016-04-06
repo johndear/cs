@@ -130,6 +130,10 @@ public class UserController extends BaseController{
 	public static void onlineTimeoutClose(Long uid, Long dialogId){
 		DialogModel dialog = dialogService.unexpectedClose(dialogId);
 		
+		// 调用csim关闭会话
+		dialogAPI.servicerClose(dialog.getCustomerId(), dialog.getId());
+		dialogAPI.customerClose(dialog.getUid().toString(), dialog.getId());
+		
 		// 通知客服
 		dialogAPI.notifyServicer(dialog.getCustomerId(), dialogId, uid.toString(), Constants.EVENT_ONLINE_CLOSE, null);
 		
@@ -138,6 +142,10 @@ public class UserController extends BaseController{
 	// 用户关闭浏览器、网络异常断开 -- 系统实时监控（怎么做到实时监控用户掉线了？）
 	public static void unexpectedClose(Long uid, Long dialogId){
 		DialogModel dialog = dialogService.unexpectedClose(dialogId);
+		
+		// 调用csim关闭会话
+		dialogAPI.servicerClose(dialog.getCustomerId(), dialog.getId());
+		dialogAPI.customerClose(dialog.getUid().toString(), dialog.getId());
 		
 		// 通知客服
 		dialogAPI.notifyServicer(dialog.getCustomerId(), dialogId, uid.toString(), Constants.EVENT_OFFLINE_CLOSE, null);

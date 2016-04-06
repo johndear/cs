@@ -176,19 +176,29 @@ public class DialogAPI {
      * create on: 2015-6-3
      */
     public String servicerClose(long servicerId, long dialogId){
-        Map<String, String> params = new HashMap<String, String>(5);
-        params.put("userId", String.valueOf(servicerId));
-        params.put("userType", Constants.IM_SERVICER_TYPE);
-        params.put("dialogId", String.valueOf(dialogId));
-        params.put("sign", signService(new TreeMap<String, Object>(params)));
-        params.put("sceneKey", Constants.IM_SERVICE_SCENE_KEY);
-        Map<String, String> result = webServiceInvoke(IM_CLOSE, params);
-        if (Boolean.parseBoolean(result.get("success"))) {
-            return result.get("message");
-        }else {
-        	NotifiersMail.error("DialogService.servicerClose", dialogId+"", "[DialogService.servicerClose]", "servicerClose error : %s", result);
-            return "{'status':'" + result.get("status") + "','message':'{" + String.format("关闭客服对话失败，userId=%s, 对话id=%d，状态返回码=%s", servicerId, dialogId, result.get("status")) + "}'}";
-        }
+//    	// 重试3次
+//        int count = 0;
+//        while (count < Constants.OFFLINE_CHANGE_TIME) {
+//        	try {
+		        Map<String, String> params = new HashMap<String, String>(5);
+		        params.put("userId", String.valueOf(servicerId));
+		        params.put("userType", Constants.IM_SERVICER_TYPE);
+		        params.put("dialogId", String.valueOf(dialogId));
+		        params.put("sign", signService(new TreeMap<String, Object>(params)));
+		        params.put("sceneKey", Constants.IM_SERVICE_SCENE_KEY);
+		        Map<String, String> result = webServiceInvoke(IM_CLOSE, params);
+		        if (Boolean.parseBoolean(result.get("success"))) {
+		            return result.get("message");
+		        }else {
+		        	NotifiersMail.error("DialogService.servicerClose", dialogId+"", "[DialogService.servicerClose]", "servicerClose error : %s", result);
+		            return "{'status':'" + result.get("status") + "','message':'{" + String.format("关闭客服对话失败，userId=%s, 对话id=%d，状态返回码=%s", servicerId, dialogId, result.get("status")) + "}'}";
+		        }
+//        	} catch (Exception e) {
+//                Logger.error(e,"[DialogController.offlineTimeoutClose]调用csim接口关闭客服会话出错。%s", e.getMessage());
+//            }
+//        	Thread.sleep(2000);
+//	        count++;
+//        }
     }
     
     /**
