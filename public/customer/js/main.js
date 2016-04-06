@@ -130,6 +130,7 @@ function chatroomInit() {
                     avatar: DEFAULT_USER_AVATAR,
                     content: content
                 };
+                console.log('--- sendBtn click:' + serviceExecutor.isServicing());
                 if(serviceExecutor.isServicing()) {//客服为其服务中
                     data.start = true;
                     send(data);
@@ -137,13 +138,14 @@ function chatroomInit() {
                         data['content'] = content;
 //                        alert(JSON.stringify(data));
                         sendServer(data);
-//                        imHandler.send(data);//发送消息
+//                        imHandler.send(data);   -- liusu 发送消息
                         //startServiceMonitor();//开启客服回复监控
                     }
                 }else{
                     data.start = false;
                     send(data);
-                    serviceExecutor.startExecutor(content);
+                    sendServer(data);
+//                    serviceExecutor.startExecutor(content); -- liusu 分配客服
                     //将用户的第一次的话插入页面中，分配成功后清空
                     data['content'] = content;
                     serviceExecutor.addContents(data);

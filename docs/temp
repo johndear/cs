@@ -1,0 +1,4 @@
+DELETE FROM `im_gc_mall_dialog` WHERE dialog_id=163;
+DELETE FROM `im_gc_mall_dialog_joined_user` WHERE dialog_id=163;
+DELETE FROM `im_portal_user_joined_dialog` WHERE dialog_id=163;
+DELETE FROM `im_open_user_joined_dialog` WHERE dialog_id=163;
