@@ -38,12 +38,10 @@ public class UserController extends BaseController{
 	@Inject
 	static DialogService dialogService;
 
+	// TODO 安全校验
 	// 用户进线 -- 1、新用户； 2、老用户-刷新,加载longpolling.js和历史记录
 	public static void into(String instance, Long sourceId, Long userId){
-		// TODO 安全校验 add by suff 2015-06-11
-		
-		boolean isNew = false;
-		
+		boolean isNew = true;
 		List<Integer> status =new ArrayList<Integer>();
 		status.add(DialogState.NEW.ordinal());
 //		StringUtils.join(status.toArray(),",")
@@ -52,17 +50,13 @@ public class UserController extends BaseController{
 		DialogModel dialog = DialogModel.find("uid=? and (status=? or status=? or status=?) order by createDate desc", userId, DialogState.NEW.ordinal(), DialogState.WAIT.ordinal(), DialogState.ASSIGNMENT.ordinal()).first();
 		if(dialog!=null && DateUtil.getDifferMinutes(dialog.getCreateDate(), new Date()) <= 30){
 			// 存在有效的会话
-			
-			// 登录成功后回调到用户端聊天区
-//			redirect("");
+			isNew = false;
 		}else{
 			// 关闭已过期的会话
 			if(dialog != null){
 				dialog.setStatus(DialogState.CLOSE.ordinal());
 				dialog.save();
 			}
-			
-			isNew = true;
 			
 			// 创建新的会话
 			dialog = new DialogModel();
