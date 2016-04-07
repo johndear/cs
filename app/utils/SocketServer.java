@@ -28,8 +28,10 @@ public class SocketServer extends WebSocketServer {
         String sessionId = param.substring(param.indexOf("=") + 1); //  客户端参数
         entry.put(conn, sessionId); // 存储socket实例和sessionid的对应关系
         Set<WebSocket> socs = entry.keySet();
+        int i =1;
         for(WebSocket socket : socs){
-//            socket.send(socketClientSet.size() + "");
+        	i = i+1;
+            socket.send(String.valueOf(i));
         }
         Logger.debug("IP address: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() + " -> connect to server successful.");
     }
