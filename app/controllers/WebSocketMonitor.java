@@ -13,6 +13,9 @@ import play.Logger;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
+// 1、可以实时监控，客服、用户上线及下线情况
+// 2、减少长轮询请求的次数、减少消耗系统资源
+// 3、实时消息传递
 @OnApplicationStart
 public class WebSocketMonitor extends Job{
 	
