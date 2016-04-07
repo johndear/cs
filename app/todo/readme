@@ -1,0 +1,5 @@
+play websocket实现
+https://playframework.com/documentation/1.2.4/asynchronous
+
+参考samples
+%play_home%/samples-and-tests/chat
