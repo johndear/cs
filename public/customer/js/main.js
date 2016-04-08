@@ -133,7 +133,7 @@ function chatroomInit() {
                 console.log('--- sendBtn click:' + serviceExecutor.isServicing());
                 if(serviceExecutor.isServicing()) {//客服为其服务中
                     data.start = true;
-                    send(data);
+//                    send(data); -- liusu 临时去掉
                     if(serviceExecutor.isRestart() === false){
                         data['content'] = content;
 //                        alert(JSON.stringify(data));
@@ -143,7 +143,7 @@ function chatroomInit() {
                     }
                 }else{
                     data.start = false;
-                    send(data);
+//                    send(data); -- liusu 临时去掉
                     sendServer(data);
 //                    serviceExecutor.startExecutor(content); -- liusu 分配客服
                     //将用户的第一次的话插入页面中，分配成功后清空
@@ -161,12 +161,14 @@ function chatroomInit() {
         });
 
         function sendServer(data){
-             $.ajax({
-                        url: '../../cs/UserController/send',
-                        data: {userId:$("#userId").val(), dialogId: $("#dialogId").val(), content: JSON.stringify(data)},
-                        dataType: "script",
-                        cache: true
-                    });
+        	webSocket.send(data.content);
+        	
+//             $.ajax({
+//                        url: '../../cs/UserController/send',
+//                        data: {userId:$("#userId").val(), dialogId: $("#dialogId").val(), content: JSON.stringify(data)},
+//                        dataType: "script",
+//                        cache: true
+//                    });
         }
 
         myUtil.addHandle(input, 'blur', function(){

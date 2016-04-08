@@ -268,6 +268,14 @@
 	function onMessage(event) {
 		//document.getElementById('messages').innerHTML += '<br />' + event.data;
 		console.log("onMessage: ", event);
+		chatroom.send({
+	        start: false,
+	        isSystem: true,
+	        role: 'service',
+	        type: 'talk',
+	        avatar: "${uaeCompressRoot}/cs/public/images/service_avatar.png",
+	        content: event.data
+	    });
 	}
 
 	function onOpen(event) {
