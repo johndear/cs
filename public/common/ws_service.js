@@ -48,10 +48,17 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 		console.log("onMessage: ", evnt);
 		// 这里处理接收数据
 		var evenData = evnt.data;
-		console.log("意见反馈websocket服务端推送数据: ", evenData);
+		console.log("websocket服务端推送数据: ", evenData);
 
-		// 传回后端实时推送的数据
-		$rootScope.$broadcast('ws-user-msg', evenData);
+		// 接收websocket服务端推送的数据
+		if(true){
+			// 用户-》客服
+			$rootScope.$broadcast('ws-user-msg', evenData);
+		}else{
+			// 客服-》用户
+			$rootScope.$broadcast('ws-customer-msg', evenData);
+		}
+		
 	}
 
 	function onError(evnt) {
