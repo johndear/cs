@@ -31,3 +31,6 @@ https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_ver
 https://git.oschina.net/ld/J2Cache
 jeeshop
 http://www.oschina.net/p/jeeshop
+
+重点！！！
+需要考虑多机部署的情况：用户和客服进到不同的服务器，当用户进线怎么分配客服？

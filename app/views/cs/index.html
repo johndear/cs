@@ -51,10 +51,12 @@
             src="@{'public/angularjs/bower_components/angular-strap-master/angular-strap.tpl.min.js'}"></script>
     <script type="text/javascript" src="@{'public/javascripts/pagination.js'}"></script>
     <script type="text/javascript" src="@{'public/javascripts/DateUtil.js'}?v=1.0.3"></script>
+    <script type="text/javascript" src="@{'public/common/underscore.js'}?v=1.0.1"></script>
 
     <!-- 业务相关 -->
     <script type="text/javascript" src="@{'public/cs/js/notify.js'}"></script>
     <script type="text/javascript" src="@{'public/javascripts/online_checker.js'}"></script>
+    <script type="text/javascript" src="@{'public/common/ws_service.js'}?v=1.0.1"></script>
     <script type="text/javascript" src="@{'public/cs/js/msg-control.js'}?v=1.0.1"></script>
     <!-- <script type="text/javascript" src="@{'public/cs/js/head-control.js'}"></script> -->
     <script type="text/javascript" src="@{'public/resources/customer/head-control.js'}"></script>
@@ -172,43 +174,3 @@
 </body>
 
 </html>
-
-<script>
-var webSocket = new WebSocket('ws://localhost:8887?customerId=123');
-webSocket.onerror = function(event) {
-	onError(event);
-};
-
-webSocket.onopen = function(event) {
-	onOpen(event);
-};
-
-webSocket.onmessage = function(event) {
-	onMessage(event)
-};
-
-webSocket.onclose = function(event) {
-	onClose(event)
-};
-
-
-function onMessage(event) {
-	//document.getElementById('messages').innerHTML += '<br />' + event.data;
-	console.log("onMessage: ", event);
-}
-
-function onOpen(event) {
-	//document.getElementById('messages').innerHTML 
-	//	= 'Connection established';
-	console.log("onOpen: ", event);
-}
-
-function onError(event) {
-	console.log("onError: ", event);
-}
-
-function onClose(event) {
-	//document.getElementById('messages').innerHTML += '<br />socket server closed!';
-	console.log("onClose: ", event);
-}
-</script>

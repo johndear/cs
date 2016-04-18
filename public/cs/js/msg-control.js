@@ -3,7 +3,7 @@
  */
 'use strict';
 
-chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, csInfoFactory,chatEnum) {
+chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, WebSocketService, csInfoFactory,chatEnum) {
 
 	var feedback_sys = 'feedback_sys';
     var serviceIM = null;
@@ -1095,29 +1095,40 @@ chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, csInfoF
 	    }
 	    console.log("activeUserObj:",$scope.activeUserObj);
 	}
-
+    
+    
     /**
      * 更新服务端推送数据
      */
-    $scope.$on('ws-feedback', function(event,data) {
-    	if(data && data != ""){
-    		var res = JSON.parse(data);
-    		//接受后端推送过来的数据，加到列表
-    		$scope.feedbackList.unshift({
-    			dialogId:res.dialogId,
-    			instanceId:res.instanceId,
-    			instanceName:res.instanceName,
-    			feedbackId : res.feedbackId,
-				uid : res.uid,
-				messages:[],
-				prdType : feedback_sys//意见反馈
-			});
-	    	// 新用户进线提醒
-	        new Notifications('新用户接入', {
-	            body: res.uid
-	        });
+    $scope.$on('ws-user-msg', function(event,data) {
+    	// 用户是否已经存在列表中
+    	var isExist = false;
+    	_.each($scope.userList,function(element, index, list){
+			if(element.dialogId == data){
+				isExist = true;
+			}
+		});
+    	
+    	// 1、用户进线   2、在线用户对话（消息提醒、显示聊天记录）  3、用户掉线（关闭用户）
+    	if(!isExist){
+    		// 1
+    		alert('websocket initMessage...');
+    		var user = {
+    				"dialogId": data,
+    				"nickName": data,
+    				"change": 0,
+    				"lastReceivedMsgId": 1,
+    				"prdType":'csos_sys'
+    		};
+    		$scope.userList.splice(0, 0, user);
+    	}else{
+    		if(data.type=='close'){
+        		// 3
+        	}else{
+        		// 2
+        		alert('websocket onMessage...');
+        	}
     	}
-		console.log("msg:"+data);
 	});
     
     /**
