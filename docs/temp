@@ -1,0 +1,18 @@
+DELETE FROM `im_gc_mall_dialog` WHERE dialog_id=163;
+DELETE FROM `im_gc_mall_dialog_joined_user` WHERE dialog_id=163;
+DELETE FROM `im_portal_user_joined_dialog` WHERE dialog_id=163;
+DELETE FROM `im_open_user_joined_dialog` WHERE dialog_id=163;
+
+
+java-websocket
+http://doc.ucweb.local/pages/viewpage.action?pageId=22681886
+http://ued.sina.com.cn/?p=900&qq-pf-to=pcqq.c2c //参考资料比较多
+
+
+
+https://segmentfault.com/a/1190000000349384  这个比较牛，《30 天学习 30 种新技术》可以看下
+
+http://stackoverflow.com/questions/1253683/what-browsers-support-html5-websocket-api/2700609#2700609 websocket客户端和服务端版本号不一致。
+
+源码：
+git clone git://github.com/playframework/playframework.git

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>websockets JCS123</title>
+</head>
+<body>
+	<div id="messages"></div>
+	<script type="text/javascript">
+		var webSocket = new WebSocket('ws://localhost:8887?userId=123');
+		//var webSocket = new WebSocket("ws://${socketServerAddress}:${socketServerPort}?userId=${userId}");
+	    
+
+		webSocket.onerror = function(event) {
+			onError(event)
+		};
+
+		webSocket.onopen = function(event) {
+			onOpen(event)
+		};
+
+		webSocket.onmessage = function(event) {
+			onMessage(event)
+		};
+		
+		webSocket.onclose = function(event) {
+			onClose(event)
+		};
+
+
+		function onMessage(event) {
+			document.getElementById('messages').innerHTML 
+				+= '<br />' + event.data;
+		}
+
+		function onOpen(event) {
+			//document.getElementById('messages').innerHTML 
+			//	= 'Connection established';
+		}
+
+		function onError(event) {
+			alert("error happened");
+			//alert(event.data);
+		}
+		
+		function onClose(event) {
+			document.getElementById('messages').innerHTML 
+			+= '<br />socket server closed!';
+		}
+
+	</script>
+</body>
+</html>

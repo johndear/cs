@@ -172,3 +172,43 @@
 </body>
 
 </html>
+
+<script>
+var webSocket = new WebSocket('ws://localhost:8887?customerId=123');
+webSocket.onerror = function(event) {
+	onError(event);
+};
+
+webSocket.onopen = function(event) {
+	onOpen(event);
+};
+
+webSocket.onmessage = function(event) {
+	onMessage(event)
+};
+
+webSocket.onclose = function(event) {
+	onClose(event)
+};
+
+
+function onMessage(event) {
+	//document.getElementById('messages').innerHTML += '<br />' + event.data;
+	console.log("onMessage: ", event);
+}
+
+function onOpen(event) {
+	//document.getElementById('messages').innerHTML 
+	//	= 'Connection established';
+	console.log("onOpen: ", event);
+}
+
+function onError(event) {
+	console.log("onError: ", event);
+}
+
+function onClose(event) {
+	//document.getElementById('messages').innerHTML += '<br />socket server closed!';
+	console.log("onClose: ", event);
+}
+</script>

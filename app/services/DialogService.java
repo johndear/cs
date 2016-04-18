@@ -1,5 +1,8 @@
 package services;
 
+import models.entity.DialogModel;
+import models.enums.DialogState;
+
 public class DialogService {
 	
 	// 综合业务部（在线4+意见1）、交易猫（在线4）
@@ -12,13 +15,21 @@ public class DialogService {
 	}
 	
 	// 会话主动关闭
-	public void close(){
+	public DialogModel close(Long dialogId){
+		DialogModel dialog = DialogModel.findById(dialogId);
+		dialog.setStatus(DialogState.CLOSE.ordinal());
+		dialog.save();
 		
+		return dialog;
 	}
 	
 	// 会话异常关闭
-	public void unexpectedClose(){
+	public DialogModel unexpectedClose(Long dialogId){
+		DialogModel dialog = DialogModel.findById(dialogId);
+		dialog.setStatus(DialogState.CLOSE.ordinal());
+		dialog.save();
 		
+		return dialog;
 	}
 
 }

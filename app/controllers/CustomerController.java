@@ -25,6 +25,14 @@ import services.impl.Work;
 import api.CsimParameter;
 import base.SecureController;
 
+/**
+ * 重点：
+ * 1、客服聊天记录时间显示
+ * 2、客服工作台用户服务量
+ * 
+ * @author Administrator
+ *
+ */
 public class CustomerController extends SecureController{
 	
 	// 在线客服--需要在启动的时候初始化（防止服务器重启将在线客服丢失，造成重新上班的情况）
@@ -206,12 +214,12 @@ public class CustomerController extends SecureController{
 	// 主动关闭
 	public static void closeDialog(){
 		// 关闭最后一个会话的时候，如果客服状态是申请小休中、申请离线中，就更新状态为小休中、离线中
-		dialogService.close();
+		dialogService.close(0L);
 	}
 	
 	// 超时关闭
 	public static void timeoutCloseDialog(){
-		dialogService.unexpectedClose();
+		dialogService.unexpectedClose(0L);
 	}
 	
 }
