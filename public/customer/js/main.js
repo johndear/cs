@@ -46,7 +46,7 @@ function chatroomInit() {
         widgePanelJym = document.getElementById('widge_panel_jym'),
         facePanel = document.getElementById('face_wrap'),
         input = document.getElementById('input_box'),
-        sendBtn = document.getElementById('send_btn'),
+        sendBtn = document.getElementById('send_btn1'),
         callWidgeBtn = document.getElementById('call_widge_btn'),
         faceBtn = document.getElementById('widge_face_btn'),
         picBtn = document.getElementById('widge_pic_btn'),
@@ -218,6 +218,7 @@ function chatroomInit() {
         if(!data.isSystem) {
             data.isSystem = false;
         }
+        alert(data.type);
         switch (data.type) {
             case 'talk':
                 if (data.content) {

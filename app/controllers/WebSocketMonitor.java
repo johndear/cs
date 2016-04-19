@@ -80,11 +80,12 @@ public class WebSocketMonitor extends Job{
 	        }
 	    	
 	    	// 客服发，用户收
-//	    	for(WebSocket socket : customerSockets.values()){
-//	    		if(conn == socket){
-//	    			
-//	    		}
-//	        }
+	    	for(WebSocket socket : customerSockets.values()){
+	    		if(conn == socket){
+	    			WebSocket userSocket = userSockets.get("123");
+	    			userSocket.send(message);
+	    		}
+	        }
 	    	
 	    	System.out.println("---onMessage:" + message);
 	    }

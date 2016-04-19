@@ -70,7 +70,7 @@ public class UserController extends BaseController{
 		
 		Long dialogId = dialog.getId();
 		String talkerName = null;
-		String uaeCompressRoot = null;
+		String uaeCompressRoot = "http://localhost:9027/cs";
 		String uaeUncompressRoot = null;
 		boolean isDev = true;
 		String cookieName = null;

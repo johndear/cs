@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html  ng-app="chatApp">
 <script>
     //设置cookie
     function setCookie(cname, cvalue) {
@@ -40,8 +40,11 @@
     <title>UC在线客服</title>
     <link rel="shortcut icon" href="http://www.ucweb.com/favicon.ico">
     <link rel="stylesheet" href="@@{'/public/customer/css/chat.css'}">
+    
+<script type="text/javascript" src="@@{'public/angularjs/bower_components/angular/angular.js'}"></script>
+    <script type="text/javascript" src="@@{'public/customer/js/app.js'}"></script>
 </head>
-<body>
+<body ng-controller="userCtrl">
 <div class="wrap">
     <div class="main" id="main">
         <div class="chatroom" id="chatroom">
@@ -53,10 +56,10 @@
                 <a href="javascript:void(0)" class="call-widge" id="call_widge_btn">更多功能</a>
             </li>
             <li class="flex-grid">
-                <textarea class="input-box" placeholder="请输入问题" id="input_box"></textarea>
+                <textarea class="input-box" placeholder="请输入问题" id="input_box" ng-model="content"></textarea>
             </li>
             <li>
-                <input type="button" value="发送" class="send-btn" id="send_btn">
+                <input type="button" value="发送" class="send-btn" id="send_btn" ng-click="sendServer()">
             </li>
         </ul>
         <div class="widge-panel" id="widge_panel">
@@ -227,10 +230,13 @@
 <script type="text/javascript" src="@@{'/public/javascripts/jquery-1.6.4.min.js'}" charset="UTF-8"></script>
 <script type="text/javascript" src="@@{'/public/javascripts/jquery.form.min.js'}" charset="UTF-8"></script>
 <script type="text/javascript" src="@@{'/public/javascripts/DateUtil.js'}"></script>
-<script type="text/javascript" src="@{'public/common/ws_service.js'}?v=1.0.1"></script>
+<script type="text/javascript" src="@{'public/common/ws_service_user.js'}?v=1.0.1"></script>
 <script type="text/javascript" src="@@{'/public/customer/js/main.js'}"></script>
 <script type="text/javascript" src="@@{'/public/customer/js/chat.js'}"></script>
 <script type="text/javascript" src="@@{'/public/customer/js/ixd.js'}"></script>
+
+    
+    <script type="text/javascript" src="@@{'public/customer/js/chat_1.js'}"></script>
 #{/if}
 #{if !isNew}
 <script type="text/javascript" src="${csimParameter.imRoot}/longPolling.js?userId=${userId}&userType=${csimParameter.customerType}&dialogId=${dialogId}&sceneKey=${csimParameter.sceneKey}&timestamp=${csimParameter.timestamp}&sign=${csimParameter.sign}" charset="UTF-8"></script>
