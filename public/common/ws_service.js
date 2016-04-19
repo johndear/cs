@@ -10,9 +10,10 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 	// liusu temp
 	var socketServerAddress= 'localhost';
 	var socketServerPort = '8887';
+	var params = 'customerId=123';//'userId=123';
 
 	function newWebSocket() {
-		var url = "ws://"+socketServerAddress + ":" + socketServerPort + '?customerId=' + 123;
+		var url = "ws://"+socketServerAddress + ":" + socketServerPort + '?' + params;
 		var wsTmp = new WebSocket(url);
 		wsTmp.onopen = function(evnt) {
 			onOpen(evnt);
@@ -57,6 +58,16 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 		}else{
 			// 客服-》用户
 			$rootScope.$broadcast('ws-customer-msg', evenData);
+			
+			// init msg 'welcome...'
+			chatroom.send({
+		        start: false,
+		        isSystem: true,
+		        role: 'service',
+		        type: 'talk',
+		        avatar: "${uaeCompressRoot}/cs/public/images/service_avatar.png",
+		        content: event.data
+		    });
 		}
 		
 	}

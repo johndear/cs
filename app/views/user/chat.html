@@ -227,6 +227,7 @@
 <script type="text/javascript" src="@@{'/public/javascripts/jquery-1.6.4.min.js'}" charset="UTF-8"></script>
 <script type="text/javascript" src="@@{'/public/javascripts/jquery.form.min.js'}" charset="UTF-8"></script>
 <script type="text/javascript" src="@@{'/public/javascripts/DateUtil.js'}"></script>
+<script type="text/javascript" src="@{'public/common/ws_service.js'}?v=1.0.1"></script>
 <script type="text/javascript" src="@@{'/public/customer/js/main.js'}"></script>
 <script type="text/javascript" src="@@{'/public/customer/js/chat.js'}"></script>
 <script type="text/javascript" src="@@{'/public/customer/js/ixd.js'}"></script>
@@ -247,51 +248,6 @@
         content: '您好，请一句话完整描述您的问题，以便我们为您安排专业的客服。'
     });
     
-    var webSocket = new WebSocket('ws://localhost:8887?userId=123');
-    webSocket.onerror = function(event) {
-		onError(event);
-	};
-
-	webSocket.onopen = function(event) {
-		onOpen(event);
-	};
-
-	webSocket.onmessage = function(event) {
-		onMessage(event)
-	};
-	
-	webSocket.onclose = function(event) {
-		onClose(event)
-	};
-
-
-	function onMessage(event) {
-		//document.getElementById('messages').innerHTML += '<br />' + event.data;
-		console.log("onMessage: ", event);
-		chatroom.send({
-	        start: false,
-	        isSystem: true,
-	        role: 'service',
-	        type: 'talk',
-	        avatar: "${uaeCompressRoot}/cs/public/images/service_avatar.png",
-	        content: event.data
-	    });
-	}
-
-	function onOpen(event) {
-		//document.getElementById('messages').innerHTML 
-		//	= 'Connection established';
-		console.log("onOpen: ", event);
-	}
-
-	function onError(event) {
-		console.log("onError: ", event);
-	}
-	
-	function onClose(event) {
-		//document.getElementById('messages').innerHTML += '<br />socket server closed!';
-		console.log("onClose: ", event);
-	}
 </script>
 #{/else}
 </html>
