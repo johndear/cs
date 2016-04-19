@@ -46,26 +46,13 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 //		}, 3000);
 	}
 
+	// 接收websocket服务端推送的数据
 	function onMessage(evnt) {
 		console.log("onMessage: ", evnt);
-		// 这里处理接收数据
-		var evenData = evnt.data;
-		console.log("websocket服务端推送数据: ", evenData);
 
-		// 接收websocket服务端推送的数据
-			// 客服-》用户
-			$rootScope.$broadcast('ws-customer-msg', evenData);
+		// 客服-》用户
+		$rootScope.$broadcast('ws-customer-msg', evnt);
 			
-			// init msg 'welcome...'
-			chatroom.send({
-		        start: false,
-		        isSystem: true,
-		        role: 'service',
-		        type: 'talk',
-		        avatar: "${uaeCompressRoot}/cs/public/images/service_avatar.png",
-		        content: event.data
-		    });
-		
 	}
 
 	function onError(evnt) {

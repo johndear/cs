@@ -3,7 +3,7 @@
  */
 'use strict';
 
-chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, WebSocketService, csInfoFactory,chatEnum) {
+chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFactory, WebSocketService, csInfoFactory,chatEnum) {
 
 	var feedback_sys = 'feedback_sys';
     var serviceIM = null;
@@ -715,35 +715,51 @@ chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, WebSock
      */
 
     $scope.sendMessage = function (user, message, username, type) {
-        if (!type) {
-            type = text_type;
-        }
-        var dispalyContent = message;
-        if (type == text_type) {
-            dispalyContent = urlify(message);
-        }
-        
-        // 客服端时间显示
-        user.messages.push({
-            'role': 'kf',
-            'username': username,
-            'content': dispalyContent,
-            'type': type,//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
-            'time': formatDate(serverDate)// liusu服务器端时间 ->原formatDate(new Date())
-        });
-
-        var content = JSON.stringify({
-            'role': 'kf',
-            'username': username,
-            'content': message,
-            'type': type,//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
-            'time': formatDate(serverDate)// liusu服务器端时间 ->原formatDate(new Date())
-        });
-        if(user.prdType == feedback_sys){
-        	sendMagForFeedback(user, dispalyContent.split("\n").join("<br>"));//意见反馈发送消息
-        }else{
-        	$scope.sendMsg(user, content);//在线客服发送消息
-        }
+    	alert(123456 + JSON.stringify(user));
+    	
+    	// 发送给用户
+    	$rootScope.ws.send(urlify(message));
+    	
+    	// 客服工作台显示
+    	 var user = getOnlineUserByUserId(user.dialogId);
+    	 user.messages = user.messages ? user.messages:[];
+         user.messages.push({
+             'role': 'kf',
+             'username': user.dialogId,
+             'content': urlify(message),
+             'type': 'talk',//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
+             'time': '2016-04-19'// liusu服务器端时间 ->原formatDate(new Date())
+         });
+    	
+//        if (!type) {
+//            type = text_type;
+//        }
+//        var dispalyContent = message;
+//        if (type == text_type) {
+//            dispalyContent = urlify(message);
+//        }
+//        
+//        // 客服端时间显示
+//        user.messages.push({
+//            'role': 'kf',
+//            'username': username,
+//            'content': dispalyContent,
+//            'type': type,//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
+//            'time': formatDate(serverDate)// liusu服务器端时间 ->原formatDate(new Date())
+//        });
+//
+//        var content = JSON.stringify({
+//            'role': 'kf',
+//            'username': username,
+//            'content': message,
+//            'type': type,//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
+//            'time': formatDate(serverDate)// liusu服务器端时间 ->原formatDate(new Date())
+//        });
+//        if(user.prdType == feedback_sys){
+//        	sendMagForFeedback(user, dispalyContent.split("\n").join("<br>"));//意见反馈发送消息
+//        }else{
+//        	$scope.sendMsg(user, content);//在线客服发送消息
+//        }
         
     };
     /**
@@ -1184,6 +1200,7 @@ chatApp.controller('csosCtrl', function ($scope, $http, closeDivFactory, WebSock
     		// 1
     		alert('websocket initMessage...');
     		var user = {
+    				'userId': data,
     				"dialogId": data,
     				"nickName": data,
     				"change": 0,

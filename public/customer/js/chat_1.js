@@ -1,4 +1,3 @@
-var chatroom = document.getElementById('chatroom');
 var DEFAULT_USER_AVATAR = window['uae_image_root'] + '/public/images/user_avatar.png',
 DEFAULT_SERVICE_AVATAR = window['uae_image_root'] + '/public/images/service_avatar.png';
 
@@ -9,23 +8,32 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
 		/**
 	     * 更新服务端推送数据
 	     */
-	    $scope.$on('ws-customer-msg', function(event,data) {
-	    	alert(123);
+	    $scope.$on('ws-customer-msg', function(event, result) {
+	    	var dialog = {
+		        start: false,
+		        isSystem: true,
+		        role: 'service',
+		        type: 'talk',
+		        avatar: DEFAULT_SERVICE_AVATAR,
+		        content: result.data
+		    };
+	    	
+	    	send(dialog);
 	    });
 	    
-	    $scope.sendServer = function(){
+	    $scope.sendServer = function(data){
 	 		var content = $scope.content;
 	 		
 	 		$rootScope.ws.send(content);
             
             var data = {
-                    start: true,
-                    role: 'service',
-                    type: 'talk',
-                    avatar: DEFAULT_USER_AVATAR,
-                    content: content,
-                    img: content
-                };
+                start: true,
+                role: 'service',
+                type: 'talk',
+                avatar: DEFAULT_USER_AVATAR,
+                content: content,
+                img: content
+            };
             send(data);
             
         }
@@ -79,6 +87,7 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
 	    }
 	    
 	    function render(html) {
+	    	var chatroom = document.getElementById('chatroom');
 	        var d = document.createElement('div');
 	        d.innerHTML = html;
 	        chatroom.appendChild(d.children[0]);
