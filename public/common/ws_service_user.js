@@ -61,6 +61,7 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 		 var messageObj = JSON.parse(evnt.data);
 		 console.log("onMessage: ", messageObj);
 		 
+		 // TODO liusu messageObj应该返回带id的值
 	      if(callbacks.hasOwnProperty(messageObj.callbackId)) {// 主动发送
 	    	  console.log('主动请求。。。');
 	          $rootScope.$apply(callbacks[messageObj.callbackId].cb.resolve(messageObj));

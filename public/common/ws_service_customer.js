@@ -107,8 +107,9 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
       return currentCallbackId;
     }
 
-	Service.sendMessage = function(message) {
+	Service.sendMessage = function(dialogId, message) {
 		var request = {
+			dialogId: dialogId,
 			message : message
 		}
 		var promise = sendRequest(request);

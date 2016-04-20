@@ -720,22 +720,22 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
 //    	// 发送给用户
 //    	$rootScope.ws.send(urlify(message));
     	
-    	WebSocketService.sendMessage(message).then(function(res) {
+    	WebSocketService.sendMessage(user.dialogId, message).then(function(res) {
 	//			messages.push({type:1,message:res.message});
 				console.log(res);
 				
 				var user = res;
 				
-//				// 客服工作台显示
-//		    	 var user = getOnlineUserByUserId(user.callbackId);
-//		    	 user.messages = user.messages ? user.messages:[];
-//		         user.messages.push({
-//		             'role': 'kf',
-//		             'username': user.callbackId,
-//		             'content': urlify(res.message),
-//		             'type': 'talk',//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
-//		             'time': '2016-04-19'// liusu服务器端时间 ->原formatDate(new Date())
-//		         });
+				// 客服工作台显示
+		    	 var user = getUserByDialogId(user.dialogId);
+		    	 user.messages = user.messages ? user.messages:[];
+		         user.messages.push({
+		             'role': 'kf',
+		             'username': user.callbackId,
+		             'content': res.message,
+		             'type': 'talk',//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
+		             'time': '2016-04-19 00:00:00'// liusu服务器端时间 ->原formatDate(new Date())
+		         });
 		}, function(res) {
 			console.log('Failed: ' , res);
 		});
@@ -1202,6 +1202,7 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
     	// 用户是否已经存在列表中
     	var isExist = false;
     	_.each($scope.userList,function(element, index, list){
+    		// TODO liusu callbackId要改成id
 			if(element.dialogId == dialog.callbackId){
 				isExist = true;
 			}
@@ -1220,6 +1221,10 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
     				"prdType":'csos_sys'
     		};
     		$scope.userList.splice(0, 0, user);
+    		
+    		var user = getUserByDialogId(user.dialogId);
+    		user.messages = user.messages ? user.messages:[];
+    		
     	}else{
     		if(data.type=='close'){
         		// 3
