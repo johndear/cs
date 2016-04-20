@@ -48,6 +48,7 @@ public class WebSocketMonitor extends Job{
 	    	String param = handshake.getResourceDescriptor();
 	    	String sessionId = param.substring(param.indexOf("=") + 1); //  客户端参数
 	    	if(param.contains("userId")){
+	    		// TODO 如果用户当前没有可用的会话，创建新会话，且将dialogId传回到前台
 	    		// user
 	    		userSockets.put(sessionId, conn);
 	    	}else{
@@ -80,6 +81,7 @@ public class WebSocketMonitor extends Job{
 	    	// 用户发，客服收
 	    	for(WebSocket socket : userSockets.values()){
 	    		if(conn == socket){
+	    			// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
 	    			WebSocket customerSocket = customerSockets.get("lisi");
 	    			customerSocket.send(message);
 	    			WebSocket userSocket = userSockets.get("123");

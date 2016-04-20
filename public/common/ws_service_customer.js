@@ -1,5 +1,5 @@
 /**
- * 意见反馈websocket服务 Created by 廖金洪
+ * 客服websocket服务
  */
 'use strict';
 
