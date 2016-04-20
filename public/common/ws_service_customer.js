@@ -3,9 +3,12 @@
  */
 'use strict';
 
-chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function($timeout,$rootScope,$http) {
+chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', function($timeout,$q,$rootScope,$http) {
 	var self = this;
 	var ws = null;
+	var Service = {};
+	var callbacks = {};
+    var currentCallbackId = 0;
 	
 	// liusu temp
 	var socketServerAddress= 'localhost';
@@ -39,6 +42,8 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 		};
 		return ws;
 	}
+	
+	newWebSocket();
 
 	function onOpen(evnt) {
 		console.log("连接到了服务器!"); 
@@ -55,10 +60,19 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 
 	// 接收websocket服务端推送的数据
 	function onMessage(evnt) {
-		console.log("onMessage: ", evnt);
-
-		// 用户-》客服
-		$rootScope.$broadcast('ws-user-msg', evnt.data);
+		var messageObj = JSON.parse(evnt.data);
+		 console.log("onMessage: ", messageObj);
+		 
+	      if(callbacks.hasOwnProperty(messageObj.callbackId)) {// 主动请求
+	    	  console.log('主动请求。。。');
+	          $rootScope.$apply(callbacks[messageObj.callbackId].cb.resolve(messageObj));
+	          delete callbacks[messageObj.callbackId];
+	        
+	      }else{// 服务端推送（广播给子scope） 用户-》客服
+	    	  console.log('服务端推送。。。');
+	    	  $rootScope.$broadcast('ws-user-msg', messageObj);
+//	    	  $rootScope.$broadcast(messageObj.msgType, messageObj);
+	      }
 		
 	}
 
@@ -70,7 +84,37 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 //		}, 3000);
 	}
 	
-	return ws;
+	function sendRequest(request) {
+		var defer = $q.defer();
+		var callbackId = getCallbackId();
+		callbacks[callbackId] = {
+			time : new Date(),
+			cb : defer
+		};
+		request.callbackId = callbackId;
+		ws.send(JSON.stringify(request));
+		
+//		defer.reject('Hello, ' + name + '!');
+		
+		return defer.promise;
+	}
+	
+	function getCallbackId() {
+      currentCallbackId += 1;
+      if(currentCallbackId > 10000) {
+        currentCallbackId = 0;
+      }
+      return currentCallbackId;
+    }
+
+	Service.sendMessage = function(message) {
+		var request = {
+			message : message
+		}
+		var promise = sendRequest(request);
+		return promise;
+	};
+	return Service;
 
 } ]);
 

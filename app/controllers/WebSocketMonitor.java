@@ -10,6 +10,8 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import com.alibaba.fastjson.JSONObject;
+
 import play.Logger;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
@@ -52,7 +54,11 @@ public class WebSocketMonitor extends Job{
 	    		// customer
 	    		customerSockets.put("lisi", conn);
 	    	}
-	    	conn.send("welcom...");
+	    	
+	    	Map<String,Object> welcomeMap = new HashMap<String,Object>();
+	    	welcomeMap.put("message", "welcom...");
+	    	welcomeMap.put("callbackId", "0");
+	    	conn.send(JSONObject.toJSONString(welcomeMap));
 	    	
 	        Logger.debug("IP address: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() + " -> connect to server successful.");
 	    }
@@ -76,6 +82,8 @@ public class WebSocketMonitor extends Job{
 	    		if(conn == socket){
 	    			WebSocket customerSocket = customerSockets.get("lisi");
 	    			customerSocket.send(message);
+	    			WebSocket userSocket = userSockets.get("123");
+	    			userSocket.send(message);
 	    		}
 	        }
 	    	
@@ -84,6 +92,8 @@ public class WebSocketMonitor extends Job{
 	    		if(conn == socket){
 	    			WebSocket userSocket = userSockets.get("123");
 	    			userSocket.send(message);
+	    			WebSocket customerSocket = customerSockets.get("lisi");
+	    			customerSocket.send(message);
 	    		}
 	        }
 	    	

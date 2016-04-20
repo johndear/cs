@@ -5,36 +5,40 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
 	
 	    $rootScope.params = 'userId=123';
 	
-		/**
-	     * 更新服务端推送数据
-	     */
-	    $scope.$on('ws-customer-msg', function(event, result) {
+		// 服务端推送数据
+	    $scope.$on('ws-customer-msg', function(event, messageObj) {
+	    	var message = messageObj.message;
+	    	
 	    	var dialog = {
 		        start: false,
-		        isSystem: true,
 		        role: 'service',
 		        type: 'talk',
 		        avatar: DEFAULT_SERVICE_AVATAR,
-		        content: result.data
+		        content: message,
+		        isSystem: true
 		    };
 	    	
 	    	send(dialog);
 	    });
 	    
-	    $scope.sendServer = function(data){
-	 		var content = $scope.content;
-	 		
-	 		$rootScope.ws.send(content);
-            
-            var data = {
-                start: true,
-                role: 'service',
-                type: 'talk',
-                avatar: DEFAULT_USER_AVATAR,
-                content: content,
-                img: content
-            };
-            send(data);
+	    // 主动发送
+	    $scope.send = function(){
+	 		WebSocketService.sendMessage($scope.content).then(function(res) {
+//					messages.push({type:1,message:res.message});
+	 			console.log(res);
+	 			var message = res.message;
+	 			var dialog = {
+ 	                start: true,
+ 	                role: 'service',
+ 	                type: 'talk',
+ 	                avatar: DEFAULT_USER_AVATAR,
+ 	                content: message,
+ 	                img: message
+ 	            };
+ 	            send(dialog);
+			}, function(res) {
+				console.log('Failed: ' , res);
+			});
             
         }
 	    
@@ -82,8 +86,6 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
 	    	
 //	    	sendTimeTips();
             render(html);
-            
-            
 	    }
 	    
 	    function render(html) {

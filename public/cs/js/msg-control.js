@@ -717,19 +717,30 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
     $scope.sendMessage = function (user, message, username, type) {
     	alert(123456 + JSON.stringify(user));
     	
-    	// 发送给用户
-    	$rootScope.ws.send(urlify(message));
+//    	// 发送给用户
+//    	$rootScope.ws.send(urlify(message));
     	
-    	// 客服工作台显示
-    	 var user = getOnlineUserByUserId(user.dialogId);
-    	 user.messages = user.messages ? user.messages:[];
-         user.messages.push({
-             'role': 'kf',
-             'username': user.dialogId,
-             'content': urlify(message),
-             'type': 'talk',//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
-             'time': '2016-04-19'// liusu服务器端时间 ->原formatDate(new Date())
-         });
+    	WebSocketService.sendMessage(message).then(function(res) {
+	//			messages.push({type:1,message:res.message});
+				console.log(res);
+				
+				var user = res;
+				
+//				// 客服工作台显示
+//		    	 var user = getOnlineUserByUserId(user.callbackId);
+//		    	 user.messages = user.messages ? user.messages:[];
+//		         user.messages.push({
+//		             'role': 'kf',
+//		             'username': user.callbackId,
+//		             'content': urlify(res.message),
+//		             'type': 'talk',//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
+//		             'time': '2016-04-19'// liusu服务器端时间 ->原formatDate(new Date())
+//		         });
+		}, function(res) {
+			console.log('Failed: ' , res);
+		});
+    	
+    	
     	
 //        if (!type) {
 //            type = text_type;
@@ -1187,10 +1198,11 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
      * 更新服务端推送数据
      */
     $scope.$on('ws-user-msg', function(event,data) {
+    	var dialog = data;
     	// 用户是否已经存在列表中
     	var isExist = false;
     	_.each($scope.userList,function(element, index, list){
-			if(element.dialogId == data){
+			if(element.dialogId == dialog.callbackId){
 				isExist = true;
 			}
 		});
@@ -1200,9 +1212,9 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
     		// 1
     		alert('websocket initMessage...');
     		var user = {
-    				'userId': data,
-    				"dialogId": data,
-    				"nickName": data,
+    				'userId': dialog.callbackId,
+    				"dialogId": dialog.callbackId,
+    				"nickName": dialog.callbackId,
     				"change": 0,
     				"lastReceivedMsgId": 1,
     				"prdType":'csos_sys'
