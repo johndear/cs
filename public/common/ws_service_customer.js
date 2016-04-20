@@ -14,31 +14,38 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 
 	function newWebSocket() {
 		var url = "ws://"+socketServerAddress + ":" + socketServerPort + '?' + params;
-		var wsTmp = new WebSocket(url);
-		wsTmp.onopen = function(evnt) {
+		
+		if ("WebSocket" in window) {
+		    ws = new WebSocket(url);
+		  }
+		  else if ("MozWebSocket" in window) {
+		    ws = new MozWebSocket(url);
+		  }
+		  else{
+			alert("浏览器版本过低，请升级您的浏览器。\r\n浏览器要求：IE10+/Chrome14+/FireFox7+/Opera11+");
+			return;
+		  }
+		ws.onopen = function(evnt) {
 			onOpen(evnt);
 		};
-		wsTmp.onmessage = function(evnt) {
+		ws.onmessage = function(evnt) {
 			onMessage(evnt);
 		};
-		wsTmp.onclose = function(evnt) {
+		ws.onclose = function(evnt) {
 			onClose(evnt);
 		};
-		wsTmp.onerror = function(evnt) {
+		ws.onerror = function(evnt) {
 			onError(evnt);
 		};
-		return wsTmp;
+		return ws;
 	}
 
-	ws = newWebSocket();
-	$rootScope.ws = ws;
-
 	function onOpen(evnt) {
-		console.log("onOpen: ", evnt);
+		console.log("连接到了服务器!"); 
 	}
 
 	function onClose(evnt) {
-		console.log("onClose: ", evnt);
+		console.log('连接被关闭.');
 
 //		$timeout(function() {
 //			console.log('Reconnecting to server...')
@@ -62,5 +69,9 @@ chatApp.service('WebSocketService', [ '$timeout','$rootScope','$http', function(
 //			newWebSocket();
 //		}, 3000);
 	}
+	
+	return ws;
 
 } ]);
+
+// 参考：http://www.51joben.com/archives/7302.html
