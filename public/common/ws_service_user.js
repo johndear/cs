@@ -13,7 +13,7 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 	// liusu temp
 	var socketServerAddress = 'localhost';
 	var socketServerPort = '8887';
-	var params = 'userId=123';
+	var params = 'userId=' + dialogId;
 
 	function newWebSocket() {
 		var url = "ws://" + socketServerAddress + ":" + socketServerPort + '?' + params;
@@ -49,6 +49,7 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 	}
 
 	function onClose(evnt) {
+		alert('你已经掉线了.');
 		console.log('连接被关闭.');
 
 		// $timeout(function() {
@@ -107,6 +108,7 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 
 	Service.sendMessage = function(message) {
 		var request = {
+			dialogId : dialogId,
 			message : message
 		}
 		var promise = sendRequest(request);

@@ -4,7 +4,10 @@ import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -15,13 +18,20 @@ import com.alibaba.fastjson.JSONObject;
 import play.Logger;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
+import play.modules.guice.InjectSupport;
 import play.mvc.Scope.Session;
 
 // 1、实时监控，客服、用户上线及下线情况
 // 2、实时消息传递
 // 3、减少长轮询请求的次数、减少消耗系统资源
 @OnApplicationStart
-public class WebSocketMonitor extends Job{
+@InjectSupport
+public class ChatController extends Job{
+	
+	@Inject
+	public UserController userController;
+	@Inject
+	public CustomerController customerController;
 	
 	@Override
 	public void doJob() throws Exception {
@@ -31,8 +41,8 @@ public class WebSocketMonitor extends Job{
 	
 	class MySocketServer extends WebSocketServer {
 
-	    private Map<String, WebSocket> userSockets = new HashMap<String, WebSocket>(); // 存放sessionid和socket实例的对应关系
-	    private Map<String, WebSocket> customerSockets = new HashMap<String, WebSocket>(); // 存放sessionid和socket实例的对应关系
+	    private Map<WebSocket, String> userSockets = new HashMap<WebSocket, String>(); // 存放sessionid和socket实例的对应关系
+	    private Map<WebSocket, String> customerSockets = new HashMap<WebSocket, String>(); // 存放sessionid和socket实例的对应关系
 	    
 	    public MySocketServer(int port) {
 	        super(new InetSocketAddress(port));
@@ -50,15 +60,16 @@ public class WebSocketMonitor extends Job{
 	    	if(param.contains("userId")){
 	    		// TODO 如果用户当前没有可用的会话，创建新会话，且将dialogId传回到前台
 	    		// user
-	    		userSockets.put(sessionId, conn);
+	    		userSockets.put(conn, sessionId);
 	    	}else{
 	    		// customer
-	    		customerSockets.put("lisi", conn);
+	    		customerSockets.put(conn, "lisi");
 	    	}
 	    	
 	    	Map<String,Object> welcomeMap = new HashMap<String,Object>();
 	    	welcomeMap.put("message", "welcom...");
 	    	welcomeMap.put("callbackId", "0");
+	    	welcomeMap.put("dialogId", "0");
 	    	conn.send(JSONObject.toJSONString(welcomeMap));
 	    	
 	        Logger.debug("IP address: " + conn.getRemoteSocketAddress().getAddress().getHostAddress() + " -> connect to server successful.");
@@ -67,6 +78,39 @@ public class WebSocketMonitor extends Job{
 	    @Override
 	    public void onClose(WebSocket conn, int code, String reason, boolean remote) {
 	    	System.out.println("---onClose:" + conn);
+	    	
+	    	// TODO 不管是客服还是用户掉线，都需要通知对方
+	    	
+	    	Map<String,Object> welcomeMap = new HashMap<String,Object>();
+	    	welcomeMap.put("message", "welcom...");
+	    	welcomeMap.put("callbackId", "0");
+	    	welcomeMap.put("dialogId", userSockets.get(conn));
+	    	welcomeMap.put("type", "close");
+	    	String message = JSONObject.toJSONString(welcomeMap);
+	    	
+	    	conn.send(message);
+	    	
+	    	// 用户发，客服收
+	    	for(WebSocket socket : userSockets.keySet()){
+	    		if(conn == socket){
+	    			// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
+	    			for(Entry entry : customerSockets.entrySet()){
+    					WebSocket customerSocket = (WebSocket) entry.getKey();
+    					customerSocket.send(message);
+	    			}
+	    		}
+	        }
+	    	
+	    	// 客服发，用户收
+	    	for(WebSocket socket : customerSockets.keySet()){
+	    		if(conn == socket){
+	    			// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
+	    			for(Entry entry : userSockets.entrySet()){
+    					WebSocket userSocket = (WebSocket) entry.getKey();
+    					userSocket.send(message);
+	    			}
+	    		}
+	        }
 	    	
 //	        entry.remove(conn);
 //	        Set<WebSocket> socs = entry.keySet();
@@ -79,23 +123,26 @@ public class WebSocketMonitor extends Job{
 	    @Override
 	    public void onMessage(WebSocket conn, String message) {
 	    	// 用户发，客服收
-	    	for(WebSocket socket : userSockets.values()){
+	    	conn.send(message);
+	    	
+	    	for(WebSocket socket : userSockets.keySet()){
 	    		if(conn == socket){
 	    			// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
-	    			WebSocket customerSocket = customerSockets.get("lisi");
-	    			customerSocket.send(message);
-	    			WebSocket userSocket = userSockets.get("123");
-	    			userSocket.send(message);
+	    			for(Entry entry : customerSockets.entrySet()){
+    					WebSocket customerSocket = (WebSocket) entry.getKey();
+    					customerSocket.send(message);
+	    			}
 	    		}
 	        }
 	    	
 	    	// 客服发，用户收
-	    	for(WebSocket socket : customerSockets.values()){
+	    	for(WebSocket socket : customerSockets.keySet()){
 	    		if(conn == socket){
-	    			WebSocket userSocket = userSockets.get("123");
-	    			userSocket.send(message);
-	    			WebSocket customerSocket = customerSockets.get("lisi");
-	    			customerSocket.send(message);
+	    			// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
+	    			for(Entry entry : userSockets.entrySet()){
+    					WebSocket userSocket = (WebSocket) entry.getKey();
+    					userSocket.send(message);
+	    			}
 	    		}
 	        }
 	    	

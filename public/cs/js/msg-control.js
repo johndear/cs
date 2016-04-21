@@ -1199,11 +1199,11 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
      */
     $scope.$on('ws-user-msg', function(event,data) {
     	var dialog = data;
-    	// 用户是否已经存在列表中
+    	// 检查是否已经在用户列表
     	var isExist = false;
     	_.each($scope.userList,function(element, index, list){
     		// TODO liusu callbackId要改成id
-			if(element.dialogId == dialog.callbackId){
+			if(element.dialogId == dialog.dialogId){
 				isExist = true;
 			}
 		});
@@ -1211,26 +1211,34 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
     	// 1、用户进线   2、在线用户对话（消息提醒、显示聊天记录）  3、用户掉线（关闭用户）
     	if(!isExist){
     		// 1
-    		alert('websocket initMessage...');
     		var user = {
-    				'userId': dialog.callbackId,
-    				"dialogId": dialog.callbackId,
-    				"nickName": dialog.callbackId,
+    				'userId': dialog.dialogId,
+    				"dialogId": dialog.dialogId,
+    				"nickName": dialog.dialogId,
     				"change": 0,
     				"lastReceivedMsgId": 1,
     				"prdType":'csos_sys'
     		};
     		$scope.userList.splice(0, 0, user);
-    		
-    		var user = getUserByDialogId(user.dialogId);
     		user.messages = user.messages ? user.messages:[];
     		
     	}else{
-    		if(data.type=='close'){
+    		var user = getUserByDialogId(dialog.dialogId);
+    		if(dialog.type=='close'){
+    			alert(123);
         		// 3
+    			user.closed = true;
         	}else{
+//        		user.messages = user.messages ? user.messages:[];
         		// 2
         		alert('websocket onMessage...');
+        		user.messages.push({
+		             'role': 'user',
+		             'username': dialog.dialogId,
+		             'content': dialog.message,
+		             'type': 'talk',//【talk-普通对话内容，pic-图片内容，face-表情内容，tips-提示内容】
+		             'time': '2016-04-19 00:00:00'// liusu服务器端时间 ->原formatDate(new Date())
+		         });
         	}
     	}
 	});

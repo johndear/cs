@@ -50,6 +50,7 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
 	}
 
 	function onClose(evnt) {
+		alert('你已经掉线了.');
 		console.log('连接被关闭.');
 
 //		$timeout(function() {

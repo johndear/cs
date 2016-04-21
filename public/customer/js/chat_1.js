@@ -3,6 +3,7 @@ DEFAULT_SERVICE_AVATAR = window['uae_image_root'] + '/public/images/service_avat
 
 chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketService) {
 	
+	alert(dialogId);
 	    $rootScope.params = 'userId=123';
 	
 		// 服务端推送数据
