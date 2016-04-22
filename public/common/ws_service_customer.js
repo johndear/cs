@@ -13,7 +13,7 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
 	// liusu temp
 	var socketServerAddress= 'localhost';
 	var socketServerPort = '8887';
-	var params = 'customerId=123';//'userId=123';
+	var params = 'customerId=' + customerId;//'userId=123';
 
 	function newWebSocket() {
 		var url = "ws://"+socketServerAddress + ":" + socketServerPort + '?' + params;
@@ -116,6 +116,16 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
 		var promise = sendRequest(request);
 		return promise;
 	};
+	
+	Service.close = function(dialogId) {
+		var request = {
+			dialogId: dialogId,
+			type: 'close',
+		}
+		var promise = sendRequest(request);
+		return promise;
+	};
+	
 	return Service;
 
 } ]);

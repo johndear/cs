@@ -997,10 +997,15 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
             message: "确认结束此会话吗？",
             callback: function (result) {
                 if (result) {
-                	//todo delete
-                    //offlineUser(user);
-                    //cs_close_post(user.dialogId);
-                	cs_close_post(user);
+                	
+                	// cs_close_post(user);
+                	
+                	var message = {type:'close'};
+                	WebSocketService.close(user.dialogId).then(function(res) {
+                		user.closed = true;
+                	}, function(res) {
+        				console.log('Failed: ' , res);
+        			});
                 }
             }
         });
@@ -1224,7 +1229,7 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
     		
     	}else{
     		var user = getUserByDialogId(dialog.dialogId);
-    		if(dialog.type=='close'){
+    		if(dialog.type=='break'){
     			alert(123);
         		// 3
     			user.closed = true;

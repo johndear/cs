@@ -8,18 +8,22 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
 	
 		// 服务端推送数据
 	    $scope.$on('ws-customer-msg', function(event, messageObj) {
-	    	var message = messageObj.message;
-	    	
-	    	var dialog = {
-		        start: false,
-		        role: 'service',
-		        type: 'talk',
-		        avatar: DEFAULT_SERVICE_AVATAR,
-		        content: message,
-		        isSystem: true
-		    };
-	    	
-	    	send(dialog);
+	    	if(messageObj.type=='close'){
+	    		alert('本次服务已结束.');
+	    	}else{
+	    		var message = messageObj.message;
+	    		
+	    		var dialog = {
+	    				start: false,
+	    				role: 'service',
+	    				type: 'talk',
+	    				avatar: DEFAULT_SERVICE_AVATAR,
+	    				content: message,
+	    				isSystem: true
+	    		};
+	    		
+	    		send(dialog);
+	    	}
 	    });
 	    
 	    // 主动发送
