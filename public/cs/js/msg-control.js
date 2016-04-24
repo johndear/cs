@@ -1204,11 +1204,11 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
      */
     $scope.$on('ws-user-msg', function(event,data) {
     	var dialog = data;
-    	// 检查是否已经在用户列表
+    	
+    	// 检查是否已经在用户列表, 且没有关闭
     	var isExist = false;
     	_.each($scope.userList,function(element, index, list){
-    		// TODO liusu callbackId要改成id
-			if(element.dialogId == dialog.dialogId){
+			if(element.dialogId == dialog.dialogId && !element.closed){
 				isExist = true;
 			}
 		});

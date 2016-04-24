@@ -114,6 +114,11 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 		var promise = sendRequest(request);
 		return promise;
 	};
+	
+	Service.breakOn = function(message) {
+		ws.close();
+	};
+	
 	return Service;
 
 } ]);

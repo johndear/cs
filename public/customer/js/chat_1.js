@@ -3,13 +3,12 @@ DEFAULT_SERVICE_AVATAR = window['uae_image_root'] + '/public/images/service_avat
 
 chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketService) {
 	
-	alert(dialogId);
-	    $rootScope.params = 'userId=123';
-	
 		// 服务端推送数据
 	    $scope.$on('ws-customer-msg', function(event, messageObj) {
 	    	if(messageObj.type=='close'){
 	    		alert('本次服务已结束.');
+    			// 客服关闭会话时，断开用户与服务器的websocket连接
+	    		WebSocketService.breakOn();
 	    	}else{
 	    		var message = messageObj.message;
 	    		
@@ -30,7 +29,10 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
 	    $scope.send = function(){
 	 		WebSocketService.sendMessage($scope.content).then(function(res) {
 //					messages.push({type:1,message:res.message});
-	 			console.log(res);
+	 			console.log('res', res);
+	 			
+	 			$scope.content = '';
+	 			
 	 			var message = res.message;
 	 			var dialog = {
  	                start: true,
@@ -41,6 +43,7 @@ chatApp.controller('userCtrl', function ($rootScope, $scope, $http, WebSocketSer
  	                img: message
  	            };
  	            send(dialog);
+ 	            
 			}, function(res) {
 				console.log('Failed: ' , res);
 			});
