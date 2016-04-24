@@ -7,30 +7,27 @@ play modules
 	Foundation（支持  IE9.0+）
 前端js
 	Backbone.js      http://www.css88.com/doc/backbone/
-	Underscore.js    http://www.css88.com/doc/underscore/
+	Lodash\Underscore.js    http://www.css88.com/doc/underscore/
 	jQuery
 	RequireJS
 	Zepto.js（文件小，移动端开发更好，不支持IE，与jquery不兼容）  http://www.css88.com/doc/zeptojs_api/
-	sass（支持动态css）
-	AngularJs 
-		示例如下：
+	LESS\sass（支持动态css）
+	AngularJs showcase：
 		http://showcase.ngnice.com/  
 		http://each.sinaapp.com/angular/
-		https://github.com/gianarb/awesome-angularjs 组件
 	手动MVVM框架
 		http://www.tuicool.com/articles/UFjeiaZ
 	静态资源引用    Google developers（Make the Web Faster）
 		https://developers.google.com/speed/libraries/
+	angularJs组件：
+		https://github.com/gianarb/awesome-angularjs 很棒的组件
+		http://angular-ui.github.io/bootstrap/ angularui-bootstrap组件
 
 项目实践：
 	2级缓存
 		https://git.oschina.net/ld/J2Cache
 	jeeshop
 		http://www.oschina.net/p/jeeshop
-
-重点！！！
-	需要考虑多机部署的情况：用户和客服进到不同的服务器，当用户进线怎么分配客服？
-
 
 开发工具：
 	Idea入门
