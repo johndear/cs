@@ -25,6 +25,10 @@ public class CustomerOnlineModel extends Model {
 	
 //	@Column(name="status")
 	private int status;
+	
+	@Column(name="last_active_time")
+	private String serverIp;
+	
 
 	public CustomerOnlineModel() {
 	}
@@ -52,5 +56,15 @@ public class CustomerOnlineModel extends Model {
 	public void setLastActiveTime(Date lastActiveTime) {
 		this.lastActiveTime = lastActiveTime;
 	}
+
+	public String getServerIp() {
+		return serverIp;
+	}
+
+	public void setServerIp(String serverIp) {
+		this.serverIp = serverIp;
+	}
+	
+	
 
 }

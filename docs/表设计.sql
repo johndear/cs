@@ -43,6 +43,7 @@ CREATE TABLE csos_customer_online
 (
 	customer_id bigint NOT NULL COMMENT '客服id',
 	last_active_time datetime COMMENT '最后在线时间',
+	server_ip varchar(50) COMMENT '服务器ip',
 	PRIMARY KEY (customer_id)
 ) COMMENT = '在线客服';
 
