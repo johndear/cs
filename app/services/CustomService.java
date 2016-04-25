@@ -1,5 +1,7 @@
 package services;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -43,6 +45,12 @@ public class CustomService {
 		}
 		customerOnlineModel.setLastActiveTime(new Date());
 		customerOnlineModel.setStatus(ServicerStatus.ONLINE.ordinal());
+		try {
+			customerOnlineModel.setServerIp(InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		customerOnlineModel.save();
 		
 		// 记录客服当前班次onwork_time

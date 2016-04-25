@@ -26,7 +26,7 @@ public class CustomerOnlineModel extends Model {
 //	@Column(name="status")
 	private int status;
 	
-	@Column(name="last_active_time")
+	@Column(name="server_ip")
 	private String serverIp;
 	
 

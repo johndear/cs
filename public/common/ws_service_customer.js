@@ -78,6 +78,7 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
 	}
 
 	function onError(evnt) {
+		alert('连接出错啦！');
 		console.log('onError: ', evnt);
 //		$timeout(function() {
 //			console.log('Reconnecting to server...')

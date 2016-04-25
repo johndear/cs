@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="models.mappers.CustomerMapper">
+	<cache/>
+	<select id="getCustomer" resultType="CustomerModel" >
+		SELECT customer_id customerId FROM (
+			SELECT t5.*,
+				SUM(
+					CASE
+					WHEN t6.status = 0 THEN
+						1
+					ELSE
+						0
+					END
+				) serving_num
+				FROM  `csos_customer_online` t1 
+				LEFT JOIN `csos_customer` t5 
+					ON t1.`customer_id`=t5.`customer_id` 
+				LEFT JOIN `csos_customer_skillgroup` t2 
+					ON t1.`customer_id`=t2.`customer_id`
+				LEFT JOIN `csos_dialog` t6
+					ON t1.`customer_id` = t6.`customer_id`
+				WHERE t2.`skillgroup_id`=(
+					SELECT t3.skillgroup_id FROM csos_source t3 LEFT JOIN `csos_dialog` t4 ON t3.`id`=t4.source_id WHERE t4.id=21
+				) GROUP BY t1.`customer_id`
+			) tt1 ORDER BY priority DESC,serving_num ASC LIMIT 1
+	</select>
+</mapper>
