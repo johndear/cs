@@ -38,7 +38,7 @@ chatApp.factory('onlineChecker', function ($http,$interval) {
     };
 
     function ping() {
-        $http.get('/csos/cs/service/ping/' + servicerId + '?statusText=' + CS_STATUS).then(successCallback, errorCallback);
+//        $http.get('/csos/cs/service/ping/' + servicerId + '?statusText=' + CS_STATUS).then(successCallback, errorCallback);
     };
 
     return {

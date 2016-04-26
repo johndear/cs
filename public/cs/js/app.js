@@ -69,7 +69,8 @@ chatApp.factory('closeDivFactory',function(){
         },
         getSkillGroups:function(){
             return $http({
-                url: '../admin/ScheduleController/loadEnablePreferably',
+//                url: '../admin/ScheduleController/loadEnablePreferably',
+            	url:'',
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
