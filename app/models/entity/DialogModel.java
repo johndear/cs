@@ -1,6 +1,7 @@
 package models.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 import play.db.jpa.Model;
@@ -44,6 +45,9 @@ public class DialogModel extends Model {
 	
 	@Column(name="create_date")
 	private Date createDate;
+	
+	@Column(name="server_ip")
+	private String serverIp;
 
 	public DialogModel() {
 	}
@@ -57,8 +61,15 @@ public class DialogModel extends Model {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	
 
+	public String getServerIp() {
+		return serverIp;
+	}
 
+	public void setServerIp(String serverIp) {
+		this.serverIp = serverIp;
+	}
 
 	public String getInstance() {
 		return instance;
