@@ -1,12 +1,18 @@
 package services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
 import models.entity.CustomerModel;
+import models.entity.CustomerOnlineModel;
 import models.entity.DialogModel;
 import models.enums.DialogState;
 import models.mappers.CustomerMapper;
 import mybatisplay.IbatisSessionFactory;
+import play.libs.WS;
+import play.mvc.Http;
 
 public class DialogService {
 	
@@ -49,6 +55,42 @@ public class DialogService {
 		dialog.save();
 		
 		return dialog;
+	}
+	
+	// 客服发给在其它服务器上的用户
+	public void sendToUser(Long dialogId, String message){
+		DialogModel dialogModel = DialogModel.find("id=?", dialogId).first();
+		
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("dialogId", dialogId.toString());
+		params.put("message", message);
+		
+		WS.WSRequest request = WS.url("http://"+ dialogModel.getServerIp() +":9027/cs/api/api/RemoteChat/sendToUser");
+        request.timeout = Integer.parseInt("100");
+        request.setParameters(params);
+        WS.HttpResponse response = null;
+        response = request.post();
+        if (response.getStatus() == Http.StatusCode.OK) {
+        	response.getString();
+        }
+	}
+	
+	// 用户发给在其它服务器上的客服
+	public void sendToCustomer(Long customerId, String message){
+		CustomerOnlineModel  customerOnlineModel = CustomerOnlineModel.find("customerId=?", customerId).first();
+		
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("customerId", customerId.toString());
+		params.put("message", message);
+		
+		WS.WSRequest request = WS.url("http://"+ customerOnlineModel.getServerIp() +":9027/cs/api/RemoteChat/sendToCustomer");
+        request.timeout = Integer.parseInt("100");
+        request.setParameters(params);
+        WS.HttpResponse response = null;
+        response = request.post();
+        if (response.getStatus() == Http.StatusCode.OK) {
+        	response.getString();
+        }
 	}
 
 }

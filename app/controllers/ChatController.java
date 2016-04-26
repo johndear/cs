@@ -14,7 +14,6 @@ import org.java_websocket.server.WebSocketServer;
 
 import com.alibaba.fastjson.JSONObject;
 
-import api.CrossServerAPI;
 import play.Logger;
 import play.db.jpa.JPA;
 import play.jobs.Job;
@@ -28,11 +27,6 @@ import services.DialogService;
 @OnApplicationStart
 @InjectSupport
 public class ChatController extends Job{
-	
-	@Inject
-	public UserController userController;
-	@Inject
-	public CustomerController customerController;
 	
 	@Inject
 	static DialogService dialogService;
@@ -98,7 +92,7 @@ public class ChatController extends Job{
 	    			userSocket.send(message);
 	    		}else{
 	    			// 其它服务器
-	    			CrossServerAPI.sendToUser(String.valueOf(dialog.get("dialogId")), message);
+	    			dialogService.sendToUser(Long.valueOf(String.valueOf(dialog.get("dialogId"))), message);
 	    		}
 	    	}else{ // 用户发，客服收
 	    		// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
@@ -107,12 +101,12 @@ public class ChatController extends Job{
 	    		JPA.em().getTransaction().commit();
 	    		
 	    		WebSocket customerSocket = customerSockets.get(customerId.toString());
-	    		if(customerSocket!=null){
+	    		if(customerSocket==null){
 	    			// 本机
 	    			customerSocket.send(message);
 	    		}else{
 	    			// 其它服务器
-	    			CrossServerAPI.sendToCustomer(customerId.toString(), message);
+	    			dialogService.sendToCustomer(customerId, message);
 	    		}
 	    	}
 	    	
