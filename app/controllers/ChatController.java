@@ -101,7 +101,7 @@ public class ChatController extends Job{
 	    		JPA.em().getTransaction().commit();
 	    		
 	    		WebSocket customerSocket = customerSockets.get(customerId.toString());
-	    		if(customerSocket==null){
+	    		if(customerSocket != null){
 	    			// 本机
 	    			customerSocket.send(message);
 	    		}else{
