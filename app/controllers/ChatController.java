@@ -2,12 +2,11 @@ package controllers;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
@@ -15,11 +14,12 @@ import org.java_websocket.server.WebSocketServer;
 
 import com.alibaba.fastjson.JSONObject;
 
+import api.CrossServerAPI;
 import play.Logger;
+import play.db.jpa.JPA;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.modules.guice.InjectSupport;
-import play.mvc.Scope.Session;
 import services.DialogService;
 
 // 1、实时监控，客服、用户上线及下线情况
@@ -43,11 +43,11 @@ public class ChatController extends Job{
     	socketServer.start();
 	}
 	
-	class MySocketServer extends WebSocketServer {
-
+	public static class MySocketServer extends WebSocketServer {
+		
 		// 存放id和socket实例的对应关系
-	    private Map<String, WebSocket> userSockets = new HashMap<String, WebSocket>(); 
-	    private Map<String, WebSocket> customerSockets = new HashMap<String, WebSocket>();
+	    private static Map<String, WebSocket> userSockets = new HashMap<String, WebSocket>(); // dialogId
+	    private static Map<String, WebSocket> customerSockets = new HashMap<String, WebSocket>(); // customerId
 	    
 	    public MySocketServer(int port) {
 	        super(new InetSocketAddress(port));
@@ -61,7 +61,7 @@ public class ChatController extends Job{
 	    public void onOpen(WebSocket conn, ClientHandshake handshake) {
 	    	String param = handshake.getResourceDescriptor();
 	    	String sessionId = param.substring(param.indexOf("=") + 1); //  客户端参数
-	    	if(param.contains("userId")){
+	    	if(param.contains("dialogId")){
 	    		// user
 	    		userSockets.put(sessionId, conn);
 	    	}else{
@@ -80,18 +80,40 @@ public class ChatController extends Job{
 
 	    @Override
 	    public void onMessage(WebSocket conn, String message) {
+	    	if (JPA.local.get() == null) {
+	            EntityManager em = JPA.newEntityManager();
+	            final JPA jpa = new JPA();
+	            jpa.entityManager = em;
+	            JPA.local.set(jpa);
+	        }
+	    	
 	    	System.out.println("---onMessage:" + message);
+	    	JSONObject dialog = JSONObject.parseObject(message);
 	    	
 	    	boolean isCustomer = customerSockets.containsValue(conn);
 	    	if(isCustomer){ // 客服发，用户收
-	    		JSONObject dialog = JSONObject.parseObject(message);
 	    		WebSocket userSocket = userSockets.get(dialog.get("dialogId"));
-	    		userSocket.send(message);
+	    		if(userSocket != null){
+	    			// 本机
+	    			userSocket.send(message);
+	    		}else{
+	    			// 其它服务器
+	    			CrossServerAPI.sendToUser(String.valueOf(dialog.get("dialogId")), message);
+	    		}
 	    	}else{ // 用户发，客服收
 	    		// TODO liusu 用户发第一句话才分配客服，怎么调用与业务相关的逻辑？？
-	    		Long customerId = dialogService.assignment(3005L);
+	    		JPA.em().getTransaction().begin();
+	    		Long customerId = dialogService.assignment(Long.valueOf(String.valueOf(dialog.get("dialogId"))));
+	    		JPA.em().getTransaction().commit();
+	    		
 	    		WebSocket customerSocket = customerSockets.get(customerId.toString());
-	    		customerSocket.send(message);
+	    		if(customerSocket!=null){
+	    			// 本机
+	    			customerSocket.send(message);
+	    		}else{
+	    			// 其它服务器
+	    			CrossServerAPI.sendToCustomer(customerId.toString(), message);
+	    		}
 	    	}
 	    	
 	    	// 主动发送方, 调用onMessage显示消息内容
@@ -128,6 +150,14 @@ public class ChatController extends Job{
 	    @Override
 	    public void onError(WebSocket conn, Exception ex) {
 	    	System.out.println("---onError:" + ex.getMessage());
+	    }
+	    
+	    public static Map<String, WebSocket> getUserWebsockets(){
+	    	return userSockets;
+	    }
+	    
+	    public static Map<String, WebSocket> getCustomerWebsockets(){
+	    	return customerSockets;
 	    }
 	    
 	    private String getUserId(WebSocket conn){

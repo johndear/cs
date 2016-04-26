@@ -15,10 +15,22 @@ public class DialogService {
 
 	// 按优先级、最大处理量、正在服务量顺序，分配客服（考虑：1、同部门；2、客服服务量必须小于最大量-区分不同渠道）
 	public Long assignment(Long dialogId) {
+		DialogModel dialogModel = DialogModel.findById(dialogId);
+		if(dialogModel.getCustomerId()!=null){
+			return dialogModel.getCustomerId();
+		}
+		
 		SqlSession session = IbatisSessionFactory.get().openSession();
 		CustomerMapper guestBookMapper = session.getMapper(CustomerMapper.class);
 		CustomerModel customerModel = guestBookMapper.getCustomer();
-		return customerModel==null ? null : customerModel.getCustomerId();
+		
+		Long customerId = customerModel==null ? null : customerModel.getCustomerId();
+		if(customerId != null){
+			dialogModel.setCustomerId(customerId);
+			dialogModel.save();
+		}
+		
+		return customerId;
 	}
 	
 	// 会话主动关闭

@@ -13,7 +13,7 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 	// liusu temp
 	var socketServerAddress = 'localhost';
 	var socketServerPort = '8887';
-	var params = 'userId=' + dialogId;
+	var params = 'dialogId=' + dialogId;
 
 	function newWebSocket() {
 		var url = "ws://" + socketServerAddress + ":" + socketServerPort + '?' + params;
