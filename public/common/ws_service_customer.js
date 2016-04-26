@@ -50,13 +50,12 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
 	}
 
 	function onClose(evnt) {
-		alert('你已经掉线了.');
 		console.log('连接被关闭.');
 
-//		$timeout(function() {
-//			console.log('Reconnecting to server...')
-//			newWebSocket();
-//		}, 3000);
+		$timeout(function() {
+			console.log('Reconnecting to server...');
+			newWebSocket();
+		}, 3000);
 	}
 
 	// 接收websocket服务端推送的数据
@@ -78,8 +77,7 @@ chatApp.service('WebSocketService', [ '$timeout', '$q', '$rootScope','$http', fu
 	}
 
 	function onError(evnt) {
-		alert('连接出错啦！');
-		console.log('onError: ', evnt);
+		console.log('连接出错啦！ ', evnt);
 //		$timeout(function() {
 //			console.log('Reconnecting to server...')
 //			newWebSocket();

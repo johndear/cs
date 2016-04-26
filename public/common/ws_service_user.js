@@ -49,13 +49,15 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 	}
 
 	function onClose(evnt) {
-		alert('你已经掉线了.');
 		console.log('连接被关闭.');
 
-		// $timeout(function() {
-		// console.log('Reconnecting to server...')
-		// newWebSocket();
-		// }, 3000);
+		if(!customerClosed){
+			// 异常断开重连
+			$timeout(function() {
+				console.log('Reconnecting to server...');
+				newWebSocket();
+			}, 3000);
+		}
 	}
 
 	function onMessage(evnt) {
@@ -76,12 +78,11 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 	}
 
 	function onError(evnt) {
-		alert('连接出错啦！');
-		console.log('onError: ', evnt);
-		// $timeout(function() {
-		// console.log('Reconnecting to server...')
-		// newWebSocket();
-		// }, 3000);
+		console.log('连接出错啦！ ', evnt);
+//		$timeout(function() {
+//		console.log('Reconnecting to server...')
+//		newWebSocket();
+//	}, 3000);
 	}
 
 	function sendRequest(request) {
@@ -116,8 +117,10 @@ chatApp.service('WebSocketService',['$timeout','$q','$rootScope','$http', functi
 		return promise;
 	};
 	
+	var customerClosed = false;
 	Service.breakOn = function(message) {
 		ws.close();
+		customerClosed = true;
 	};
 	
 	return Service;
