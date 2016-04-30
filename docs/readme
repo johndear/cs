@@ -12,6 +12,8 @@ play modules
 	RequireJS
 	Zepto.js（文件小，移动端开发更好，不支持IE，与jquery不兼容）  http://www.css88.com/doc/zeptojs_api/
 	LESS\sass（支持动态css）
+	AngularJs
+		https://github.com/angular
 	AngularJs showcase：
 		http://showcase.ngnice.com/  
 		http://each.sinaapp.com/angular/
@@ -32,3 +34,7 @@ play modules
 开发工具：
 	Idea入门
 	https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_version
+	webstorm angular自动提示  web-server。js运行
+	google插件-Angular Debug： batarang
+	google插件-jsonview： JSON Formatter
+	
