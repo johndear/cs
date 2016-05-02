@@ -33,8 +33,17 @@ play modules
 
 开发工具：
 	Idea入门
-	https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_version
-	webstorm angular自动提示  web-server。js运行
+		https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_version
+	webstorm 
+		javascript开发工具， angular自动提示  web-server。js运行
+	hbuilder 
+		html5快速开发工具
 	google插件-Angular Debug： batarang
 	google插件-jsonview： JSON Formatter
+	
+资源网：
+	icon http://www.softicons.com/
+	js   https://cdnjs.com/
+		 http://apps.bdimg.com/ 静态资源
+	
 	
