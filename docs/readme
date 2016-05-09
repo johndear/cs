@@ -2,7 +2,7 @@ play modules
 	https://www.playframework.com/modules/mybatisplay
 
 前端ui
-	Bootstrap 2.3（支持  IE7.0+）
+	Bootstrap 2.3（支持  IE7.0+） http://www.runoob.com/bootstrap/bootstrap-pagination.html
 	Bootstrap 3（支持  IE8.0+） 
 	Foundation（支持  IE9.0+）
 前端js
