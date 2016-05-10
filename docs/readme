@@ -31,14 +31,15 @@
 	nginx
 	jekins 持续集成工具
 	
-
-项目实践：
+项目实战：
 	2级缓存
 		https://git.oschina.net/ld/J2Cache
 	jeeshop
 		http://www.oschina.net/p/jeeshop
+	AdminLTE-2.3.0（bootstrap风格）
+		https://almsaeedstudio.com/preview
 
-开发工具：
+工具：
 	Idea入门
 		https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_version
 	webstorm 
@@ -52,5 +53,6 @@
 	icon http://www.softicons.com/
 	js   https://cdnjs.com/
 		 http://apps.bdimg.com/ 静态资源
+		 http://jsbin.com/	在线网页开发
 	
 	
