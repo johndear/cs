@@ -1,10 +1,13 @@
-play modules
-	https://www.playframework.com/modules/mybatisplay
-
+服务端
+	playframework
+		https://www.playframework.com/modules/mybatisplay
+	spring
 前端ui
 	Bootstrap 2.3（支持  IE7.0+）
 	Bootstrap 3（支持  IE8.0+） 
 	Foundation（支持  IE9.0+）
+	jqueryUI
+	EasyUI
 前端js
 	Backbone.js      http://www.css88.com/doc/backbone/
 	Lodash\Underscore.js    http://www.css88.com/doc/underscore/
@@ -24,6 +27,10 @@ play modules
 	angularJs组件：
 		https://github.com/gianarb/awesome-angularjs 很棒的组件
 		http://angular-ui.github.io/bootstrap/ angularui-bootstrap组件
+服务器
+	nginx
+	jekins 持续集成工具
+	
 
 项目实践：
 	2级缓存
