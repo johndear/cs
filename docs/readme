@@ -1,37 +1,11 @@
 服务端
-	playframework				https://www.playframework.com/modules/mybatisplay
+	playframework				
+								git clone git://github.com/playframework/playframework.git    源码
+								https://www.playframework.com/modules/mybatisplay
 								http://localhost:9027/@documentation/home    Play手册
 								https://groups.google.com/forum/#!forum/play-framework 在线问题反馈
 	spring
-前端ui
-	Bootstrap 2.3（支持  IE7.0+） 	http://www.runoob.com/bootstrap/bootstrap-pagination.html
-	Bootstrap 3（支持  IE8.0+）		http://www.bootcss.com/
-	bootstrap-table 			http://issues.wenzhixin.net.cn/bootstrap-table/
-	AngularStrap 				http://mgcrea.github.io/angular-strap/#
-	AngularUI 					https://github.com/angular-ui?page=1
-	Foundation（支持  IE9.0+）
-	jqueryUI
-	EasyUI
-前端js
-	Backbone.js      			http://www.css88.com/doc/backbone/
-	Lodash\Underscore.js    	http://www.css88.com/doc/underscore/
-	jQuery
-	RequireJS
-	Zepto.js（文件小，移动端开发更好，不支持IE，与jquery不兼容）  http://www.css88.com/doc/zeptojs_api/
-	LESS\sass（支持动态css）
-	AngularJs
-		https://github.com/angular
-		http://www.miaoyueyue.com/archives/category/web/js/angularjs 自定义指定
-	AngularJs showcase：
-		http://showcase.ngnice.com/  
-		http://each.sinaapp.com/angular/
-	手动MVVM框架
-		http://www.tuicool.com/articles/UFjeiaZ
-	静态资源引用    Google developers（Make the Web Faster）
-		https://developers.google.com/speed/libraries/
-	angularJs组件：
-		https://github.com/gianarb/awesome-angularjs 很棒的组件
-		http://angular-ui.github.io/bootstrap/ angularui-bootstrap组件
+
 服务器
 	nginx
 	jekins 持续集成工具
@@ -47,17 +21,8 @@
 工具：
 	IntelliJ IDEA
 		https://www.jetbrains.com/help/idea/2016.1/play-framework-1-x.html#supported_version
-	webstorm 
-		javascript开发工具， angular自动提示  web-server。js运行
-	hbuilder 
-		html5快速开发工具
-	google插件-Angular Debug： batarang
-	google插件-jsonview： JSON Formatter
 	
-资源网：
-	icon http://www.softicons.com/
-	js   https://cdnjs.com/
-		 http://apps.bdimg.com/ 静态资源
-		 http://jsbin.com/	在线网页开发
+	
+
 	
 	
