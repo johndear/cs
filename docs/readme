@@ -1,5 +1,5 @@
 服务端
-	playframework				
+	playframework				https://www.playframework.com/documentation/1.4.x/home 入门
 								git clone git://github.com/playframework/playframework.git    源码
 								https://www.playframework.com/modules/mybatisplay
 								http://localhost:9027/@documentation/home    Play手册
