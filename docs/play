@@ -1,8 +1,10 @@
 play new PROJECT_NAME
 
 play new-module MODULE_NAME
-
-application.config中配置， module.MODULE_NAME=MODULE_NAME
+1、application.config
+module.MODULE_NAME=MODULE_NAME
+2、MODULE_NAME/routes
+*       /{controller}/{action}                  MODULE_NAME.{controller}.{action}
 
 play deps
 
