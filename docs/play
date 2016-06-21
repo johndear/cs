@@ -2,9 +2,9 @@ play new PROJECT_NAME
 
 play new-module MODULE_NAME
 1、conf/application.config
-module.MODULE_NAME=MODULE_NAME
+	module.MODULE_NAME=MODULE_NAME
 2、conf/MODULE_NAME/routes
-*       /{controller}/{action}                  MODULE_NAME.{controller}.{action}
+	*       /{controller}/{action}                  MODULE_NAME.{controller}.{action}
 
 play deps
 
