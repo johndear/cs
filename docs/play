@@ -1,0 +1,9 @@
+play new PROJECT_NAME
+
+play new-module MODULE_NAME
+
+application.config中配置， module.MODULE_NAME=MODULE_NAME
+
+play deps
+
+play ec
