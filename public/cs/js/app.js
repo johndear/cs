@@ -130,7 +130,8 @@ chatApp.config(function($sceProvider){
 chatApp.constant("chatEnum",{
 	Dept:{
 		jym:2,
-		sum:1
+		sum:1,
+		sum_game:4
 	}
 });
 //格式化日期
