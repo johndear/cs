@@ -9,3 +9,7 @@ play new-module MODULE_NAME
 play deps
 
 play ec
+
+参考
+通用模板定义：
+https://www.playframework.com/documentation/1.2.7/cheatsheet/templates
