@@ -1,0 +1,991 @@
+
+					<!doctype html>
+<html>
+<head>
+<script type="text/javascript">
+if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+	try{
+		if(/iPad/i.test(navigator.userAgent)){
+		}else{
+			var re = /^[\S]*[\\\/]([0-9]+)_*([0-9])*\.shtml/;
+			var wapUrl = window.location.pathname.replace(\"_all\",\"\").replace(re,function(m,p1,p2){
+				if(p1){
+					if(p2){
+						return "http://m.it168.com/article_" + parseInt(p1,10) + "_p" + parseInt(p2,10) + ".html";					
+					}else{					
+						return "http://m.it168.com/article_" + parseInt(p1,10) + ".html";
+					}
+				}else{
+					return "http://m.it168.com";
+				}
+			});
+			window.location.href = wapUrl;			
+		}
+	}catch(e){}
+}
+</script>
+<title>Java开源开发框架：Play框架快速入门-IT168 技术开发专区</title>
+<meta charset="gb2312" />
+<meta name="description" content="Ruby on Rails及Grails等动态脚本语言正发展得如火如荼，而在以Java为首的开源最大阵营中，也出现了各种框架。其中最著名的就是Play框架。本文将为有一定Java Web框架基础的读者，来重点介绍如何使用play框架来编制一个最简单的信息增删改查应用。
+"/>
+<base target="_blank" />
+
+
+
+<script type="text/javascript">
+	var reqUrl = window.location.href.toLowerCase();
+	if (reqUrl.lastIndexOf("itpub.net")>0)
+	{
+		document.domain='itpub.net';
+	}
+	else
+	{
+				document.domain='it168.com';
+			}
+	var articleONeCode = "000000001269990";
+	var articleCode = "1269990";
+	var articlePath = "http://tech.it168.com/a2011/1107/1269/000001269990.shtml";
+	var articleUrl = "http://tech.it168.com/a2011/1107/1269/000001269990.shtml";
+	var articleTitle = "Java开源开发框架：Play框架快速入门";
+	var articlecuPage = 1;
+	var articlePageCount = 0;
+	var articleChannelCode = "4";
+	var chanstr = "4";
+	var articleTypeName="资讯";
+        var channelNameSt = "技术开发";
+	var typeid = "";
+	var pinpaiid = "";
+	var productid ="";
+	var brndnamestr="";
+	var pageType = "article";
+	</script>
+
+<script type="text/javascript">
+var channelpropertyid=4; //频道id
+var channelpropertycateid="";//频道属性
+var articlePropertyID=1;//文章属性
+var SeriesId=""; //产品小类id
+var BrandId=""; //品牌id
+
+</script>
+
+<script type="text/javascript" src="http://168.it168.com/a/h96.js"></script>
+<link rel="stylesheet" href="/detailinclude/article2015/include/style.css?v=new20150917">
+<link rel="StyleSheet" href="http://open.pcpop.com/css/It168Article.css?v=20120723000" type="text/css" media="screen" />
+<script type="text/javascript" src="/detailinclude/article2015/include/jquery-1.7.2.min.js"></script>
+
+
+
+</head>
+<body>
+<div id="ADV_20300" class="top_nav_adv"  style="display:none;"><script>LG('ADV_20300');</script></div>
+<div id="ADV_1311"  class="top_nav_adv"  style="display:none;"><script>LG('ADV_1311');</script></div>
+<div id="ADV_20769" class="top_nav_adv"  style="display:none;"><script>LG('ADV_20769');</script></div>
+<div class="big_nav">
+<div class="login" id="LoginFalse"><a href="/" target="_self" id="login">登录</a> / <a href="/" target="_self" id="Register">注册</a></div>
+<div class="login" id="LoginTrue" style="display:none;" ><a ><span id="logintrueName"></span><em></em></a>
+<div class="zhanghao" style="display:none;"><a href="http://u.it168.com" class="first">账号信息</a><a href="/" id="log_out" target="_self">退出登录</a></div></div>
+  <ul class="nav" id="nav">
+    <li id="n1" style="background:none; border-left:1px solid #fff;border-right:1px solid #fff;" ><a href="http://www.it168.com">IT168首页</a></li>
+    <li><a href="http://mobile.it168.com/" >手机</a><i></i>
+      <div class="div">
+        <div class="div1 float_l" id="channel_mobile" > 
+			<a  href="http://mobile.it168.com" >手机频道</a> 
+			<a  href="http://peijian.it168.com" >手机配件</a>
+			<a href="http://4g.it168.com" >4G频道</a>
+			<a  href="http://3g.it168.com" >3G频道</a> 
+			<a  href="http://jiyouhui.it168.com" >机友会论坛</a>
+			<a  href="http://sony.it168.com" >索尼论坛</a> 
+		</div>
+		
+        <div class="div2 float_r">
+		
+			 	<a href="http://mobile.it168.com/tu/1761542_1.shtml" >最个性的定制化旗舰 Moto X Style开箱</a>
+	<a href="http://mobile.it168.com/tu/1762166_1.shtml" >2.5D双面玻璃纯简白 iuni N1开箱图赏</a>
+	<a href="http://mobile.it168.com/tu/1761356_1.shtml" >IT168毒图党：情怀彩色小坚果U1手机</a>
+	<a href="http://mobile.it168.com/tu/1761486_1.shtml" >收益最低20% 看黄牛小编预约iPhone 6s</a>
+	<a href="http://mobile.it168.com/a2015/0916/1762/000001762467.shtml" >中国大陆周四凌晨1点推送iOS 9</a>
+<div><a  href="http://mobile.it168.com/" class="more3">更多手机文章>></a></div>
+		</div>
+      </div>
+    </li>
+    <li><a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://notebook.it168.com" >整机</a><i></i>
+      <div class="div">
+        <div class="div1 float_l" id="channel_notebook" >
+		<a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://notebook.it168.com" >笔记本</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://ultrabook.it168.com" >超极本</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://aio.it168.com" >一体电脑</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://pc.it168.com" >台式机</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://pc.it168.com/sypc.shtml" >商用电脑</a> <a onclick="ga('send','event','it168_channel','click','nav_channel');" href="http://benyouhui.it168.com/" >本友会论坛</a>  </div>
+        <div class="div2 float_r">
+			<a href="http://notebook.it168.com/a2015/0916/1762/000001762441.shtml" >漂亮的实力派 戴尔新游匣15 7000评测</a>
+	<a href="http://notebook.it168.com/a2015/0914/1761/000001761933.shtml" >预装win10轻松4K 华硕VivoBook4000评测</a>
+	<a href="http://notebook.it168.com/a2015/0911/1761/000001761459.shtml" >GTX960M 2G独显 14英寸联想拯救者5099</a>
+	<a href="http://notebook.it168.com/a2015/0911/1761/000001761607.shtml" >不坑队友不坑爹 联想Y430p仅售4599元</a>
+	<a href="http://notebook.it168.com/a2015/0909/1760/000001760696.shtml" >移动办公必备 12.5吋商务轻薄本推荐</a>
+<div><a  href="http://pc.it168.com/" class="more3" >更多整机文章>></a></div></div>
+      </div></li>
+    <li id="n1"><a href="http://diy.it168.com" >DIY硬件</a><i class="w78"></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://cpu.it168.com" >CPU</a> <a href="http://mb.it168.com" >主板</a> <a href="http://vga.it168.com" >显卡</a> <a href="http://mouse.it168.com" >键盘鼠标</a> <a href="http://power.it168.com" >机箱电源</a> <a href="http://memory.it168.com" >内存硬盘</a> <a href="http://diybbs.it168.com" >烧友会论坛</a> </div>
+        <div class="div2 float_r">
+		
+			<a href="http://mb.it168.com/a2015/0907/1760/000001760184.shtml" >Skylake普及先锋 华硕Z170-A主板解析</a>
+	<a href="http://vga.it168.com/a2015/0908/1760/000001760536.shtml" >高速DDR5显卡 影驰GTX750 Ti大将888元</a>
+	<a href="http://memory.it168.com/a2015/0908/1760/000001760283.shtml" >128G固态硬盘 笔记本配件仅售399元</a>
+	<a href="http://mb.it168.com/a2015/0907/1760/000001760062.shtml" >华硕宣布推出玩家系列两款主板</a>
+	<a href="http://mouse.it168.com/a2015/0915/1762/000001762289.shtml" >激光游戏鼠标 黑爵AJ100国美售价149元</a>
+<div><a href="http://diy.it168.com/" class="more3" >更多DIY硬件文章>></a></div></div>
+      </div></li>
+    <li><a href="http://dc.it168.com" >摄影</a><i></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://dc.it168.com" >数码相机</a> <a href="http://dandian.it168.com/" >单电之家</a> <a href="http://pj.it168.com" >摄影配件</a> <a href="http://dv.it168.com" >DV摄像机</a> <a href="http://photobbs.it168.com" >摄友会论坛</a>  </div>
+        <div class="div2 float_r">
+		
+			<a href="http://dc.it168.com/a2015/0914/1761/000001761927.shtml" >A7SII登场 索尼A7系列6款相机应如何选</a>
+	<a href="http://dc.it168.com/a2015/0911/1761/000001761645.shtml" >新品索尼全画幅微单A7SII发布</a>
+	<a href="http://dc.it168.com/a2015/0907/1760/000001760047.shtml" >如何提升照片锐度？ 锐度越高越好吗？</a>
+	<a href="http://dc.it168.com/a2015/0911/1761/000001761613.shtml" >4K录制、五轴防抖 索尼A7sII正式发布</a>
+	<a href="http://dc.it168.com/a2015/0819/1755/000001755706.shtml" >小巧轻便全画幅 索尼A7套机仅售7150元</a>
+<div><a href="http://dc.it168.com/" class="more3" >更多摄影文章>></a></div></div>
+      </div></li>
+    <li id="n1"><a href="http://digital.it168.com" >消费数码</a><i class="w78"></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://pad.it168.com" >平板</a><a href="http://earphone.it168.com" >耳机</a> <a href="http://lcd.it168.com" >显示器</a> <a href="http://sound.it168.com" >音箱</a>  </div>
+        <div class="div2 float_r">
+		
+			<a href="http://pad.it168.com/a2015/0915/1762/000001762103.shtml" >能拍好照片的平板 三星Tab S2超值购</a>
+	<a href="http://pad.it168.com/a2015/0917/1762/000001762858.shtml" >全面释放Windows潜力 CoreM平板热力榜</a>
+	<a href="http://pad.it168.com/a2015/0914/1761/000001761823.shtml" >最新WIN10+安卓系统 中柏4S平板仅679元</a>
+	<a href="http://pad.it168.com/a2015/0917/1762/000001762817.shtml" >3000元高性能好货 神舟PCpad CM上架</a>
+	<a href="http://lcd.it168.com/a2015/0915/1762/000001762123.shtml" >AOC京东满减专场火爆开启！</a>
+<div><a href="http://digital.it168.com/" class="more3" >更多消费数码文章>></a></div>
+		
+		</div>
+      </div></li>
+    <li id="n1"><a href="http://elec.it168.com" >数字家电</a><i class="w78"></i>
+      <div class="div">
+        <div class="div1 float_l"><a href="http://elec.it168.com" >数字家电</a> <a href="http://smart.it168.com" >小家电</a> <a href="http://tv.it168.com" >智能电视</a> <a href="http://elife.it168.com" >智能生活</a> </div>
+        <div class="div2 float_r">		
+       	<a href="http://elec.it168.com/a2015/0914/1761/000001761741.shtml" >超高清内置WIFIW网络 海尔42寸电视2499</a>
+	<a href="http://elec.it168.com/a2015/0915/1762/000001762224.shtml" >深度清洁 美的6公斤银色滚筒洗衣机1298</a>
+	<a href="http://elec.it168.com/a2015/0911/1761/000001761361.shtml" >抢购进行中 金稻蒸脸器国美抢购价308</a>
+	<a href="http://elec.it168.com/a2015/0910/1760/000001760997.shtml" >COCO SMART 680T评测：矮胖子样样通吃</a>
+	<a href="http://smart.it168.com/a2015/0916/1762/000001762432.shtml" >团购进行时 飞龙出口立式烧烤炉仅369元</a>
+<div><a href="http://elec.it168.com/" class="more3" >更多数字家电文章>></a></div></div>	   
+      </div></li>
+    <li><a href="javascript:void(0);" >企业IT</a><i></i>
+      <div class="div_1">
+        <div class="div1 float_r">
+		<a href="http://server.it168.com" >服务器</a> 
+		<a href="http://net.it168.com" >网络通信</a> 
+		<a href="http://storage.it168.com" >存储</a> 
+		<a href="http://safe.it168.com" >企业安全</a> 
+		<a href="http://virtual.it168.com/" >虚拟化</a>
+		<a href="http://datacenter.it168.com" >数据中心</a>
+		<a href="http://wireless.it168.com" >无线组网</a> 
+		</div>
+        <div class="div2 float_l">		
+        <a href="http://www.it168.com/redian/2015HCC/" title="IT168现场直击：2015华为云计算大会" >IT168现场直击：2015华为云计算大会</a><a href="http://server.it168.com/a2015/0916/1762/000001762463.shtml" title="互联网+时代 至强E7v3加速关键业务转型" >互联网+时代 至强E7v3加速关键业务转型</a><a href="http://net.it168.com/a2015/0918/1763/000001763170.shtml" title="华为HCC2015从云端实现敏捷的无尽可能" >华为HCC2015从云端实现敏捷的无尽可能</a><a href="http://net.it168.com/a2015/0915/1762/000001762377.shtml" title="巨头不再孤独 思科联合推出SD-WAN方案" >巨头不再孤独 思科联合推出SD-WAN方案</a><a href="http://storage.it168.com/a2015/0916/1762/000001762662.shtml" title="购前必读：升级到全闪存阵列的四大建议" >购前必读：升级到全闪存阵列的四大建议</a><div><a href="http://server.it168.com/" class="more3" >更多企业IT文章>></a></div></div>	
+      </div></li>
+	  <li id="n1" ><a href="javascript:void(0);" >企业商用</a><i class="w78"></i>
+      <div class="div_1">
+        <div class="div1 float_r">
+		<a href="http://tech.it168.com" >技术开发</a> 
+		<a href="http://cio.it168.com" >信息化</a> 
+		<a href="http://cloud.it168.com" >云计算</a> 
+		<a href="http://cioctoclub.it168.com" >CIO Club</a> 
+		<a href="http://www.it168.com/tag/4326_1.shtml" >大数据</a>  
+		</div>
+        <div class="div2 float_l">		
+	   <a href="http://tech.it168.com/a2015/0915/1762/000001762384.shtml" title="未来房价涨or跌？大数据告诉你" >未来房价涨or跌？大数据告诉你</a><a href="http://www.it168.com/remen/hangyedata/" title="大数据开启商业新未来" >大数据开启商业新未来</a><a href="http://cio.it168.com/a2015/0916/1762/000001762753.shtml" title="简负增效成长型企业商业变革跨越与突破" >简负增效成长型企业商业变革跨越与突破</a><a href="http://cloud.it168.com/a2015/0918/1763/000001763258.shtml" title="业内专家对话 解读OpenStack四大难点" >业内专家对话 解读OpenStack四大难点</a><a href="http://cio.it168.com/a2015/0902/1759/000001759339.shtml" title="北京市计算中心OpenStack强云记" >北京市计算中心OpenStack强云记</a><div><a href="http://cloud.it168.com/" class="more3" >更多企业商用文章>></a></div></div>
+      </div></li>
+    
+    <li><a href="javascript:void(0);" >办公</a><i></i>
+      <div class="div">
+        <div class="div1 float_l">
+		<a href="http://oa.it168.com" >办公频道</a> 
+		<a href="http://print.it168.com" >打印机</a> 
+		<a href="http://mfp.it168.com" >复合机</a> 
+		<a href="http://projector.it168.com" >投影机</a> 
+		<a href="http://3dprint.it168.com" >3D打印</a> 
+		<a href="http://oa.chinaunix.net" >办公论坛</a>  
+		</div>
+        <div class="div2 float_r">
+ 
+		<a href="http://oa.it168.com/a2015/0915/1762/000001762316.shtml" title="省钱省心省时 佳能打印机六年保修推荐" >省钱省心省时 佳能打印机六年保修推荐</a><a href="http://print.it168.com/a2015/0918/1763/000001763251.shtml" title="革命性的技术变革 浅谈惠普智捷技术" >革命性的技术变革 浅谈惠普智捷技术</a><a href="http://oa.it168.com/topic/2015/9-9/VivitekHP/" title="科技融入生活 户外新装备应用体验解析" >科技融入生活 户外新装备应用体验解析</a><a href="http://mfp.it168.com/a2015/0813/1754/000001754219.shtml" title="智能商务办公 万元彩色数码复合机推荐" >智能商务办公 万元彩色数码复合机推荐</a><div><a href="http://oa.it168.com/" class="more3" >更多办公文章>></a></div></div>
+      </div></li>
+    <li><a href="javascript:void(0);" >互动</a><i></i>
+      <div class="div_1">
+        <div class="div1 float_r">
+			<a href="http://www.chinaunix.net" >Chinaunix</a> 
+			<a href="http://www.itpub.net" >ITPUB</a> 
+			<a href="http://wenku.it168.com" >IT文库</a> 
+			<a href="http://dtcc.it168.com" >数据库大会</a> 
+			<a href="http://sacc.it168.com" >架构师大会</a>  
+		</div>
+        <div class="div2 float_l">		      
+	   <a href="http://bbs.chinaunix.net/thread-4187920-1-1.html" title="帮帮他，运维屌丝能通过试用期吗？" >帮帮他，运维屌丝能通过试用期吗？</a><a href="http://bbs.chinaunix.net/thread-4187172-1-1.html" title="黑客攻防技能知多少？ 投票有壕礼！" >黑客攻防技能知多少？ 投票有壕礼！</a><a href="http://www.itpub.net/thread-1937539-1-1.html" title="从数据中挖掘宝藏，你真地准备好了吗？" >从数据中挖掘宝藏，你真地准备好了吗？</a><a href="http://www.itpub.net/thread-1937910-1-1.html" title="新浪瘫了，网友怒了！" >新浪瘫了，网友怒了！</a><a href="http://www.itpub.net/thread-1922133-1-1.html" title="互联网+怎么飞？O2O怎么玩？" >互联网+怎么飞？O2O怎么玩？</a><div><a href="http://www.itpub.net/" class="more3" >更多互动文章>></a></div></div>
+      </div></li>	  
+	<li><a href="javascript:void(0);" >社区</a><i></i>
+    <div class="div_2"><a href="http://benyouhui.it168.com" >本友会</a><a href="http://www.itpub.net/forum.php" >ITPUB社区</a><a href="http://blog.itpub.net/" >ITPub博客</a><a href="http://jiyouhui.it168.com" >机友会</a><a href="http://bbs.chinaunix.net/" >CU社区</a><a href="http://blog.chinaunix.net/" >CU博客</a><a href="http://photobbs.it168.com/" >摄友会</a><a href="http://www.itpub.net/star/" >IT名人堂</a><a href="http://www.chinaunix.net/talk" >大话IT</a><a href="http://diybbs.it168.com/" >烧友会</a><a href="http://selftest.chinaunix.net/" >技术自测</a><a href="http://oa.chinaunix.net/" >办公论坛</a><a href="http://wp.it168.com/" >WP论坛</a></div>
+    </li>
+	
+    <li id="n2"><a href="#" ><em></em><b>全部频道</b></a><em class="em1"></em><i class="w100"></i>
+    
+    <div class="div_3"><dl class="first"><dt><a href="http://mobile.it168.com" >手机</a></dt><dd><a href="http://mobile.it168.com" >手机频道</a></dd>
+    <dd><a href="http://peijian.it168.com/" >手机配件</a></dd>
+    <dd><a href="http://4g.it168.com/" >4G频道</a></dd>
+    <dd><a href="http://3g.it168.com" >3G频道</a></dd>
+    <dd><a href="http://jiyouhui.it168.com" >机友会论坛</a></dd>
+    <dd><a href="http://sony.it168.com" >索尼论坛</a></dd>
+    </dl><dl><dt><a href="http://notebook.it168.com" >整机</a></dt><dd><a href="http://notebook.it168.com" >笔记本</a></dd>
+    <dd><a href="http://ultrabook.it168.com" >超极本</a></dd>
+    <dd><a href="http://aio.it168.com" >一体电脑</a></dd>
+    <dd><a href="http://pc.it168.com" >台式机</a></dd>
+    <dd><a href="http://pc.it168.com/sypc.shtml" >商用电脑</a></dd>
+    <dd><a href="http://benyouhui.it168.com" >本友会论坛</a></dd>
+    </dl>
+    <dl><dt><a href="http://diy.it168.com/" >DIY硬件</a></dt><dd><a href="http://cpu.it168.com" >CPU</a></dd>
+    <dd><a href="http://mb.it168.com" >主板</a></dd>
+    <dd><a href="http://vga.it168.com" >显卡</a></dd>
+    <dd><a href="http://mouse.it168.com" >键盘鼠标</a></dd>
+    <dd><a href="http://power.it168.com" >机箱电源</a></dd>
+    <dd><a href="http://memory.it168.com" >内存硬盘</a></dd> 
+    <dd><a href="http://diybbs.it168.com" >烧友会论坛</a></dd>
+    </dl>
+    <dl><dt><a href="http://dc.it168.com" >摄影</a></dt><dd><a href="http://dc.it168.com" >数码相机</a></dd>
+    <dd><a href="http://dandian.it168.com/" >单电之家</a></dd>
+    <dd><a href="http://pj.it168.com" >摄影配件</a></dd>
+    <dd><a href="http://dv.it168.com" >DV摄像机</a></dd>
+    <dd><a href="http://photobbs.it168.com" >摄友会论坛</a></dd>
+  
+    </dl>
+    <dl><dt><a href="http://digital.it168.com" >消费数码</a></dt>
+	<dd><a href="http://pad.it168.com" >平板</a></dd>
+	<dd><a href="http://earphone.it168.com" >耳机</a></dd>
+
+    <dd><a href="http://lcd.it168.com" >显示器</a></dd>
+    <dd><a href="http://sound.it168.com" >音箱</a></dd>
+ 
+    </dl>
+    <dl><dt><a href="http://elec.it168.com" >数字家电</a></dt><dd><a href="http://elec.it168.com" >数字家电</a></dd>
+    <dd><a href="http://smart.it168.com/" >小家电</a></dd>
+    <dd><a href="http://tv.it168.com/" >智能电视</a></dd>
+	<dd><a href="http://elife.it168.com/" >智能生活</a></dd>
+ 
+    </dl>
+	
+    <dl><dt><a href="http://server.it168.com/" >企业IT</a></dt>
+	<dd><a href="http://server.it168.com" >服务器</a></dd>
+    <dd><a href="http://net.it168.com" >网络通信</a></dd>
+	<dd><a href="http://storage.it168.com/" >存储</a></dd>
+    <dd><a href="http://safe.it168.com" >企业安全</a></dd>
+	<dd><a href="http://virtual.it168.com" >虚拟化</a></dd>
+	<dd><a href="http://datacenter.it168.com" >数据中心</a></dd>
+    <dd><a href="http://wireless.it168.com" >无线组网</a></dd>
+    </dl>
+
+    <dl><dt><a href="http://cloud.it168.com/" >企业商用</a></dt>
+	<dd><a href="http://tech.it168.com" >技术开发</a></dd>
+	<dd><a href="http://cio.it168.com" >信息化</a></dd>
+    <dd><a href="http://cloud.it168.com" >云计算</a></dd>
+    <dd><a href="http://cioctoclub.it168.com/" >CIO Club</a></dd>
+    <dd><a href="http://www.it168.com/tag/4326_1.shtml" >大数据</a></dd>
+    </dl>
+	
+	 <dl><dt><a href="http://oa.it168.com " >办公</a></dt>
+	 <dd><a href="http://oa.it168.com " >办公频道</a></dd>
+    <dd><a href="http://print.it168.com" >打印机</a></dd>
+    <dd><a href="http://mfp.it168.com/" >复合机</a></dd>
+    <dd><a href="http://projector.it168.com/" >投影机</a></dd>
+    <dd><a href="http://3dprint.it168.com/" >3D打印</a></dd>
+    <dd><a href="http://oa.chinaunix.net/" >办公论坛</a></dd>
+    </dl>
+	
+	 <dl><dt><a href="http://www.itpub.net/" >互动</a></dt>
+	 <dd><a href="http://www.chinaunix.net/" >Chinaunix</a></dd>
+	<dd><a href="http://www.itpub.net" >ITPub社区</a></dd>
+    <dd><a href="http://wenku.it168.com" >IT文库</a></dd>
+    <dd><a href="http://dtcc.it168.com" >数据库大会</a></dd>
+	<dd><a href="http://sacc.it168.com" >架构师大会</a></dd>
+   
+    </dl>
+	
+	<dl><dt><a href="javascript:void(0);" >社区</a></dt>
+	<dd><a href="http://benyouhui.it168.com" >本友会</a></dd>
+	<dd><a href="http://jiyouhui.it168.com" >机友会</a></dd>
+	<dd><a href="http://photobbs.it168.com/" >摄友会</a></dd>
+	<dd><a href="http://diybbs.it168.com/" >烧友会</a></dd>
+	<dd><a href="http://www.chinaunix.net" >Chinaunix</a></dd>
+	<dd><a href="http://www.itpub.net/" >ITPUB</a></dd>
+    </dl>
+	</div></li>
+  </ul>
+</div>
+
+
+<!-- end -->
+
+<div class="crumbs"><a class="pindao" href="http://tech.it168.com">IT168<span>技术开发</span>频道</a>
+  <div class="crumbs2"><a href="http://www.it168.com/">IT168首页</a> &gt; <a href="http://tech.it168.com" target="_blank">技术开发</a> &gt; <a href="http://tech.it168.com/chanel-4-att-1-page-1.shtml" target="_blank">技术开发资讯</a> &gt; 正文</div>
+  <div class="search">
+    <form id="SouSearch" name="SouSearch" method="post">
+      <input type="text" class="inp1" id="q" name="q" value="请输入要查询的关键词"  onfocus="if(this.value == '请输入要查询的关键词'){ this.value = '';}" onblur="if(this.value =='') {this.value = '请输入要查询的关键词'}">
+      <input type="submit" value="" class="btn1">
+    </form>
+  </div>
+</div>
+
+
+<div class="w1000">
+  <div class="l1">
+	<div style="display:none;">
+<div id="ADV_1417"><script>LG('ADV_1417');</script></div>
+</div>
+	<form action="" method="get" target="_blank" id="urlFrm" style="display:none"></form>
+  <h1>Java开源开发框架：Play框架快速入门</h1>
+    <div class="time">
+      <div class="time_fen"><a href="#articlecomment" target="_self" class="pinglun"><b id="duoshuo_commentcount">0</b>条评论</a></div>2011-11-08 00:00 &nbsp;&nbsp;
+		<a href='http://www.it168.com' target='_blank' rel=nofollow>it168网站</a>原创
+　作者: 廖煜嵘　编辑: <a href="http://archive.it168.com/user/%c6%a4%c0%f6%bb%aa/" rel="nofollow">皮丽华</a><span style="padding-left:10px; display:none;" class="It168_ArticleDsCount_span" ><b id ="It168_ArticleDsCount">0</b>购买</span></div>
+    <div class="main" id="detailWord">
+		
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>【IT168&nbsp;专稿】</b>目前，Ruby on Rails及Grails等动态脚本语言正发展得如火如荼，而在以Java为首的开源最大阵营中，也出现了各种框架。其中最著名的就是Play框架(<a href="http://download.playframework.org">http://download.playframework.org</a>)。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Play 框架是一个完整的 Web 应用开发框架，覆盖了 Web 应用开发的各个方面。它借鉴了流行的 Ruby on Rails 和 Grails 等框架，又有自己独有的优势。具体表现在以下几个方面：其一，通过 Play 框架提供的命令行工具，可以快速创建Java Web 应用。其二，它拥有Java 代码动态编译机制，在修改代码之后，不需要重启服务器就可以直接看到修改之后的结果。其三，它还使用 JPA 规范来完成领域对象的持久化，可以很方便的使用不同的关系数据库作为后台存储。其四，它使用 Groovy 作为视图层模板使用的表达式语言。模板之间的继承机制避免了重复的代码。总的来说，Play 框架非常适合快速创建Web 应用开发。本文将为有一定Java Web框架基础的读者，来重点介绍如何使用play框架来编制一个最简单的信息增删改查应用。</p><p>　　一、<b>安装Play框架</b></p><p>　　安装play框架前，只需要使用JDK 1.5以上的版本即可，将官网上的play框架下载后解压到某个指定目录下，使用的是eclipse开发工具即可。在本文中，将介绍的例子，是一个关于公司、部门、员工之间的CRUD操作，其关系为：一个公司有很多部门，一个部门有很多个员工。</p><p>　　二、<b>开始使用PLAY框架的脚手架功能</b></p><p>　　PLAY框架为能让用户快速开始搭建play系统的原型。下面是使用play中脚手架功能的步骤：</p><ol><li>　　在命令行方式下，转到play框架的安装目录，本文假设为c:\play下。</li><li>　　假设我们的应用的名称为corporations,则在play中，新建立一个应用只需要用如下命令即可：　　play new corporations，其中new表示新建应用，new后的名称则为应用的名称。</li><li>　　在输入上面的语句后，会提示输入确认系统的名字，这里输入corporations，按回车确认即可。</li><li>　　我们使用cd corporations目录中，会发现已经有play自带的框架的内容了。我们可以在命令行方式下，执行play run，这时play就会启动自带的jetty服务器，将应用启动起来。</li><li>　　 在启动后，可以通过浏览器浏览刚才新建的应用了，方法是<a href="http://localhost:9000">http://localhost:9000</a>，就可以看到一个默认的play应用，其中显示的首页中，简单指导了一些简单的配置方法。如下图：</li></ol><p style="text-align: center"><img border="1" alt="" src="http://image20.it168.com/201111_500x375/837/129cf44bb65e709.JPG" /></p><p>　　三、<b>配置应用 将框架工程导入eclipse</b></p><p>　　我们为了要在eclipse中方便我们的编码，所以需要把play刚为我们建立好的框架工程导入到我们的eclipse中去，所以我们按如下步骤去做：</p><p>　　1 使用CTRL-C，先把我们正在运行的应用停止下来。</p><p>　　2 依然在corporations目录下，输入play eclipse，表示要生成能导入eclipse的框架工程。</p><p>　　3 再启动eclipse ,然后使用导入工程的方法，把corporations工程导入。</p><p>　　4在这个例子中，用的只是HSQL，所以打开conf/application.conf文件，将下面的</p><p>　　db=mem 语句前的注释符号去掉，表示我们将使用hsql。</p><p>　　5 同样，在conf/application.conf文件中，增加如下这行，表示我们将使用play脚手架框架自带的CRUD功能：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">module.crud</span><span style="color: #000000">=</span><span style="color: #000000">${play.path}</span><span style="color: #000000">/</span><span style="color: #000000">modules</span><span style="color: #000000">/</span><span style="color: #000000">crud<br /></span></div></div><p>　　6 在conf/routes文件中，增加如下这行：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">*</span><span style="color: #000000"> </span><span style="color: #000000">/</span><span style="color: #000000">admin module:crud<br /></span></div></div><p>&nbsp;</p><p>　　注意，在play框架中，routes是路由控制器，这行表示，将所有的CRUD操作都是只有通过 */admin访问的请求，才能实现play自带的CRUD功能。</p><p>　　7 在进行上述修改后，我们再到命令行方式下，运行play eclipse，然后再到ECLIPSE下按F5刷新一下</p><p>　　8 如果此时再使用play run，运行会发现暂时还没有更新，因为我们要进行数据层的配置。</p><p>　　四、<b>创建员工实体对象和控制层</b></p><p>　　Play框架完全遵守MVC分层架构标准，因此我们按照MVC的分层来设计我们的引用。我们先创建员工实体对象和其控制层。</p><p>　　首先，在eclipse的corporations工程中，在app/models目录下，新建Employee类，代码如下：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">Package models;<br /><br />　　import java.util.Date;<br /><br />　　import javax.persistence.</span><span style="color: #000000">*</span><span style="color: #000000">;<br /><br />　　import play.db.jpa.Model;<br /><br />　　@Entity<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> class Employee extends Model {<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> fullName;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">Integer</span><span style="color: #000000"> salary;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">Date</span><span style="color: #000000"> dateOfHire;<br /><br />　　}<br /><br /></span></div></div><p>　　在Play框架中，默认使用的是jpa注解标准，使用@Entity注解，说明该类是属于实体类，这里都是继承了play自己的模型层基类Model,这里由于是示例，只是列出了三个对象的属性。</p><p>　　接下来，在app/controllers中，创建员工类的控制层文件，代码如下</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">package controllers;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> class Employees extends CRUD<br /><br />　　{ </span><span style="color: #000000">//</span><span style="color: #000000"> an </span><span style="color: #0000ff">empty</span><span style="color: #000000"> class<br /><br />　　}<br /><br /></span></div></div><p>&nbsp;</p><p>　　这里看到，控制层文件的命名是Employees，使用的是PLAY框架优先约定的命名规则：实体类的复数形式。并且这里继承了Play中自带的CRUD基类的功能，这样，就可以在我们的应用中轻易使用到PLAY自带的CRUD功能了。</p><p>　　现在我们马上来运行下应用，依然输入play run,再在浏览器中输入：</p><p>　　<a href="http://localhost:9000/admin">http://localhost:9000/admin</a>即可看到如下的效果：</p><p style="text-align: center"><img border="1" alt="" src="http://image20.it168.com/201111_500x375/837/a5e647ab4275791.JPG" /></p><p>　　这个时候，点Add按钮，就可以增加员工了。</p><p>　　五、<b>创建部门实体类和部门控制层</b></p><p>　　接下来，我们继续创建部门实体类和部门控制层的文件。同样，在app/models目录下，新建立Department类，如下：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">package models;<br /><br />　　import javax.persistence.</span><span style="color: #000000">*</span><span style="color: #000000">;<br /><br />　　import play.db.jpa.Model;<br /><br />　　@Entity<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> class Department extends Model {<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> name;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> description;<br /><br />　　}<br /><br /></span></div></div><p>&nbsp;</p><p>　　同样在app/controllers目录下，创建控制层文件Departments，代码如下：　</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">package controllers;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> class Departments extends CRUD {<br /><br />　　}<br /><br /></span></div></div><p>&nbsp;</p><p>　　这个时候，再次运行play run,会发现使用<a href="http://localhost:9000/admin">http://localhost:9000/admin</a>时，看到的界面将会比之前的多了能够增加部门实体类，大家可以尝试下。</p><p>　　&nbsp;</p><br/><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 六、<b>建立部门跟员工之间的连接关系</b></p><p>　　现在我们在建立了部门类和员工类后，可以开始建立它们之间的关联关系了。由于一个部门中是有多个员工，所以在员工类employee中，写入如下代码，建立两个类之间的关联：　</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">@ManyToOne<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> Department department;<br /><br /></span></div></div><p>　　这里依然使用了@ManyToOne的JPA注解去实现多对一的关系。在再次运行程序后，会发现，在增加员工时，会出现下拉菜单选择框，让其选择该员工属于哪一个部门。</p><p>　　七、<b>建立公司实体类和控制类</b></p><p>　　最后，我们建立公司实体类和控制类。同样，在app/models目录下，建立Company类如下：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">package models;<br /><br />　　import javax.persistence.Entity;<br /><br />　　import play.db.jpa.Model;<br /><br />　　@Entity<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> class Company extends Model {<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> name;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> address;<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">boolean</span><span style="color: #000000"> isPublic;<br /><br />　　}<br /><br /></span></div></div><p>&nbsp;</p><p>　　company的控制层类代码如下：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">package controllers;<br /><br />　　import models.Company;<br /><br />　　@CRUD.For(Company.class)<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> class Companies extends CRUD<br /><br />　　{<br /><br />　　}<br /><br /></span></div></div><p>　　这里要提醒一点的是，由于company的复数是companies，而play框架原先约定俗成的是在实体类名后直接加字母s，所以这里使用了注解 @CRUD.For(Company.class)，以表明该控制类文件Companies是为company实体类服务的。</p><p>　　同样，一个公司里有许多部门，因此在Deparment部门类中，建立如下的多对一关系：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">@ManyToOne<br /><br />　　</span><span style="color: #0000ff">public</span><span style="color: #000000"> Company company;<br /><br /></span></div></div><p>&nbsp;</p><p>　　再次运行程序，可以看到，现在三个实体类都建立起来了，可以分别对公司，部门和员工进行CRUD操作，如下图：</p><p style="text-align: center"><img border="1" alt="" src="http://image20.it168.com/201111_500x375/837/38ef72207157970b.JPG" /></p><p>　　八、<b>优化列表</b></p><p>　　我们在查看每个实体类的列表时，发现在列表中，会把每条记录的id都显示出来，这个在程序中假设不需要看到id字段的话，可以通过修改代码实现，比如在Company类中，增加toString方法即可：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> toString() {<br /><br />　　return name;<br /><br />　　}<br /><br /></span></div></div><p>&nbsp;</p><p>　　而在Department和Employee类中，可以采用同样的方法，以不显示它们的id字段。</p><p>　　九、<b>增加校验规则</b></p><p>　　在输入数据时，校验规则是必不可少的，在play框架中，可以很方便地使用注解来增加校验规则，比如在员工类中，可以要求输入的fullName字段内容不能超过100个字符，而且fullName字段不能为空，则在Employee类中，增加如下代码即可：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">@Required @MaxSize(</span><span style="color: #800080">100</span><span style="color: #000000">) </span><span style="color: #0000ff">public</span><span style="color: #000000"> </span><span style="color: #0000ff">String</span><span style="color: #000000"> fullName;<br /></span></div></div><p>&nbsp;</p><p>　　<b>下面列出一些常见的校验规则：</b></p><ul><li>　　@Email 校验email合法性</li><li>　　@InFuture 检验是否将来的日期</li><li>　　@InPast 检验是否是过往的日期</li><li>　　@Match 对正则表达式的判断</li><li>　　@Max 最大值</li><li>　　@Min 最小值</li><li>　　@Range 检验范围</li><li>　　@URL 检验是否URL</li></ul><p>　　十、<b>改变列表的显示格式</b></p><p>　　在默认情况下，比如查看employee列表，只能看到employee的名称字段，假设要在列表中看到每条记录的每个字段的话，要修改下play的模版，方法如下：</p><p>　　1 停止现在的服务，CTRL-C停止。</p><p>　　2 在命令行下，输入：</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">play crud:ov </span><span style="color: #000000">--</span><span style="color: #000000">template Employees</span><span style="color: #000000">/</span><span style="color: #000000">list<br /></span></div></div><p>&nbsp;</p><p>　　这将在app/views/Employees目录下新建立一个list.html的页面。</p><p>　　3 重新输入play run,并切换到eclipse中的项目中，按F5更新页面。</p><p>　　4 在eclipse中，打开app/views/Employees/list.html，这个是雇员列表的模版文件。</p><p>　　5 在该页中，找到id=&rdquo;crudListTable&rdquo;部分，修改为：</p><p>　　</p><div style="border-bottom: windowtext 0.5pt solid; border-left: windowtext 0.5pt solid; padding-bottom: 4px; padding-left: 5.4pt; width: 97%; padding-right: 5.4pt; background: #e6e6e6; word-break: break-all; border-top: windowtext 0.5pt solid; border-right: windowtext 0.5pt solid; padding-top: 4px" id="div_code"><style type="text/css">#div_code img{border:0px;}</style><div><!--<br /><br />Code highlighting produced by Actipro CodeHighlighter (freeware)<br />http://www.CodeHighlighter.com/<br /><br />--><span style="color: #000000">#{crud.table fields:[</span><span style="color: #008000">'</span><span style="color: #008000">fullName', 'dateOfHire', 'salary'] /}</span><span style="color: #008000"><br /></span></div></div><p>&nbsp;</p><p>　　即显示完整所有字段。</p><p>　　6 重新运行程序，即可看到效果，如下图，可以看到，能看到所有字段值。</p><p style="text-align: center"><img border="1" alt="" src="http://image20.it168.com/201111_500x375/837/58c363288540de57.png" /></p><p>　　十一、<b>改变列表中标题的显示</b></p><p>　　在默认状态下，列表中显示的字段标题是用实体类中的名称的，假如想把fullName修改位Full Name的话，可以在conf/messages下，增加：</p><p>　　fullName=Full Name</p><p>　　即可，如下图显示：</p><p style="text-align: center"><img border="1" alt="" src="http://image20.it168.com/201111_500x375/837/c6ccf8c6270569bd.png" /></p><p>　　<b>小结</b></p><p>　　在本文中，我们学习了如何使用Play框架的脚手架功能，快速搭建CRUD的应用原型。Play框架的配置方法简化了工作代码量。目前Play框架正在不断的完善中，读者可以根据本教程的指引实际操作后，进一步阅读官方文档加以深入学习。参考文章：<a href="http://www.playframework.org/documentation/1.2.2/evolutions">http://www.playframework.org/documentation/1.2.2/evolutions</a></p>
+				
+																						    </div>
+
+			<div class="biaoqian">标签：
+					<a href="http://www.it168.com/tag/110_1.shtml" target="_blank">开源</a>
+						,					<a href="http://www.it168.com/tag/371_1.shtml" target="_blank">Java</a>
+						,					<a href="http://www.it168.com/tag/2990_1.shtml" target="_blank">开发框架</a>
+										</div>
+		<!--分享-->
+    	 <div class="fenxiang2">
+	  <div class="bshare-custom"><span>分享到：</span>
+		  <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+		  <a title="分享到QQ空间" class="bshare-qzone"></a>
+		  <a title="分享到腾讯微博" class="bshare-qqmb"></a>
+		  <a title="分享到QQ好友" class="bshare-qqim"></a>
+		  <a title="分享到微信" class="bshare-weixin"></a>
+	  </div>
+	  <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&uuid=39ee7cdf-1831-4573-8a77-c882c4a8f83b&pophcol=2&lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script> 
+	
+	  <a href="javascript:void(0);" target="_self" class="zan" data="1269990" ><span class="InitZan"><i class="or"><span id="IT168zanNum"  >0</span></i> 个人觉得赞</span><span id="unTap_zan" style="display:none;">好文章 点个赞</span><span id="tap_zan"  style="display:none;">您已经赞过了</span><em class="numZan1" >+1</em></a>
+	</div>
+	
+		<!--电商-->
+<!--电商-->
+	<!--趣分期s-->
+	<div class="bor3" id="QFQParentBox" style="display: none;">
+	<div class="tit2"><a style = "float:right;font-size:12px;font-weight:normal" href="http://qufenqi.it168.com/">查看更多热销产品></a>大学生分期购物销量榜</div>
+	<div style="margin-top: 10px;" id="QFQBox"></div>
+</div>
+<script src="http://s.it168.com/AppService/QFQ/js/js.js?v=20141217004" type="text/javascript"></script>
+<script type="text/javascript">
+	var QFQProduct = new QFQProductLogic();
+	QFQProduct.ParentDivID = 'QFQParentBox';//外层容器ID（默认隐藏状态）
+	QFQProduct.DivID = 'QFQBox';//内层容器ID
+	QFQProduct.Width = 668;//模块宽度
+	QFQProduct.SiteID = 2;//站点1：PCPOP 2：IT168	
+	QFQProduct.LoadData();  
+</script>
+	<!--趣分期e-->	
+		<div class="pb20">
+      <div class="tit2"><b>相关文章</b>
+        <div class="guanjianzi"><a href="http://www.it168.com/hotwords/646_1.shtml">框架</a> <a href="http://www.it168.com/hotwords/975_1.shtml">开发</a> <a href="http://www.it168.com/hotwords/121_1.shtml">开源</a> <a href="http://www.it168.com/hotwords/177934_1.shtml">Play</a> <a href="http://www.it168.com/hotwords/136314_1.shtml">java</a> </div>
+      </div>
+      <div class="xiangguan">
+        <div class="xiangguan_l">
+          <ul class="list2">
+            						<li><span>2011-11-08</span><a title="学习dom4j开源XML处理框架" href="http://tech.it168.com/a2009/1202/818/000000818532.shtml" target="_blank"></a></li>						<li><span>2011-11-08</span><a title="传Sun首席执行官将辞职 为甲骨文让路" href="http://tech.it168.com/a2010/0126/843/000000843272.shtml" target="_blank"></a></li>						<li><span>2011-11-08</span><a title="甲骨文收购Sun十大原因:埃里森挑战极限" href="http://tech.it168.com/a2010/0127/844/000000844052.shtml" target="_blank"></a></li>						<li><span>2011-11-08</span><a title="Google Code上10个有意思的项目" href="http://tech.it168.com/a2010/0202/846/000000846705.shtml" target="_blank"></a></li>						<li><span>2011-11-08</span><a title="甲骨文将关闭Sun开源软件项目托管网站" href="http://tech.it168.com/a2010/0204/847/000000847979.shtml" target="_blank"></a></li>																																				          </ul>
+        </div>
+        <div class="xiangguan_r"  id="ADV_20842" style="display:none;"><script>LG('ADV_20842');</script></div>
+      </div>
+    </div>
+		<!--推荐阅读-->
+	<!--<div name="RecommendedRead" id="RecommendedRead"></div> -->
+	
+	<div id="ADV_20260" style="display:none;text-align: center;margin-top: 10px;font-weight: bold;font-size: 14px;"><script>LG('ADV_20260');</script></div>
+	<div style="display:none;" id="zjl"></div>
+	<div name="articlecomment" id="articlecomment"></div>
+    <div class="pb20">
+      <div class="tit2"><b>网友评论</b>
+		<div class="pinglun2" id="pinglun2">已有<span id="duoshuo_commentcount2">0</span>条评论</div>
+	  </div>
+<div class="ds-thread" data-thread-key="1269990" data-title="Java开源开发框架：Play框架快速入门" data-author-key="" data-channel-key="4" data-url="http://tech.it168.com/a2011/1107/1269/000001269990.shtml"></div>
+    </div>
+	<div id="ADV_1905" class="mt8" style="display:none;"><script>LG('ADV_1905');</script></div>
+	
+	<!-- 百分点位置 -->
+	<!-- 百分点 -->
+<div id="baifendian"></div>
+<script type="text/javascript">
+function getCookie(name) {
+             var arr = document.cookie.split("; ");
+             for (var i = 0, len = arr.length; i < len; i++) {
+                 var item = arr[i].split("=");
+                 if (item[0] == name) {
+                     return item[1];
+                 }
+             }
+             return "";
+         }
+function setCookie(name, value, time) {
+             var strsec = getsec(time);
+             var exp = new Date();
+             exp.setTime(exp.getTime() + strsec * 1);
+             document.cookie = name + "=" + escape(value) + ";path=/;domain=.it168.com;expires=" + exp.toGMTString();
+         }
+ function getsec(str)
+         {
+
+             var str1=str.substring(1,str.length)*1;
+             var str2=str.substring(0,1);
+             if (str2=="s")
+             {
+                 return str1*1000;
+             }
+             else if (str2=="h")
+             {
+                 return str1*60*60*1000;
+             }
+             else if (str2=="d")
+             {
+                 return str1*24*60*60*1000;
+             }
+         }
+function Isuser_cookie() {
+             if (getCookie('pu_cookie') == "") {
+                 if (getCookie('user_cookie2') == "") {
+                     var timeValue = Date.parse(new Date());
+                     setCookie("user_cookie2", timeValue, "d30");
+                 }
+                 return getCookie('user_cookie2');
+             } else {
+                 return getCookie('pu_cookie');
+             }
+
+         }
+</script>
+<script type="text/javascript">
+var bfd_user_Id = Isuser_cookie();
+var bfd_user_cookie = Isuser_cookie();
+window["_BFD"] = window["_BFD"] || {};
+_BFD.client_id = "Cit168";
+_BFD.BFD_USER = {	
+		"user_id" : bfd_user_Id, //网站当前用户id，如果未登录就为0或空字符串		
+		"user_cookie" : bfd_user_cookie //网站当前用户的cookie，不管是否登录都需要传		
+};
+_BFD.script = document.createElement("script");
+_BFD.script.type = "text/javascript";
+_BFD.script.async = true;
+_BFD.script.charset = "utf-8";
+_BFD.script.src = (('https:' == document.location.protocol?'https://ssl-static1':'http://static1')+'.bfdcdn.com/service/it168/it168_PC.js');
+document.getElementsByTagName("head")[0].appendChild(_BFD.script);
+</script>
+
+<!--百分点代码：单品页-->
+<script type="text/javascript">
+	window["_BFD"] = window["_BFD"] || {};
+	_BFD.BFD_INFO = {
+	
+	    "id" : "",   //文章id
+	    
+		"title" : "",   //文章标题
+	
+		"pic" : "",   //文章图片地址
+	
+		"category" : "",   //文章类别
+	
+		"ptime" : "",   //文章发表时间，时间戳格式 ,例如2015-6-12 14:27:53 转换成时间戳格式为 : 1434090473
+	
+		"author" : "",   //文章作者
+		
+		"abstract" : "",     //当前文章的简介
+			
+		"user_id" : "", //网站当前用户id，如果未登录就为0或空字符串
+		
+		"page_type" : "" //当前页面全称，请勿修改
+	};
+	
+</script>
+
+<div id="ADV_19317" class="mt10"><script>LG('ADV_19317');</script></div>
+		
+  </div>  
+  <div class="r1">
+	<!-- ad -->
+	<div id="ADV_1907" style="display:none;"><script>LG('ADV_1907');</script></div>
+	<div id="ADV_1274" style="display:none;" class="mt8"><script>LG('ADV_1274');</script></div>
+	    
+		
+		<div id="ADV_1275" class="mt8" style="display:none;"><script>LG('ADV_1275');</script></div>
+	<div class="mt8" style="display:none;" id="ADV_1276">
+<script>LG('ADV_1276');</script>
+</div>
+	
+	<div id="ADV_2739" class="mt8" style="display:none;"><script>LG('ADV_2739');</script></div>
+	<style>
+  .box0915{ border:1px solid #e1e1e1; width:298px; height:195px; margin-bottom:15px;}
+  .box0915 ul{ width:280px; overflow:hidden; clear:both; margin:0 auto;}
+  .box0915 li{ float:left; width:140px; height:162px;}
+  .box0915 li span{ display:block; text-align:center; line-height:40px; font-size:14px;}
+  .box0915 li img{ display:block; margin:0 auto;}
+  .box0915 p{ display:block; margin:0 auto; width:280px; line-height:30px;border-top:1px dashed #ccc; text-align:center;color:#03f;}
+  .box0915 p a{ color:#03f;}
+</style>
+<div class="box0915">
+<ul>
+		<li><span>IT168企业级</span><img style="width: 100px;height: 100px;" alt="IT168企业级" src="http://image4.it168.com/2015/9/17/b86eaa2b-3a8c-45f3-9e01-dfcf89c93733.jpg" complete="complete"></li>
+		<li><span>IT168文库</span><img style="width: 100px;height: 100px;" alt="IT168文库" src="http://image4.it168.com/2015/9/17/02f04f90-1c3d-405b-bbba-9c46208c2b43.jpg" complete="complete"></li>
+ </ul>
+    <p><a href="http://wenku.it168.com/note/1/39">扫码送文库金币</a></p>
+</div>
+<div class="bor">
+  <div class="tab02" >
+	<ul class="Tab_Nav" id="tab04">
+	  <li data="0" id="wenku"><span class="here">相关文档</span></li>
+	  <li data="1"><span>最新文档</span></li>
+	  <li data="2"><span>热门文档</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab04_Content0" style="display:block;" >
+	<ul class="list4">
+	  <br>正在努力加载文档，请稍等…<br>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab04_Content1" >
+	<ul class="list4">
+	  <li ><a href="http://wenku.it168.com/d_001641897.shtml" >微信获取openID以及token.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001640940.shtml" >Rust在Linux下做profile.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001640955.shtml" >如何开始为Rust项目贡献源代码.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001639056.shtml" >ASP.NET+MVC4+教程（完整版）pdf.pdf</a></li>
+<li ><a href="http://wenku.it168.com/d_001640956.shtml" >Rust并不需要关闭Socket.docx</a></li>
+<li ><a href="http://wenku.it168.com/d_001640363.shtml" >结构化和面向对象的系统分析设计方法的</a></li>
+<li ><a href="http://wenku.it168.com/d_001641895.shtml" >微信支付java版本之获取Access_token.d</a></li>
+<li ><a href="http://wenku.it168.com/d_001640931.shtml" >Reenix：用Rust语言开发的类Unix操作系</a></li>
+<li ><a href="http://wenku.it168.com/d_001640954.shtml" >Rim：用Rust语言写的Vim编辑器.docx</a></li>
+<li class="ba0"><a href="http://wenku.it168.com/d_001640958.shtml" >用Rust开发PHP扩展.docx</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab04_Content2">
+	<ul class="list4">
+	  <li ><a href="http://wenku.it168.com/d_001639123.shtml" >C# 获取程序所在路径.txt</a></li>
+<li ><a href="http://wenku.it168.com/d_001639119.shtml" >Ｃ＃登陆程序设计，用Ｃ＃语言实现登陆</a></li>
+<li ><a href="http://wenku.it168.com/d_001634870.shtml" >MIT App Inventor完全上手——不会编程</a></li>
+<li ><a href="http://wenku.it168.com/d_001639167.shtml" >报表开发工具FineReport视图树超链.pdf</a></li>
+<li ><a href="http://wenku.it168.com/d_001633760.shtml" >java基础(9--FileIO).ppt</a></li>
+<li ><a href="http://wenku.it168.com/d_001634310.shtml" >艾比利认证计费产品U盘版安装包_虚拟机</a></li>
+<li ><a href="http://wenku.it168.com/d_001634026.shtml" >SAP ABAP开发详解与高端应用.pdf</a></li>
+<li ><a href="http://wenku.it168.com/d_001634864.shtml" >AV Foundation开发秘籍——实践掌握iOS</a></li>
+<li ><a href="http://wenku.it168.com/d_001639118.shtml" >C#_类库查询手册.pdf</a></li>
+<li class="ba0"><a href="http://wenku.it168.com/d_001638939.shtml" >接口接入，成为开发者.docx</a></li>
+
+	</ul>
+  </div>
+</div>
+<div class="bor">
+  <div class="tab02" >
+	<ul class="Tab_Nav" id="tab_RW">
+	  <li data="0"><span class="here">一周热文</span></li>
+	  <li data="1"><span>一周热评</span></li>
+	  <li data="2"><span>一周热帖</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_RW_Content0" style="display:block;" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'hotArticle',2,true]);">
+	<ul class="list4">
+	  		<li ><a href="http://tech.it168.com/a2015/0908/1760/000001760358.shtml" >大事件:K-DB对彪Oracle 老鱼现场观摩记</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0909/1760/000001760592.shtml" >大数据2.0再掀狂潮 你准备好了吗？</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0909/1760/000001760623.shtml" >基于LoadRunner12的性能测试</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0902/1759/000001759494.shtml" >专访日志易CEO:解读时间序列机器数据</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0911/1761/000001761436.shtml" >大数据时代 命令行技术过时了吗？</a></li>
+		<li ><a href="http://tech.it168.com/a2015/0908/1760/000001760258.shtml" >使用SQL对记录进行分页的3种方式</a></li>
+		<li class="ba0"><a href="http://tech.it168.com/a2015/0914/1762/000001762010.shtml" >Oracle的"捡漏"策略 新兴厂商该学学</a></li>
+	
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_RW_Content1" >
+	<ul class="list4">
+	  <li ><a href="http://tech.it168.com/a2015/0915/1762/000001762384.shtml" >未来房价涨or跌？大数据告诉你</a></li>
+<li class="ba0"><a href="http://tech.it168.com/a2015/0911/1761/000001761436.shtml" >大数据时代 命令行技术过时了吗？</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_RW_Content2" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'hotRecommendation',2,true]);">
+	<ul class="list4">
+	  <li><a href="http://www.itpub.net/thread-1716289-1-1.html"  title="【强烈推荐】SQL Server索引优化系列完毕完工">【强烈推荐】SQL Server索引优化系</a></li>
+<li><a href="http://www.itpub.net/thread-3501-1-1.html"  title="easy qution : which command  can clare screen in SQLPLUS?">easy qution : which command  can</a></li>
+<li><a href="http://www.itpub.net/thread-88909-1-1.html"  title="配置透明网关的步骤">配置透明网关的步骤</a></li>
+<li><a href="http://www.itpub.net/thread-11308-1-1.html"  title="趣味sql,充分展示mssql的特性！">趣味sql,充分展示mssql的特性！</a></li>
+<li><a href="http://www.itpub.net/thread-142629-1-1.html"  title="本地管理表空间——大家继续讨论！">本地管理表空间——大家继续讨论！</a></li>
+
+	  <li ><a href="http://bbs.chinaunix.net/thread-4184021-1-1.html"  title="[大话IT]MySQL使用自增ID和UUID的优劣势比较">[大话IT]MySQL使用自增ID和UUID的优</a></li>
+<li ><a href="http://bbs.chinaunix.net/thread-4184784-1-1.html"  title="Python3是趋势？还是坑!会在5年内普及使用吗？">Python3是趋势？还是坑!会在5年内普</a></li>
+<li ><a href="http://bbs.chinaunix.net/thread-4183918-1-1.html"  title="开放容器项目正式更名为OCI，Oracle等公司加入带来的技术架构进化">开放容器项目正式更名为OCI，Oracl</a></li>
+<li ><a href="http://bbs.chinaunix.net/thread-4184554-1-1.html"  title="大话Unix/Linux内核">大话Unix/Linux内核</a></li>
+<li class="ba0"><a href="http://bbs.chinaunix.net/thread-4178874-1-1.html"  title="讨论关于现有LB和HA优点与缺点，你所用的软件有哪些？">讨论关于现有LB和HA优点与缺点，你</a></li>
+
+	</ul>
+  </div>
+</div>
+	<div id="ADV_19468"><script>LG('ADV_19468');</script></div>
+<div class="bor">
+  <div class="tab02" >
+	<ul class="Tab_Nav" id="tab_BW">
+	  <li data="0"><span class="here">推荐博文</span></li>
+	  <li data="1"><span>热门博文</span></li>
+	  <li data="2"><span>博文分类</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_BW_Content0" style="display:block;" >
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendArticle',2,true]);">
+	  <li ><a href="http://blog.chinaunix.net/uid-25498312-id-5196686.html"  title="数据流图与软件工程生命周期">数据流图与软件工程生命周期</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-21633169-id-5194582.html"  title="python模拟一个浏览器">python模拟一个浏览器</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-27216042-id-5193220.html"  title="php 安全过滤">php 安全过滤</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-429659-id-5191779.html"  title="Python中reactor,factory,protocol的学习笔记">Python中reactor,factory,protocol</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-301743-id-5178586.html"  title="Jetty JNDI开发实战(上)">Jetty JNDI开发实战(上)</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-30233942-id-5176844.html"  title="python实现将IP地址转换成长整形">python实现将IP地址转换成长整形</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-25784620-id-5176651.html"  title="编程点滴（一）">编程点滴（一）</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-28852942-id-5176579.html"  title="BLE广播数据的抓包解析">BLE广播数据的抓包解析</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-301743-id-5169325.html"  title="利用mod_wsgi部署Django应用">利用mod_wsgi部署Django应用</a></li>
+<li class="ba0"><a href="http://blog.chinaunix.net/uid-20682147-id-5166006.html"  title="Google的dense_hash注意点">Google的dense_hash注意点</a></li>
+
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_BW_Content1" >
+	<ul class="list4">
+	  <li ><a href="http://blog.itpub.net/29254281/viewspace-1800617"  title="实现秒杀的几个想法(续)">实现秒杀的几个想法(续)</a></li>
+<li ><a href="http://blog.itpub.net/23718752/viewspace-1800593"  title="一个dg警告发现的硬件问题">一个dg警告发现的硬件问题</a></li>
+<li ><a href="http://blog.itpub.net/35489/viewspace-1800328"  title="RMAN - backup archivelog all 与 backup database plus archivelog 区别">RMAN - backup archivelog all 与 </a></li>
+<li ><a href="http://blog.itpub.net/7728585/viewspace-1799304"  title="mysql (ICP) 索引条件下推对比ORACLE进行说明">mysql (ICP) 索引条件下推对比ORAC</a></li>
+<li ><a href="http://blog.itpub.net/28602568/viewspace-1797410"  title="Oracle 巧用外部表将大量excel数据导入数据库 ">Oracle 巧用外部表将大量excel数据</a></li>
+<li ><a href="http://blog.itpub.net/23718752/viewspace-1795908"  title="原来Oracle也不喜欢“蜀黍”">原来Oracle也不喜欢“蜀黍”</a></li>
+<li ><a href="http://blog.itpub.net/29654823/viewspace-1795780"  title="oracle 存储过程案例（去重操作）">oracle 存储过程案例（去重操作）</a></li>
+<li ><a href="http://blog.itpub.net/23718752/viewspace-1786927"  title="KDB和Oracle的性能pk小记">KDB和Oracle的性能pk小记</a></li>
+<li ><a href="http://blog.itpub.net/30162081/viewspace-1784677"  title="如何在线操作监听日志listener.log">如何在线操作监听日志listener.log</a></li>
+<li class="ba0"><a href="http://blog.itpub.net/23718752/viewspace-1784544"  title="关于奇怪的并行进程分析(一)">关于奇怪的并行进程分析(一)</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_BW_Content2">
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendProduct',2,true]);">
+		<li ><a href="http://blog.chinaunix.net/architecture.html" >架构与运维</a></li>
+		<li ><a href="http://blog.chinaunix.net/program.html" >程序设计</a></li>
+		<li ><a href="http://blog.chinaunix.net/os.html" >操作系统</a></li>
+		<li ><a href="http://blog.itpub.net/oracle/" >Oracle</a></li>
+		<li ><a href="http://blog.chinaunix.net/database.html" >数据库</a></li>
+		<li ><a href="http://blog.itpub.net/linux/" >linux</a></li>
+		<li ><a href="http://blog.chinaunix.net/mysql.html" >Mysql</a></li>
+		<li ><a href="http://blog.chinaunix.net/java.html" >Java</a></li>
+		<li ><a href="http://blog.chinaunix.net/cplus.html" >C++</a></li>
+		<li class="ba0"><a href="http://blog.chinaunix.net/bigdata.html" >大数据</a></li>
+	</ul>
+  </div>
+</div>
+<div class="bor">
+  <div class="tit3"><a>源码下载</a></div>
+  <ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendArticle',2,true]);">
+	<li ><a href="http://code.it168.com/d-38768.shtml" title="动态创建控件的例子">动态创建控件的例子</a></li>
+<li ><a href="http://code.it168.com/d-13694.shtml" title="VB查询指定日期的数据">VB查询指定日期的数据</a></li>
+<li ><a href="http://code.it168.com/d-30760.shtml" title="asp+版本的ase程序">asp+版本的ase程序</a></li>
+<li ><a href="http://code.it168.com/d-20160.shtml" title="C#中断Sqlserver服务的程序">C#中断Sqlserver服务的程序</a></li>
+<li ><a href="http://code.it168.com/d-69251.shtml" title="OpenPlayer V1.1">OpenPlayer V1.1</a></li>
+<li ><a href="http://code.it168.com/d-11766.shtml" title="FYQQ出售程序 20071124版">FYQQ出售程序 20071124版</a></li>
+<li ><a href="http://code.it168.com/d-21878.shtml" title="无伊私服发布系统5.2">无伊私服发布系统5.2</a></li>
+<li ><a href="http://code.it168.com/d-14974.shtml" title="图片下载和浏览(iPhone源代码)">图片下载和浏览(iPhone源代码)</a></li>
+<li ><a href="http://code.it168.com/d-70212.shtml" title="pb做的俄罗斯方块">pb做的俄罗斯方块</a></li>
+<li class="ba0"><a href="http://code.it168.com/d-28058.shtml" title="C2C二手交易网站SMRUC v1.0">C2C二手交易网站SMRUC v1.0</a></li>
+
+  </ul>
+</div>
+<div class="bor">
+  <div class="tab01">
+	<ul class="Tab_Nav" id="tab_01">
+	  <li data="0"><span class="here">推荐文章</span></li>
+	  <li data="1"><span>推荐产品</span></li>
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_01_Content0"  style="display:block;">
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendArticle',2,true]);">
+	  <li ><a href="http://cloud.it168.com/a2014/0827/1660/000001660720.shtml" >谁在用阿里云?云计算用户须知10个问题</a></li>
+<li ><a href="http://www.it168.com/remen/activity/" >IT168文库3周年庆，金币充值买1送1！</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-579346-id-4011564.html" >实战：完善Windows Server自动化运维</a></li>
+<li ><a href="http://wenku.it168.com/huiyi/2121" >不容错过！12位SEO大佬精彩案例分享</a></li>
+<li ><a href="http://wenku.it168.com/wenji/2313" >百度直达号轻应用开发运营指南</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-26000296-id-4009690.html" >liunx系统中时钟与同步详解</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-22312037-id-4008229.html" >Android之开发环境搭建实例解析</a></li>
+<li ><a href="http://blog.chinaunix.net/uid-59434-id-4008171.html" >系统运维：运用Ntop监控网络流量</a></li>
+<li ><a href="http://mobile.it168.com/a2013/1210/1571/000001571706.shtml" >史诗级影音表现酷派大观4演绎视听盛宴</a></li>
+<li ><a href="http://notebook.it168.com/topic/2013/12-20/Yoga2Pro/" >360°旗舰翻转本 Yoga 2 Pro 图解评测</a></li>
+<li ><a href="http://www.it168.com/remen/nsfocus13/" >下一代防火墙</a></li>
+<li ><a href="http://mobile.it168.com/a2013/1213/1573/000001573399.shtml" >酷派大观4 CoolLife UI5.0系统绚丽登场</a></li>
+<li ><a href="http://mobile.it168.com/a2014/0214/1592/000001592781.shtml" >直降200元送情人好选择 魅族MX3仅1999</a></li>
+<li ><a href="http://tech.it168.com/a2014/0903/1663/000001663196.shtml" >阿里云的“工匠精神”和“情怀”</a></li>
+<li class="ba0"><a href="http://mobile.it168.com/a2014/0213/1592/000001592729.shtml" >卖断货了怎么办?魅族MX3产量加倍</a></li>
+
+	</ul>
+  </div>
+  <div class="tab01Cont" id="tab_01_Content1" >
+	<ul class="list4" onClick="_gaq.push(['_trackEvent', 'blockArea', 'Click', 'recommendProduct',2,true]);">
+	  <li ><a href="http://product.it168.com/list/b/03020022_i12899_1.shtml" title = "iPhone5s土豪金">iPhone5s土豪金</a></li>
+<li ><a href="http://product.it168.com/list/b/03021184_i12777_1.shtml" title = "小米3">小米3</a></li>
+<li ><a href="http://product.it168.com/detail/doc/644554/index.shtml" title = "努比亚Z5S mini">努比亚Z5S mini</a></li>
+<li ><a href="http://product.it168.com/detail/doc/644544/index.shtml" title = "努比亚Z5S">努比亚Z5S</a></li>
+<li ><a href="http://product.it168.com/detail/doc/615469/index.shtml" title = "iPhone5c4G手机">iPhone5c4G手机</a></li>
+<li ><a href="http://product.it168.com/detail/doc/628554/index.shtml" title = "iPhone5s4G手机">iPhone5s4G手机</a></li>
+<li ><a href="http://product.it168.com/detail/doc/647705/index.shtml" title = "华为荣耀3C">华为荣耀3C</a></li>
+<li ><a href="http://product.it168.com/detail/doc/657844/index.shtml" title = "华为荣耀3X">华为荣耀3X</a></li>
+<li ><a href="http://product.it168.com/detail/doc/614645/index.shtml" title = "三星S5">三星S5</a></li>
+<li ><a href="http://product.it168.com/list/b/0162_1.shtml" title = "空气净化器">空气净化器</a></li>
+<li ><a href="http://product.it168.com/detail/doc/665569/index.shtml" title = "iPhone Air">iPhone Air</a></li>
+<li ><a href="http://product.pcpop.com/000317875/Index.html" title = "iPhone6">iPhone6</a></li>
+<li ><a href="http://product.it168.com/list/b/1596_1.shtml" title = "单反相机">单反相机</a></li>
+<li ><a href="http://product.it168.com/detail/doc/629424/index.shtml" title = "小米3电信版">小米3电信版</a></li>
+<li ><a href="http://product.it168.com/list/b/1549_1.shtml" title = "取暖器">取暖器</a></li>
+<li ><a href="http://product.it168.com/list/b/0640_1.shtml" title = "液晶电视">液晶电视</a></li>
+<li ><a href="http://product.it168.com/list/b/1589_1.shtml" title = "冰箱">冰箱</a></li>
+<li ><a href="http://product.it168.com/list/b/1590_1.shtml" title = "洗衣机">洗衣机</a></li>
+<li ><a href="http://product.it168.com/list/b/1591_1.shtml" title = "热水器">热水器</a></li>
+<li ><a href="http://product.it168.com/list/b/1576_1.shtml" title = "加湿器">加湿器</a></li>
+<li ><a href="http://product.it168.com/detail/doc/646745/index.shtml" title = "红米电信版">红米电信版</a></li>
+<li ><a href="http://product.it168.com/list/b/15881542_1.shtml" title = "格力空调">格力空调</a></li>
+<li ><a href="http://product.it168.com/list/b/1588_1.shtml" title = "空调">空调</a></li>
+<li ><a href="http://product.it168.com/list/b/1591_1.shtml" title = "热水器什么牌子好">热水器什么牌子好</a></li>
+<li ><a href="http://product.it168.com/list/b/1591_1.shtml" title = "空气能热水器">空气能热水器</a></li>
+<li ><a href="http://product.it168.com/list/b/1576_1.shtml" title = "加湿器哪个牌子好">加湿器哪个牌子好</a></li>
+<li ><a href="http://product.it168.com/list/b/15887154_1.shtml" title = "美的空调">美的空调</a></li>
+<li ><a href="http://product.it168.com/list/b/15916359_1.shtml" title = "万和热水器">万和热水器</a></li>
+<li ><a href="http://product.it168.com/list/b/0302_s_2572-15437s_1.shtml" title = "4G手机">4G手机</a></li>
+<li class="ba0"><a href="http://product.it168.com/detail/doc/527498/index.shtml" title = "小米盒子">小米盒子</a></li>
+
+	</ul>
+  </div>
+</div>
+<div class="mt10"><div id="ADV_16603"><script>LG('ADV_16603');</script></div></div>
+
+<script type="text/javascript" src="http://product.pcpop.com/js/eb/SequelLian9_124.js"></script>
+<script type="text/javascript">
+	var line = SequelLian.init();
+	line.ChannelId = 4; //频道id(参数)
+	line.ChannelPageId = 9; //频道页id(参数)
+	line.ChannelPageBlockId = 124; //频道页面块id(参数)
+	line.DivIds = "detailWord"; //需要操作a标签的div(用id获取div),可传多个(参数)   id与class必选其一,且只能先其一
+	line.OtherID=articleCode;
+	line.BindEvent();
+</script>
+
+
+
+	
+	
+  </div>
+  <div class="clear"></div>
+  <!--编辑推荐  手工位-->
+     <div class="tit2"><b>编辑推荐</b> </div>
+<ul class="list6">
+<li><a href="http://digital.it168.com/a2015/0724/1749/000001749045.shtml" ><img src="http://image4.it168.com/2015/8/20/75d9a40e-6f16-48ea-a06e-9a474c9b3674.jpg" width="180" height="120" alt="能不能让人家安静地敷个面膜" /><span>能不能让人家安静地敷个面膜</span></a></li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5NjU1MzM1Mw==&mid=244342322&idx=1&sn=80bb79dc86af64368dbf5352091f21dc#rd" ><img src="http://image4.it168.com/2015/9/11/ae3b6187-dcc7-4b44-88cd-2de6733f1578.jpg" width="180" height="120" alt="带你征服你不懂的“三体”" /><span>带你征服你不懂的“三体”</span></a></li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5NjU1MzM1Mw==&mid=241484899&idx=1&sn=0a9a39c3b10007c9a15bca52f627bc8c#rd" ><img src="http://image4.it168.com/2015/8/20/0c45f0a0-970a-4f06-82f6-f5c097ea14ba.jpg" width="180" height="120" alt="Win10用的不顺心？回滚呀" /><span>Win10用的不顺心？回滚呀</span></a></li>
+<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5NjU1MzM1Mw==&mid=245063663&idx=1&sn=c5c40c73627c3182012e541799d2bf3b#rd" ><img src="http://image4.it168.com/2015/9/1/d2ff2c81-e1c7-46ea-869e-ff4ff47526f7.jpg" width="180" height="120" alt="国产千元手机 买到你就赚了" /><span>国产千元手机 买到你就赚了</span></a></li>
+<li><a href="http://shike.it168.com" ><img src="http://image4.it168.com/2015/6/2/3c85b0c0-895e-48b6-902a-ae98aa4c6092.jpg" width="180" height="120" alt="每周都有免费试用" /><span>每周都有免费试用</span></a></li>
+</ul>
+
+
+<div id="ajax">
+</div>
+<div id="commonajax" style="display:none"></div>
+
+
+
+
+
+<script src="http://stat.it168.com/ClickPv.js" type="text/javascript"></script>
+<script type="text/javascript">
+  function dpjscallback(SensisID)
+	{
+	ArticleTruePV(1);
+	}
+</script>
+<script language="javascript" src="/detailinclude/jscript/Global.js?2012712"></script>
+	<div class="it168_fl" style="margin: 0 0 220px 500px;height: 200px;">
+	  <a href="javascript:;" target="_self" style="height: 200px;">
+		<div>系统架构师大会</div><img style="width: 110px;" alt="系统架构师大会" src="http://image4.it168.com/2015/6/10/4f4428d3-90b8-423b-aea1-e797bab51e1d.jpg" complete="complete">
+		<div>点击或扫描关注</div>
+	  </a>
+	</div>
+
+	<div class="it168_fl2">
+	  <a target="_self">
+		<div>IT168企业级微信关注送礼</div><img alt="IT168企业级微信关注送礼" src="http://image4.it168.com/2014/7/9/b7069c0f-38c6-4ed2-8e92-5bf5a2165330.jpg" complete="complete">
+		<div>扫描关注</div>
+	  </a>
+	</div>
+
+<script>if(typeof(BLA)!='undefined'){BLA();}</script>
+<div class="footer">
+  <p> <a href="http://www.it168.com/bottomfile/about.shtml" rel="nofollow">盛拓传媒简介</a><a href="http://www.it168.com/bottomfile/it168.shtml" rel="nofollow">关于IT168</a><a href="http://www.it168.com/bottomfile/hzhb.shtml" rel="nofollow">合作伙伴</a><a href="http://www.it168.com/bottomfile/ggfw.shtml" rel="nofollow">广告服务</a><a href="http://www.it168.com/bottomfile/sytk.shtml" rel="nofollow">使用条款</a><a href="http://www.it168.com/bottomfile/tgzn.shtml" rel="nofollow">投稿指南</a><a href="http://www.wintalent.cn:8031/wt5/sequelmedia/web/index" rel="nofollow">诚聘精英</a><a href="http://www.it168.com/bottomfile/lxwm.shtml" rel="nofollow">联系我们</a><a href="http://www.it168.com/bottomfile/sitemap/sitemap.html" rel="nofollow">网站导航</a><a href="http://archive.it168.com/" rel="nofollow">往日回顾</a> </p>
+  <address>
+  北京皓辰网域网络信息技术有限公司. 版权所有 京ICP证:060528号 北京市公安局海淀分局网监中心备案编号：1101082001<br>
+  广播电视节目制作经营许可证:(京) 字第1234号&nbsp; <a href="http://www.it168.com/huiyuan/it168.html" rel="nofollow">中国互联网协会会员</a>&nbsp; 测绘资质证书:乙测资字11005067&nbsp; 网络文化经营许可证:京网文[2012]0421-133号
+  </address>
+</div>
+<!--     href="${ProductUrl}" class="chanpin" >本文产品       -->
+<div class="fu">
+<a href="http://www.it168.com" class="index">首页</a>
+<a href="#articlecomment" class="pinglun3" target="_self">评论</a>
+<a href="javascript:void(0);" class="fanhui" target="_self" >返回顶部</a>
+</div>
+<script type="text/javascript" src="/detailinclude/article2015/include/common.js?v=new20150608"></script>
+<!-- 划词搜索 -->
+<script type="text/javascript" src="http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2"></script>  <script type='text/javascript'>
+jQuery(document).ready(function(){ var miniBlogShare = function() { $('<img id="huaci" title="搜索一下" src="http://cpro.baidustatic.com/cpro/ui/noexpire/img/2.0.0/icon.png" />').appendTo('body'); $('#huaci').css({ display : 'none', position : 'absolute', cursor : 'pointer' }); var funGetSelectTxt = function() { var txt = ''; if(document.selection) { txt = document.selection.createRange().text; } else { txt = document.getSelection(); } return txt.toString();}; $('html,body').mouseup(function(e) { if (e.target.id == 'huaci') { return } e = e || window.event; var txt = funGetSelectTxt(), sh = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0, left = (e.clientX - 40 < 0) ? e.clientX + 20 : e.clientX - 40, top = (e.clientY - 40 < 0) ? e.clientY + sh + 20 : e.clientY + sh - 40; if (txt) { $('#huaci').css({ display : 'inline', left : left, top : top }); } else { $('#huaci').css('display', 'none'); } }); $('#huaci').click(function() { var txt = funGetSelectTxt(), title = $('title').html(); if (txt) { window.open('http://www.baidu.com/s?si=www.it168.com&cl=3&ct=2097152&tn=04021058_cpr&word="'+txt+'"'); } }); }(); });
+</script> 
+
+
+<script>
+/*********多数配置**************/
+	if (typeof (duoshuoImg) == 'undefined')    var	duoshuoImg='http://adshow.it168.com/newImage/23.gif';
+var duoshuoQuery = {
+  short_name:"it168",
+  component_style: {
+         'textbox' : "background: url("+duoshuoImg+") no-repeat 410px 0px;"
+     }
+};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'utf-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	function mycallback(json) 
+	{
+		var data = json.response;
+		if (data != null && typeof (data) != "undefined" && data.length != 0) {
+			if(data['4:1269990'].comments>0)
+			{
+				document.getElementById('duoshuo_commentcount').innerHTML=data['4:1269990'].comments;
+				document.getElementById('duoshuo_commentcount2').innerHTML=data['4:1269990'].comments;
+			}else
+			{
+				document.getElementById('pinglun2').innerHTML='暂无评论，等你来评';
+			}
+		}
+	}
+	// 左右翻页
+	document.onkeydown=function(e){
+	  e = (e) ? e : event;
+    var code = (e.charCode) ? e.charCode : ((e.keyCode) ? e.keyCode : ((e.which) ? e.which : 0));
+	  if(code==37 && (1 > 1)){
+	    //进入上一页
+	    location.href = 'http://tech.it168.com/a2011/1107/1269/000001269990.shtml';
+	   }
+	  if(code==39 && (2 <= 0)){
+	   location.href = 'http://tech.it168.com/a2011/1107/1269/000001269990_-1.shtml';
+	  }
+}
+</script>
+	<script type="text/javascript" charset="UTF-8" src="http://it168.duoshuo.com/api/threads/counts.jsonp?callback=mycallback&threads=4:1269990"></script>
+<!-- Duoshuo Comment END -->
+<!-- 百度统计签，it168统计签 -->
+<script language="javascript" src="http://stat.it168.com/pv.js"></script>
+<script>
+var click_channelid =24;
+function sendPV(upurl){    
+    var pvTrack = new PvTrack();
+    pvTrack.type = 11; // 频道类别ID
+    pvTrack.channel = 24; // 频道ID
+    pvTrack.pageType = 103;
+	pvTrack.referrer = upurl;
+    pvTrack.track();
+}
+window.setTimeout("sendPV('')", 500);
+</script>
+
+<!-- 谷歌统计签 -->
+
+<script src="http://sjk.it168.com/care.js" language="javascript" type="text/javascript"> </script>
+<script language="javascript" type="text/javascript">
+    CAREACURSE.acurse('sjk.it168.com', 2, 'it168_dsurl_count', location.href);
+</script>
+
+<script type='text/javascript' src='http://topic.it168.com/StatisticsUserAct/js/StatisticsUserAct.js'></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20433473-1']);
+  _gaq.push(['_addOrganic', 'baidu', 'word']);
+  _gaq.push(['_addOrganic', 'google', 'q']);
+  _gaq.push(['_addOrganic', 'soso', 'w']);
+  _gaq.push(['_addOrganic', 'yodao', 'q']);
+  _gaq.push(['_addOrganic', 'vnet', 'kw']);
+  _gaq.push(['_addOrganic', 'sogou', 'query']);
+  _gaq.push(['_addOrganic', '118114', 'kw']);
+  _gaq.push(['_addOrganic', '3721', 'name']);
+  _gaq.push(['_setDomainName', '.it168.com']);
+ _gaq.push(['_trackPageview']);
+ 
+ //频道
+	$('.float_l a').each(function(){
+		$(this).bind("click",function(){
+			//ga('send','event','it168_channel','click','nav_channel');
+			_gaq.push(['_trackEvent','it168_channel','click','nav_channel_click']);
+		});
+	});
+	//文章
+	$('.float_r a').each(function(){
+		$(this).bind("click",function(){
+			//ga('send','event','article','click','nav_article');
+			_gaq.push(['_trackEvent','it168_article','click','nav_article_click']);
+		});
+	});
+ 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = 
+true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + 
+'.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, 
+s);
+  })();
+/*************************************/
+if(articleChannelCode == "20")
+{
+document.getElementById("ADV_3009").style.display="inline";
+}
+
+
+/*给正文加nofollow*/
+$(function(){
+	$(".cont1 a").each(function(obj){
+	var href=$(this).attr("href");
+	if(typeof(href)!= "undefined" )
+	{
+	if(href.indexOf("it168.com")==-1 && href.indexOf("pcpop.com")==-1)
+	 {
+	   $(this).attr('rel','nofollow');
+	 }
+	}
+		
+	});
+});
+</script>
+<!--taobao 天猫 start-->
+<script type="text/javascript"> (function(win,doc){if((!tab_it168_iniMenu)||(typeof(Isalimamatk)!="undefined"))return; var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0]; if (!win.alimamatk_show) { s.charset = "gbk"; s.async = true; s.src = "http://a.alimama.cn/tkapi.js"; h.insertBefore(s, h.firstChild); }; var o = { pid: "mm_96676214_7484044_25040797",/*推广单元ID，用于区分不同的推广渠道*/ appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/ unid: ""/*自定义统计字段*/ }; win.alimamatk_onload = win.alimamatk_onload || []; win.alimamatk_onload.push(o); })(window,document);</script>
+<!--taobao 天猫 end-->
+
+
+
+
+<!-- 新版顶部 新增ga监测代码 -->
+
+
+</body>
+</html>
