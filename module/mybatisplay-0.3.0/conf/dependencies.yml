@@ -1,0 +1,4 @@
+self: play -> mybatisplay 0.3.0
+
+require:
+    - play

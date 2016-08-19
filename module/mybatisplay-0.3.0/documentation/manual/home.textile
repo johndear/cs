@@ -1,0 +1,85 @@
+h1. MyBatisPlay
+
+This module allows you to use MyBatis persistence framework with play. This version no longer includes MyBatis source, since the issue #530 has been fixed and the previous patch is not necessary anymore.
+
+* It will detect changes to the xml configuration files and reinitialize the SqlSessionFactory
+
+h2. What's new?
+
+* Removed MyBatis source code
+* MyBatis dependency must be defined in your application dependencies.yml file
+
+h2. Sample application
+
+There is a sample in  @samples-and-tests/mybatisapp@ folder.
+
+@cd@ to that directory and run:
+
+bc. play test
+    
+go to http://localhost:9000/@tests and run @GuestBookMapperTest@    
+
+h2. Getting started
+
+To install MyBatisPlay add it as a dependency in your dependencies.yml file; also you must add MyBatis dependency too:
+
+bc. require:
+      - org.mybatis -> mybatis 3.1.1 # in the future, you could probably use any version greater than 3.1.1 
+      - play -> mybatisplay {version}
+
+h2. Configuration
+
+Define these minimum settings in @application.conf@ 
+
+h3. Database settings
+
+bc. db.url=jdbc:mysql://localhost:3306/mydb
+db.driver=com.mysql.jdbc.Driver
+db.user=dbuser
+db.pass=dbpass
+
+h3. MyBatis configuration location
+
+bc. mybatis.configuration=mybatis/configuration.xml
+
+     
+You can base your configuration.xml file on this template:
+
+bc. <configuration>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC" />
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${pass}"/>
+      </dataSource>
+    </environment>
+  </environments>
+</configuration>    
+
+
+See the included sample for a full example or the MyBatis Docs for details.
+
+h2. Usage
+
+You can get access to a @SqlSessionFactory@ anywhere in your code by simply caling @IbatisSessionFactory.get()@
+
+bc. SqlSession session = IbatisSessionFactory.get().openSession();
+
+h2. Known issues
+
+When starting play app from eclipse you'll get this stacktrace:
+
+bc. 22:12:28,442 play.Logger.niceThrowable(Logger.java:570) - 570 ERROR ~ Error loading plugin LoadingPluginInfo{name='mybatisplay.plugins.MyBatisPlugin', index=1010, url=file:/D:/java/projects/eclipse-projects/play-mmr-ticketing/eclipse/classes/play.plugins}
+java.lang.IllegalStateException: This plugin has already been initialized
+    at mybatisplay.plugins.MyBatisPlugin.<init>(MyBatisPlugin.java:37)
+	at java.lang.Class.newInstance0(Class.java:355)
+	at java.lang.Class.newInstance(Class.java:308)
+	at play.plugins.PluginCollection.loadPlugins(PluginCollection.java:158)
+	at play.Play.init(Play.java:294)
+	at play.server.Server.main(Server.java:158)
+
+This happens because eclipse copies play.plugins to the classes folder and play is trying to load the plugin twice.
+Just ignore this exception.

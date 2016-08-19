@@ -1,0 +1,6 @@
+# Application dependencies
+
+require:
+    - play
+    - org.mybatis -> mybatis 3.1.1
+    - play -> mybatisplay 0.3.0
