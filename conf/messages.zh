@@ -1,0 +1,72 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+
+event.title=事件列表
+event.flashData=(demo application, data will be flashed every 30 minutes)
+
+event.name=标题
+event.name.tip=Enter the event's description.
+
+event.type=类型
+event.type.tip=Select the event type.
+
+event.place=位置
+event.place.tip=Enter the event's place.
+
+event.date=时间
+event.date.tip=Enter event's date and time. Formato: mm-dd-aaaa hh:mm.
+
+event.noEvents=No events in sight...
+
+event.button.newEvent=新增event
+event.button.loadFromYaml=初始化数据
+event.button.admin=后台管理
+
+event.form.updateEvent=Update event
+event.form.createEvent=Create a new event
+
+event.form.subtitle=Enter next events information
+
+event.button.saveEvent=Save changes
+event.button.cancel=Cancel
+
+topbar.title=play框架
+topbar.about=about...
+topbar.jugARHomepage=首页
+topbar.linkedin=linkedIn领英网
+topbar.slides=slides网
+topbar.tutorial=wiki
+
+topbar.signin=登录
+topbar.signout=退出
+
+footer.backHome=返回首页
+footer.forkMe=Fork me at
+footer.appTitle=Play! demo application for jugAR
+footer.appName=Play demo application 
+
+header.countDown=Only %s to
+
+login.legend=Hi!<br>You haven't authenticated yourself yet, use any of the buttons below to log in.
+
+dateHelper.year=year
+dateHelper.years=years
+dateHelper.month=month
+dateHelper.months=months
+dateHelper.day=day
+dateHelper.days=days
+dateHelper.hour=hour
+dateHelper.hours=hours
+dateHelper.minute=minute
+dateHelper.minutes=minutes
+dateHelper.second=second
+dateHelper.seconds=seconds
+
+#liusu
+name=名称
+type=类型
+place=位置
+date=日期
+
+

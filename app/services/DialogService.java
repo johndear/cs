@@ -3,16 +3,17 @@ package services;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
-
 import models.entity.CustomerModel;
 import models.entity.CustomerOnlineModel;
 import models.entity.DialogModel;
 import models.enums.DialogState;
 import models.mappers.CustomerMapper;
-import mybatisplay.IbatisSessionFactory;
+
+import org.apache.ibatis.session.SqlSession;
+
 import play.libs.WS;
 import play.mvc.Http;
+import base.IbatisSessionFactory;
 
 public class DialogService {
 	
