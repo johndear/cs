@@ -1,22 +1,15 @@
 package models;
 
+import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.junit.Test;
-
-import play.Logger;
 import play.data.validation.Required;
-import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 /**

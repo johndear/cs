@@ -1,5 +1,5 @@
 %{ nbPages = _caller.count.page(controllers.CRUD.getPageSize()) }%
-
+${nbPages}
 <p class="crudCount">
     &{'crud.list.size', _caller.count, _caller.type.name}
 </p>

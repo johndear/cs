@@ -53,7 +53,18 @@ public abstract class CRUD extends Controller {
         Long count = type.count(search, searchFields, (String) request.args.get("where"));
         Long totalCount = type.count(null, null, (String) request.args.get("where"));
         try {
-            render(type, objects, count, totalCount, page, orderBy, order);
+        	String[] listFieldArr = null;
+        	String[] searchFieldArr = null;
+        	if("Account".equals(type.modelName)){
+        		listFieldArr = new String[]{"id","nickName","kfType"};
+        		searchFieldArr = new String[]{"nickName"};
+        	}
+        	if("Event".equals(type.modelName)){
+        		listFieldArr = new String[]{"id","name","type"};
+        		searchFieldArr = new String[]{"name"};
+        	}
+        	
+            render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr);
         } catch (TemplateNotFoundException e) {
             render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
         }
@@ -196,7 +207,7 @@ public abstract class CRUD extends Controller {
 
     // ~~~~~~~~~~~~~
     static int getPageSize() {
-        return Integer.parseInt(Play.configuration.getProperty("crud.pageSize", "30"));
+        return Integer.parseInt(Play.configuration.getProperty("crud.pageSize", "5"));
     }
 
     public static class ObjectType implements Comparable<ObjectType> {

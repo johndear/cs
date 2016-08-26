@@ -31,6 +31,9 @@
                 </a>
             </th>
         %{ } }%
+         <th>
+	           action
+	       </th>
         </tr>
     </thead>
     %{ _caller.objects.eachWithIndex() { object, k -> }%
@@ -49,7 +52,7 @@
                     }%
                 %{ } else { }%
                     %{ if(i == 0) { }%
-                        <a href="@{show(object._key())}">${object[field]?.toString()?.escape()?.raw() ?: '(no value)'}</a>
+                        ${object[field]?.toString()?.escape()?.raw() ?: '(no value)'}
                     %{ } else { }%
                         %{ if(_caller.type.getField(field).type == 'file') { }%
                             %{ if(object[field]) { }%
@@ -77,6 +80,16 @@
                 </td>
             %{ } }%
         %{ } }%
+        <td>
+        	#{form @delete(object._key())}
+		        <p class="">
+		            <input type="submit" value="&{'crud.delete', ''}" />
+		            <a href="@{show(object._key())}">edit</a>
+		        </p>
+		    #{/form}
+        </td>
     </tr>
     %{ } }%
 </table>
+
+%{ out.print(_fields) }%

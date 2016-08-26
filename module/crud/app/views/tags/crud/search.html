@@ -6,4 +6,7 @@
     #{if _caller.params.search}
         (<a href="@{list()}">&{'crud.list.totalSize', _caller.totalCount}</a>)
     #{/if}
+    
 #{/form}
+
+%{ out.print(_fields) }%

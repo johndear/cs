@@ -12,6 +12,8 @@ public class EventType extends Model {
     
 	@Required(message="You have to complete the event type's name.")
 	public String name;
+	
+	public String sex;
 
 	@Override
 	public String toString() {
