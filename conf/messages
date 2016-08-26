@@ -1,0 +1,46 @@
+# Default CRUD messages
+# ~~~~~~
+
+crud.title=管理后台
+crud.home=Home
+crud.blank=New
+crud.index.title=类型列表
+crud.index.objectType=类型名称
+crud.index.action=
+crud.index.add=添加
+crud.add=添加 &{%s}
+crud.list.title=&{%s}列表
+crud.list.size=%d &{%s}
+crud.list.totalSize=%d total
+crud.pagination.previous=« Previous
+crud.pagination.next=Next »
+crud.pagination.last=Last »»
+crud.pagination.first=«« First
+crud.show.title=编辑 &{%s}
+crud.save=保存
+crud.saveAndContinue=保存后继续编辑
+crud.cancel=取消
+crud.hasErrors=Please correct errors
+crud.blank.title=新增 &{%s}
+crud.saveAndAddAnother=保存后继续新增
+crud.delete=删除 &{%s}
+crud.created=The &{%s} has been created
+crud.saved=The &{%s} has been saved
+crud.deleted=The &{%s} has been deleted
+crud.delete.error=Cannot delete this object
+crud.search=Search
+crud.none=(None)
+crud.selectValue=(Please select a value)
+
+crud.help.required=Required.
+crud.help.minlength=Min length is %d.
+crud.help.maxlength=Max length is %d.
+crud.help.email=Valid email address.
+crud.help.dateformat=&{%s} format.
+crud.help.numeric=Numeric.
+crud.help.min=Must be greater than %d.
+crud.help.future=In the future.
+crud.help.past=In the past.
+crud.help.after=After %s.
+crud.help.before=Before %s.
+crud.help.range=Between %d and %d
