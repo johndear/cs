@@ -1,3 +1,8 @@
 参考play_helloword
 
+
+google inject
+https://github.com/google/guice/wiki/GuicePersistMultiModules
 https://www.codatlas.com/github.com/playframework/playframework/master/framework/src/play-guice/src/main/java/play/inject/guice/Guiceable.java
+http://iluoxuan.iteye.com/blog/2070622
+http://www.cnblogs.com/whitewolf/p/4185908.html
