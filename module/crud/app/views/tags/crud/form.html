@@ -18,8 +18,8 @@
     }
 }%
 
+#{set count:0/}
 #{list items:_fields ?: currentType.fields*.name, as:'fieldName'}
-
     %{
         am = ''
     }%
@@ -134,5 +134,9 @@
     %{ } }%
 
 </div>
-
+ #{set count:count+1 /}
+ #{if (count % 2) == 0}
+ 	%{ out.print("please replace row..." + count) }%
+ #{/if}
+ 
 #{/list}
