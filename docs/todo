@@ -17,6 +17,9 @@
 4、已结束的会话未归档工单，刷新工作台后，继续保留在已结束区域 -- 使用cookie保存在客服端
 
 
+日期格式处理
+http://www.voidcn.com/blog/tonylee0329/article/p-791443.html
+
 java-websocket
 http://doc.ucweb.local/pages/viewpage.action?pageId=22681886
 http://ued.sina.com.cn/?p=900&qq-pf-to=pcqq.c2c //参考资料比较多
