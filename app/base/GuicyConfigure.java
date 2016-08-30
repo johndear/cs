@@ -1,6 +1,8 @@
 package base;
 
 import play.modules.guice.GuiceSupport;
+import test.MyModule;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -9,7 +11,7 @@ import com.google.inject.Injector;
  */
 public class GuicyConfigure extends GuiceSupport {
     protected Injector configure() {
-        Injector injector = Guice.createInjector();
+        Injector injector = Guice.createInjector(new AppModule());
         return injector;
     }
 }
