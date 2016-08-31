@@ -1,0 +1,4 @@
+self: play -> crud-bootstrap
+
+require:
+    - play
