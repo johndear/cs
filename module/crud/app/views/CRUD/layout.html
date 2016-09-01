@@ -50,9 +50,15 @@
 		        <div class="well sidebar-nav">
 		        <ul class="nav nav-list">
 		            <li class="nav-header">&{'crud.index.objectType'}</li>
-		            #{crud.types}
-		            <li><a href="${type.listAction}">&{type.name}</a></li>
-		            #{/crud.types}
+		            #{crud.category}
+		            	=== &{category} ===
+			            #{crud.types}
+			                #{if category==type.categoryName}
+					            	<li><a href="${type.listAction}">&{type.name}</a></li>
+			                #{/if}
+				        #{/crud.types}
+		            #{/crud.category}
+		            
 		        </ul>
 		        </div>
 		      </div>
@@ -64,13 +70,13 @@
 		        #{/if}
 		        #{if flash.success}
 		        <div class="alert alert-success">
-		            <button type="button" class="close" data-dismiss="alert">¡Á</button>
+		            <button type="button" class="close" data-dismiss="alert">ï¿½ï¿½</button>
 		            ${flash.success}
 		        </div>
 		        #{/if}
 		        #{if flash.error || error}
 		        <div class="alert alert-error">
-		            <button type="button" class="close" data-dismiss="alert">¡Á</button>
+		            <button type="button" class="close" data-dismiss="alert">ï¿½ï¿½</button>
 		            ${error ?: flash.error}
 		        </div>
 		        #{/if}
