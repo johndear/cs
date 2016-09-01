@@ -1,17 +1,12 @@
 package models;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import play.db.jpa.Model;
+
+import java.util.List;
 
 
 /**
@@ -37,7 +32,7 @@ public class TResource extends Model implements Serializable {
 			@JoinColumn(name="role_id")
 			}
 		)
-	private List<TRole> TRoles;
+	public List<TRole> TRoles;
 
 	public TResource() {
 	}
@@ -50,12 +45,5 @@ public class TResource extends Model implements Serializable {
 		this.name = name;
 	}
 
-	public List<TRole> getTRoles() {
-		return this.TRoles;
-	}
-
-	public void setTRoles(List<TRole> TRoles) {
-		this.TRoles = TRoles;
-	}
 
 }

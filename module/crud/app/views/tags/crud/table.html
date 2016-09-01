@@ -9,9 +9,10 @@
     }
 }%
 
-<table>
+<table class="table table-bordered table-condensed table-hover">
     <thead>
         <tr>
+             <th>#</th>
         %{ if(_fields) { }%
             %{ _fields.each() { }%
             <th>
@@ -31,13 +32,14 @@
                 </a>
             </th>
         %{ } }%
-         <th>
+         <th width="72">
 	           action
 	       </th>
         </tr>
     </thead>
     %{ _caller.objects.eachWithIndex() { object, k -> }%
     <tr class="${k % 2 ? 'even' : 'odd'}">
+        <td>${object.id.raw() ?: '(no value)'}</td>
         %{ if(_fields) { }%
             %{ _fields.eachWithIndex() { field, i -> }%
             <td>
@@ -75,19 +77,14 @@
                 }%
                 #{doBody body:handler /}
             %{ } else { }%
-                <td>
-                    <a href="@{show(object._key())}">${object.toString()?.escape()?.raw() ?: '(no value)'}</a>
-                </td>
+                
+            <td>${object.toString()?.escape()?.raw() ?: '(no value)'}</td>
             %{ } }%
         %{ } }%
         <td>
-        	#{form @delete(object._key())}
-		        <p class="">
-		            <input type="submit" value="&{'crud.delete', ''}" style="border:0;text-decoration: underline;background-color: #fff;"/>
-		            <a href="@{show(object._key())}">edit</a>
-		        </p>
-		    #{/form}
-        </td>
+			<a href="@{show(object._key())}" class="btn btn-info btn-small"><i class="icon-edit icon-white"></i></a>
+            <a href="@{delete(object._key())}" class="btn btn-danger btn-small"><i class="icon-trash icon-white"></i></a>
+       </td>
     </tr>
     %{ } }%
 </table>
