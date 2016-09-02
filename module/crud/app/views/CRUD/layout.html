@@ -4,7 +4,18 @@
     <head>
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}" />
-		<link rel="stylesheet" href="@{'/public/css/bootstrap.css'}" />
+		
+		<!-- <link rel="stylesheet" href="@{'/public/css/bootstrap.css'}" /> -->
+		
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		
 		<style type="text/css">
 		  body {
 		    padding-top: 56px;
@@ -20,7 +31,7 @@
 		$(document).ready(
 			function()
 			{
-				$('.redactor').redactor();
+				//$('.redactor').redactor();
 			}
 		);
 		</script>
@@ -46,7 +57,7 @@
 		</div>
 		<div class="container">
 		    <div class="row">
-		      <div class="span3">
+		      <div class="col-md-3">
 		        <div class="well sidebar-nav">
 		        <ul class="nav nav-list">
 		            <li class="nav-header">&{'crud.index.objectType'}</li>
@@ -62,7 +73,7 @@
 		        </ul>
 		        </div>
 		      </div>
-		      <div class="span9">
+		      <div class="col-md-9">
 		        #{if request.actionMethod != 'index'}
 		        <div>
 		            #{crud.navigation /}
@@ -75,7 +86,7 @@
 		        </div>
 		        #{/if}
 		        #{if flash.error || error}
-		        <div class="alert alert-error">
+		        <div class="alert alert-danger">
 		            <button type="button" class="close" data-dismiss="alert">��</button>
 		            ${error ?: flash.error}
 		        </div>
