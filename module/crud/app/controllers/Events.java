@@ -5,7 +5,7 @@ import utils.Category;
 import utils.Rest;
 
 
-@Category(value="基本信息管理")
+@Category(value="demo")
 @Rest(value="事件管理")
 public class Events extends CRUD {
 
