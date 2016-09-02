@@ -7,7 +7,7 @@
     <hr>
 
     
-    #{form action:@save(object._key()), enctype:'multipart/form-data', class:'form-horizontal'}
+    #{form action:@save(object._key()), enctype:'multipart/form-data', class:'form-inline'}
         #{crud.form /}
         <div class="form-actions">
             <input type="submit" class="btn btn-primary" name="_save" value="&{'crud.save', type.modelName}" />

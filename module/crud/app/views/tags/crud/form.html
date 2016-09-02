@@ -18,6 +18,13 @@
     }
 }%
 
+<div class="container" style="border:1px solid red;">
+	<div class="row">
+	  <div class="col-md-8">.col-md-8</div>
+	  <div class="col-md-4">.col-md-4</div>
+	</div>
+</div>
+
 #{set count:0/}
 #{list items:_fields ?: currentType.fields*.name, as:'fieldName'}
     %{
