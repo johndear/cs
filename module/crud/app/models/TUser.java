@@ -1,17 +1,18 @@
 package models;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import play.data.validation.MaxSize;
+import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 
 
@@ -26,7 +27,11 @@ public class TUser extends Model implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
-
+	
+	public boolean isAdmin;
+	
+	public FileAttachment icon;
+	
 	//bi-directional many-to-many association to TRole
 //	@ManyToMany(mappedBy="TUsers")
 	@OneToMany
