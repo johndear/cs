@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import play.data.validation.MaxSize;
+import play.data.validation.Password;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 
@@ -27,6 +28,9 @@ public class TUser extends Model implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	
+	@Password
+	public String password;
 	
 	public boolean isAdmin;
 	
