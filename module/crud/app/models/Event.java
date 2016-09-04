@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Where;
+
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import utils.DateHelper;
@@ -22,7 +24,8 @@ public class Event extends Model {
 	public EventType type;
 	
 	@OneToMany
-	public List<User> users;
+	@Where(clause="deleted=0")
+	public List<TUser> users;
 	
 	@Required(message="You have to complete the event's place.")
 	public String place;

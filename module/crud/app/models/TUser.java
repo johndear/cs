@@ -36,6 +36,8 @@ public class TUser extends Model implements Serializable {
 	
 	public FileAttachment icon;
 	
+	public int deleted;
+	
 	//bi-directional many-to-many association to TRole
 //	@ManyToMany(mappedBy="TUsers")
 	@OneToMany
