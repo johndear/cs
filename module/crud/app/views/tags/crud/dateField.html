@@ -2,7 +2,11 @@
     <label for="${field.id}">
         &{_name}
     </label>
-    <input id="${field.id}" class="${field.errorClass}" type="text" name="${field.name}" value="${_value?.format()}" size="10" />
+    <!-- datetime-local -->
+    <div class="input-append date form_datetime">
+	    <input id="${field.id}" class="${field.errorClass}" type="datetime-picker" name="${field.name}" value="${_value?.format()}" size="10" />
+	    <span class="add-on"><i class="icon-th"></i></span>
+    </div>
     #{ifError field.name}
         <span class="error">${field.error.raw()}</span>
     #{/ifError}
