@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import play.data.validation.MaxSize;
 import play.db.jpa.Model;
 
 
@@ -44,6 +45,9 @@ public class TRole extends Model implements Serializable {
 			}
 		)
 	public List<TUser> Tusers;
+	
+	@MaxSize(value=101)
+	public String description;
 
 	public TRole() {
 	}
