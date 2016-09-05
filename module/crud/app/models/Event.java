@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Where;
 
@@ -24,7 +25,6 @@ public class Event extends Model {
 	public EventType type;
 	
 	@OneToMany
-	@Where(clause="deleted=0")
 	public List<TUser> users;
 	
 	@Required(message="You have to complete the event's place.")
@@ -32,6 +32,9 @@ public class Event extends Model {
 	
 	@Required(message="You have to complete the event's date.")
 	public Date date;
+	
+	@Transient
+	public String aa;
 
 	@Override
 	public String toString() {
