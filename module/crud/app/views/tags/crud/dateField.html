@@ -1,13 +1,15 @@
 #{field 'object.' + _name}
-    <label for="${field.id}">
+    <label for="${field.id}" class="col-sm-2 control-label">
         &{_name}
     </label>
-    <!-- datetime-local -->
-    <div class="input-append date form_datetime">
-	    <input id="${field.id}" class="${field.errorClass}" type="datetime-picker" name="${field.name}" value="${_value?.format()}" size="10" />
-	    <span class="add-on"><i class="icon-th"></i></span>
+    <div class="col-sm-3">
+	    <!-- datetime-local -->
+	    <div class="input-append date form_datetime" >
+		    <input id="${field.id}" class="${field.errorClass}" type="datetime-picker" name="${field.name}" value="${_value?.format()}" size="17" style="width:100%;"/>
+		    <span class="add-on"><i class="icon-th"></i></span>
+	    </div>
+	    #{ifError field.name}
+	        <span class="error">${field.error.raw()}</span>
+	    #{/ifError}
     </div>
-    #{ifError field.name}
-        <span class="error">${field.error.raw()}</span>
-    #{/ifError}
 #{/field}

@@ -1,13 +1,15 @@
 #{field 'object.' + _name}
-    <label for="${field.id}">
+    <label for="${field.id}" class="col-sm-2 control-label">
         &{_name}
     </label>
-    <input id="${field.id}" class="form-control" type="file" name="${field.name}" />
-    #{ifError field.name}
-        <span class="error">${field.error.raw()}</span>
-    #{/ifError}
-    #{if _value && _value.exists() && _id}
-        <a class="currentAttachment" href="@{attachment(_id, _name)}">Download current file (${_value.length().formatSize()})</a>
-        <span class="removeAttachment"><input type="checkbox" name="${field.name}_delete_" value="true" /> (delete)</span>
-    #{/if}
+     <div class="col-sm-3">
+	    <input id="${field.id}" class="form-control" type="file" name="${field.name}" />
+	    #{ifError field.name}
+	        <span class="error">${field.error.raw()}</span>
+	    #{/ifError}
+	    #{if _value && _value.exists() && _id}
+	        <a class="currentAttachment" href="@{attachment(_id, _name)}">Download current file (${_value.length().formatSize()})</a>
+	        <span class="removeAttachment"><input type="checkbox" name="${field.name}_delete_" value="true" /> (delete)</span>
+	    #{/if}
+	</div>
 #{/field}

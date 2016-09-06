@@ -18,7 +18,7 @@
     }
 }%
 
-<div role="form" class="form-horizontal">
+<div role="form">
 
 	#{set count:1 /}
 	#{list items:_fields ?: currentType.fields*.name, as:'fieldName'}
@@ -29,9 +29,9 @@
 	    %{ def field = currentType.getField(fieldName); //out.print(field.type) }%
 	
 	 #{if (count % 2) == 1}
-	<div class="form-group">
 	 #{/if}
 	 
+	<div class="form-group">
 	
 	    %{ if(fieldsHandler[fieldName]) { }%
 	        %{
@@ -91,7 +91,7 @@
 	            #{crud.hiddenField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	        #{/if}
 	
-<!-- 	    <span class="col-sm-1 control-label">
+	    <span class="crudHelp">
 	        &{am}
 	            %{ play.data.validation.Validation.getValidators(currentType.entityClass, fieldName, 'object').each() { }%
 	                %{
@@ -135,15 +135,12 @@
 	                }%
 	            %{ } }%
 	    </span>
- -->	
+	
 	    %{ } }%
 	
-	 
-	 
-	  #{if (count % 2) == 0}
 	</div>
-	 #{/if}
 	 
 	#{set count:count+1 /}
+	 
 	#{/list}
 </div>

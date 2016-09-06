@@ -1,10 +1,12 @@
 #{field 'object.' + _name}
-    <label for="${field.id}">
+    <label for="${field.id}" class="col-sm-2 control-label">
         &{_name}
     </label>
-    <input id="${field.id}" class="${field.errorClass}" type="checkbox" name="${field.name}" value="true" ${(params[field.name] ? params.getAll(field.name)[0] == 'true' : _value) ? 'checked="true"'.raw() : ''} />
-    <input type="hidden" name="${field.name}" value="false" />
-    #{ifError field.name}
-        <span class="error">${field.error.raw()}</span>
-    #{/ifError}
+     <div class="col-sm-3">
+	    <input id="${field.id}" class="${field.errorClass}" type="checkbox" name="${field.name}" value="true" ${(params[field.name] ? params.getAll(field.name)[0] == 'true' : _value) ? 'checked="true"'.raw() : ''} />
+	    <input type="hidden" name="${field.name}" value="false" />
+	    #{ifError field.name}
+	        <span class="error">${field.error.raw()}</span>
+	    #{/ifError}
+	 </div>
 #{/field}

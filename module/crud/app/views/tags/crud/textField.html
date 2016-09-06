@@ -1,10 +1,12 @@
 #{field 'object.' + _name}
-    <label for="${field.id}">
+    <label for="${field.id}" class="col-sm-2 control-label">
         &{_name}
     </label>
-    <!-- class="${field.errorClass}" -->
-    <input id="${field.id}" class="form-control" type="text" name="${field.name}" value="${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}" size="25" />
-    #{ifError field.name}
-        <span class="error">${field.error.raw()}</span>
-    #{/ifError}
+    <div class="col-sm-3">
+	    <!-- class="${field.errorClass}" -->
+	    <input id="${field.id}" class="form-control" type="text" name="${field.name}" value="${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}" size="20" />
+	    #{ifError field.name}
+	        <span class="error">${field.error.raw()}</span>
+	    #{/ifError}
+    </div>
 #{/field}
