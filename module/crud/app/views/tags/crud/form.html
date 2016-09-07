@@ -50,7 +50,7 @@
 	        #{/ifnot}
 	
 	        #{if field.type == 'text'}
-	            #{crud.textField name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.textField name:'event.'+field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	        #{/if}
 	
 	        #{if field.type == 'password'}
