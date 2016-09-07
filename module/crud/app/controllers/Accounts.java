@@ -1,12 +1,11 @@
 package controllers;
 
 import play.mvc.With;
-import utils.Category;
+import utils.Menu;
 import utils.Rest;
 import controllers.CRUD;
 
-@Category(value="demo")
-@Rest(value="账号管理")
+@Menu(name="账号管理", category="demo")
 public class Accounts extends CRUD {
 
 }

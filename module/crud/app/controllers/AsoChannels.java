@@ -1,11 +1,10 @@
 package controllers;
 
 import controllers.CRUD;
-import utils.Category;
+import utils.Menu;
 import utils.Rest;
 
-@Category(value="体验师")
-@Rest(value="事件管理")
+@Menu(name="渠道管理", category="体验师")
 public class AsoChannels extends CRUD {
 
 }

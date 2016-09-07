@@ -7,17 +7,16 @@
     for(controllerClass in play.Play.classloader.getAssignableClasses(_('controllers.CRUD'))) {
         resourceModel = _('controllers.CRUD$ObjectType').get(controllerClass)
         		
-        utils.Category categoryName = controllerClass.getAnnotation(utils.Category.class);
-        if (categoryName == null) {
-            throw new Exception(controllerClass.name + "类缺少Category注解定义！");
+        utils.Menu menu = controllerClass.getAnnotation(utils.Menu.class);
+        if (menu == null) {
+            throw new Exception(controllerClass.name + "类缺少Menu注解定义！");
         }
         
         if(resourceModel != null) {
-            categorySet.add(categoryName.value())
-            resourceModel.categoryName = categoryName.value();
+            categorySet.add(menu.category());
+            resourceModel.categoryName = menu.category();
             models.add(resourceModel)
         }
-            
     }
     for(controllerClass in play.Play.classloader.getAssignableClasses(_('play.scalasupport.crud.CRUDWrapper'))) {
         resourceModel = _('controllers.CRUD$ObjectType').get(controllerClass)

@@ -8,6 +8,6 @@ package utils;
  * @since 1.0.0
  * create on: 2014/7/5 23:50
  */
-public enum Methods {
-    POST, GET
+public enum Method {
+    POST, GET, PUT, DELETE
 }

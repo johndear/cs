@@ -5,8 +5,9 @@
         resourceModel = _('controllers.CRUD$ObjectType').get(controllerClass)
         		
         if(resourceModel != null) {
-	        utils.Category categoryName = controllerClass.getAnnotation(utils.Category.class);
-            resourceModel.categoryName = categoryName.value();
+	        utils.Menu menu = controllerClass.getAnnotation(utils.Menu.class);
+            resourceModel.showName = menu.name();
+            resourceModel.categoryName = menu.category();
             models.add(resourceModel)
         }
             

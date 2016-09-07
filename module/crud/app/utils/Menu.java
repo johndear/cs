@@ -7,11 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-public @interface Rest {
+public @interface Menu {
     //接口名称
-    String name() default "";
-    //接口地址
-    String url() default "";
-    //接口对外调用请求类型
-    Method method() default Method.GET;
+    String name();
+    //用法
+    String category() default "";
 }
