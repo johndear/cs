@@ -12,7 +12,16 @@
   </div>
 </div>
 
-#{crud.table fields: listFieldArr/}
+#{crud.table fields: listFieldArr}
+	<!-- liusu 解析action字段 -->
+	#{crud.custom 'action'} 
+        <a href="@{show(object._key())}" class="btn btn-info btn-small" style="float:left;"><i class="icon-edit icon-white"></i></a>
+        #{form @delete(object._key())}
+	        <button class="btn btn-danger btn-small" style="margin-left:5px;"><i class="icon-trash icon-white"></i></button>
+	    #{/form}
+    #{/crud.custom}
+    
+#{/crud.table}
 
 #{crud.pagination /}
 

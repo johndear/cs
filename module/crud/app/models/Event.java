@@ -34,7 +34,7 @@ public class Event extends Model {
 	public Date date;
 	
 	@Transient
-	public String aa;
+	public String action;
 
 	@Override
 	public String toString() {

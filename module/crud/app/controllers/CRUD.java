@@ -56,11 +56,11 @@ public abstract class CRUD extends Controller {
         	String[] listFieldArr = null;
         	String[] searchFieldArr = null;
         	if("Account".equals(type.modelName)){
-        		listFieldArr = new String[]{"id","nickName","kfType"};
+        		listFieldArr = new String[]{"nickName","kfType","action"};
         		searchFieldArr = new String[]{"nickName"};
         	}
         	if("Event".equals(type.modelName)){
-        		listFieldArr = new String[]{"id","name","type"};
+        		listFieldArr = new String[]{"name","type","action"};
         		searchFieldArr = new String[]{"name"};
         	}
         	

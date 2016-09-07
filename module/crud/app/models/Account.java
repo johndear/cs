@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -132,6 +133,9 @@ public class Account extends Model {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "sync_time", nullable = true)
     public Date syncTime;
+    
+    @Transient
+	public String action;
     
     /**
      * 功能描述：从工单系统获取客服账号信息
