@@ -53,45 +53,45 @@
         	%{
         		// 字段全名称，如：event.name 方便国际化
         		def typeName = currentType.toString().toLowerCase();
-        		def fieldName = typeName + '.' + field.name;
+        		def fullFieldName = typeName + '.' + field.name;
         	}%
 	        	
 	        #{if field.type == 'text'}
-	            #{crud.textField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.textField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	        #{/if}
 	
 	        #{if field.type == 'password'}
-	            #{crud.passwordField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.passwordField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	        #{/if}
 	
 	        #{if field.type == 'binary'}
-	            #{crud.fileField name:fieldName, value:(currentObject ? currentObject[field.name] : null), id:currentObject?.id /}
+	            #{crud.fileField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), id:currentObject?.id /}
 	        #{/if}
 	
 	        #{if field.type == 'longtext'}
-	            #{crud.longtextField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.longtextField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	        #{/if}
 	
 	        #{if field.type == 'number'}
-	            #{crud.numberField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.numberField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	            %{ am = 'crud.help.numeric' }%
 	        #{/if}
 	
 	        #{if field.type == 'date'}
-	            #{crud.dateField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.dateField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	            %{ am = messages.get('crud.help.dateformat',play.libs.I18N.getDateFormat()) }%
 	        #{/if}
 	
 	        #{if field.type == 'relation'}
-	            #{crud.relationField name:fieldName, value:(currentObject ? currentObject[field.name] : null), field:field /}
+	            #{crud.relationField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), field:field /}
 	        #{/if}
 	
 	        #{if field.type == 'boolean'}
-	            #{crud.checkField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.checkField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
 	        #{/if}
 	
 	        #{if field.type == 'enum'}
-	            #{crud.enumField name:fieldName, value:(currentObject ? currentObject[field.name] : null), property:field /}
+	            #{crud.enumField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), property:field /}
 	        #{/if}
 	
 	        #{if field.type == 'hidden'}

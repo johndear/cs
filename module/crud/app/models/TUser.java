@@ -70,5 +70,10 @@ public class TUser extends Model implements Serializable {
 	public void setTRoles(List<TRole> TRoles) {
 		this.TRoles = TRoles;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }

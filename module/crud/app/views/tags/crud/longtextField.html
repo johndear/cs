@@ -1,6 +1,6 @@
 #{field 'object.' + _name}
     <label for="${field.id}">
-        &{_name}
+        &{_fullFieldName}
     </label>
     <textarea id="${field.id}" cols="48" rows="5" class="form-control" name="${field.name}">${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}</textarea>
     #{ifError field.name}
