@@ -75,26 +75,27 @@ public class MySQLTableComment {
 	 * @return
 	 * @throws Exception
 	 */
-	public static void getColumnCommentByTableName(List tableName) throws Exception {
-		Map map = new HashMap();
+	public static Map<String, Map<String,Object>> getColumnCommentByTableName(List tableName) throws Exception {
+		Map<String, Map<String,Object>> tables = new HashMap<String, Map<String,Object>>();
 		Connection conn = getMySQLConnection();
 		Statement stmt = conn.createStatement();
 		for (int i = 0; i < tableName.size(); i++) {
 			String table = (String) tableName.get(i);
-			ResultSet rs = stmt.executeQuery("show full columns from " + table);
 			System.out.println("【"+table+"】");
-//			if (rs != null && rs.next()) {
-				//map.put(rs.getString("Field"), rs.getString("Comment"));
+
+			Map<String, Object> fields = new HashMap<String, Object>();
+			tables.put(table, fields);
+			
+			ResultSet rs = stmt.executeQuery("show full columns from " + table);
 		    while (rs.next()) {   
-//			    System.out.println("字段名称：" + rs.getString("Field") + "\t"+ "字段注释：" + rs.getString("Comment") );
-			    System.out.println(rs.getString("Field") + "\t:\t"+  rs.getString("Comment") );
+			    System.out.println(StringUtil.underlineToCamel(rs.getString("Field")) + "\t:\t"+  rs.getString("Comment") );
+			    fields.put(StringUtil.underlineToCamel(rs.getString("Field")), rs.getString("Comment"));
 			} 
-//			}
 			rs.close();
 		}
 		stmt.close();
 		conn.close();
-//		return map;
+		return tables;
 	}
 
 	
