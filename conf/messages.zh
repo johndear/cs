@@ -63,10 +63,9 @@ dateHelper.minutes=minutes
 dateHelper.second=second
 dateHelper.seconds=seconds
 
-#liusu
-name=名称
-type=类型
-place=位置
-date=日期
+
+account.name = 英文名
+account.userName = 中文名
+account.nickName = 昵称
 
 
