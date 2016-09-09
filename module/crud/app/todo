@@ -1,0 +1,31 @@
+ @Email 校验email合法性 
+
+·  @InFuture 检验是否将来的日期 
+
+·  @InPast 检验是否是过往的日期 
+
+·  @Match 对正则表达式的判断 
+
+·  @Max 最大值 
+
+·  @Min 最小值 
+
+·  @Range 检验范围 
+
+·  @URL 检验是否URL
+
+public static void update(@As("dd/MM/yyyy") Date updatedAt) {
+
+public static void index() {
+    List messages = Cache.get(session.getId() + "-messages", List.class);
+    if(messages == null) {
+        // Cache miss
+        messages = Message.findByUser(session.get("user"));
+        Cache.set(session.getId() + "-messages", messages, "30mn");
+    }
+    render(messages);
+}
+
+http://play-framework.herokuapp.com/zh/controllers
+http://play-framework.herokuapp.com/zh/templates
+http://play-framework.herokuapp.com/zh/validation
