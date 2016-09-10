@@ -9,7 +9,7 @@
     <div class="objectForm">
     #{form action:@create(), enctype:'multipart/form-data', class:'form-inline'}
         #{crud.form /}
-        <div class="form-actions">
+        <div class="row">
             <input type="submit" class="btn btn-primary" name="_save" value="&{'crud.save', type.modelName}" />
             <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
             <input type="submit" name="_saveAndAddAnother" value="&{'crud.saveAndAddAnother', type.modelName}" />

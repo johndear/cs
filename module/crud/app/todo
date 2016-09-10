@@ -29,3 +29,6 @@ public static void index() {
 http://play-framework.herokuapp.com/zh/controllers
 http://play-framework.herokuapp.com/zh/templates
 http://play-framework.herokuapp.com/zh/validation
+
+多条件查询 -- 可以动态扩展查询条件
+关联表查询 --- 不仅仅只是能看到名称，可以看到更具体的。比如给角色添加用户时，显示的用户有限，而且要对应用户所在部门

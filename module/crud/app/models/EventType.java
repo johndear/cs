@@ -25,5 +25,19 @@ public class EventType extends Model {
 	public String toString() {
 		return name;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public int getDeleted() {
+		return deleted;
+	}
+	
+	
 	
 }

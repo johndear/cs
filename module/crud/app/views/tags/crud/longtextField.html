@@ -1,9 +1,13 @@
 #{field 'object.' + _name}
+<div class="col-md-2">
     <label for="${field.id}">
         &{_fullFieldName}
     </label>
+</div>
+<div class="col-md-4">
     <textarea id="${field.id}" cols="48" rows="5" class="form-control" name="${field.name}">${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}</textarea>
     #{ifError field.name}
         <span class="error">${field.error.raw()}</span>
     #{/ifError}
+</div>
 #{/field}

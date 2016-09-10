@@ -19,7 +19,7 @@ import java.util.Set;
 public class MySQLTableComment {
 	public static Connection getMySQLConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://yftest.ucweb.local:3309/demo", "cs", "cs");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/csos-self", "root", "root");
 		return conn;
 	}
 	

@@ -24,8 +24,8 @@ public class Event extends Model {
 	@ManyToOne
 	public EventType type;
 	
-	@OneToMany
-	public List<TUser> users;
+//	@OneToMany
+//	public List<TUser> users;
 	
 	@Required(message="You have to complete the event's place.")
 	public String place;

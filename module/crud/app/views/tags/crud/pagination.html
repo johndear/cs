@@ -2,12 +2,10 @@
 
 
 #{if nbPages > 1}
-    <div class="pagination">
+    <div class="vertical-align:center;">
 		
-		total ${nbPages} pages, &{'crud.list.size', _caller.count, 'records'}
-
-        <ul style="float:right;">
-		
+		<div style="float:left;">Showing 1 to ${nbPages} of ${_caller.count} entries</div>
+        <ul class="pagination pull-right">
         %{
             limit = (_limit != null ? _limit : 10)
             start = _caller.page - (int)(limit/2) + (limit % 2 ? 0 : 1)
