@@ -1,8 +1,10 @@
 #{field 'object.' + _name}
-<label for="${field.id}">
-    &{_fullFieldName}
-</label>
-
+<div class="col-md-2">
+	<label for="${field.id}">
+	    &{_fullFieldName}
+	</label>
+</div>
+<div class="col-md-4">
 <select id="${field.id}" name="${field.name}" class="form-control">
         %{ _property.choices.each() { }%
         %{
@@ -20,4 +22,5 @@
 #{ifError field.name}
     <span class="error">${field.error.raw()}</span>
 #{/ifError}
+</div>
 #{/field}

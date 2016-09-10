@@ -5,6 +5,7 @@
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}" />
 		<!-- <link rel="stylesheet" href="@{'/public/css/bootstrap.css'}" /> --> 
+		<!-- <link rel="stylesheet" href="@{'/public/stylesheets/crud.css'}" /> -->
 		
 		<!-- 新 Bootstrap 核心 CSS 文件 -->
 		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
@@ -15,7 +16,6 @@
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 		
-		<!-- <link rel="stylesheet" href="@{'/public/stylesheets/crud.css'}" /> -->
 		<!-- bootstrap date -->
 		<link rel="stylesheet" href="@{'/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css'}">
 		<script src="@{'/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'}"></script>
@@ -24,6 +24,25 @@
 		  body {
 		    padding-top: 56px;
 		  }
+		  .form-actions {
+			  padding: 19px 20px 20px;
+			  margin-top: 20px;
+			  margin-bottom: 20px;
+			  background-color: #f5f5f5;
+			  border-top: 1px solid #e5e5e5;
+			  *zoom: 1;
+			}
+			
+			.form-actions:before,
+			.form-actions:after {
+			  display: table;
+			  line-height: 0;
+			  content: "";
+			}
+			
+			.form-actions:after {
+			  clear: both;
+			}
 		</style>
 		<script src="@{'/public/js/jquery.js'}"></script>
       	<!-- Redactor -->

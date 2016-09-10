@@ -1,11 +1,13 @@
 %{ pName = 'object.' + _name + '.' + play.db.Model.Manager.factoryFor(_field.property.relationType).keyName() }%
 
 #{field 'object.' + _name}
-    <label for="${field.id}" class="col-sm-2 control-label">
+<div class="col-md-2">
+    <label for="${field.id}" class="control-label">
         &{_fullFieldName}
     </label>
+</div>
 
-	<div class="col-sm-3">
+	<div class="col-md-4">
     #{if _field.multiple}
         <input type="hidden" name="${pName}" value="" />
         <select id="${field.id}" name="${pName}" multiple="yes">
