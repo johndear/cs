@@ -15,7 +15,7 @@ public class BootstrapJob extends Job {
 	public void doJob() {
 		Lang.set("zh");//设置为中文  
 		
-		Fixtures.deleteAllModels();
+//		Fixtures.deleteAllModels();
 		Fixtures.loadModels("data-" + Lang.get() + ".yml");
 
 		Logger.info("ran BootstrapJob, %s events loaded, %s types loaded", Event.count(), EventType.count());
