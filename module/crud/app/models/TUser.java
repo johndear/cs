@@ -11,6 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import play.data.binding.NoBinding;
 import play.data.validation.MaxSize;
 import play.data.validation.Password;
 import play.db.jpa.FileAttachment;
@@ -32,6 +33,7 @@ public class TUser extends Model implements Serializable {
 	@Password
 	public String password;
 	
+	@NoBinding
 	public boolean isAdmin;
 	
 	public FileAttachment icon;

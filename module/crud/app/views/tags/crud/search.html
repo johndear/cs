@@ -1,12 +1,92 @@
+%{
+    if(_object) {
+        currentObject = _object
+        currentType = _('controllers.CRUD$ObjectType').forClass(_object.getClass().getName())
+    } else if(_class) {
+        currentObject = null;
+        currentType = _('controllers.CRUD$ObjectType').forClass(_class)
+    } else {
+        currentObject = _caller.object
+        currentType = _caller.type
+    }
+
+    // Eval fields tags
+    def fieldsHandler = [:]
+    if(_body) {
+        _body.setProperty('fieldsHandler', fieldsHandler);
+        _body.toString(); // we skeep the real result ...
+    }
+    
+}%
+
 #{form action:@list().remove('page'), method:'GET'}
 	
-	<span><i class="fa fa-search"></i>search</span>
+	#{list items:_fields ?: currentType.fields*.name, as:'fieldName'}
+			    %{
+			        am = ''
+			    }%
+			
+			%{ def field = currentType.getField(fieldName); //out.print(field.type) }%
+			
+			#{ifnot field}
+	            %{ throw new play.exceptions.TagInternalException('Field not found -> ' + fieldName) }%
+	        #{/ifnot}
+	
+        	%{
+        		// 字段全名称，如：event.name 方便国际化
+        		def typeName = currentType.toString().toLowerCase();
+        		def fullFieldName = typeName + '.' + field.name;
+        	}%
+	        	
+	        #{if field.type == 'text'}
+	            #{crud.textField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	        #{/if}
+	        
+	        #{if field.type == 'password'}
+	            #{crud.passwordField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	        #{/if}
+	
+	        #{if field.type == 'binary'}
+	            #{crud.fileField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), id:currentObject?.id /}
+	        #{/if}
+	
+	        #{if field.type == 'longtext'}
+	            #{crud.longtextField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	        #{/if}
+	
+	        #{if field.type == 'number'}
+	            #{crud.numberField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	            %{ am = 'crud.help.numeric' }%
+	        #{/if}
+	
+	        #{if field.type == 'date'}
+	            #{crud.dateField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	            %{ am = messages.get('crud.help.dateformat',play.libs.I18N.getDateFormat()) }%
+	        #{/if}
+	
+	        #{if field.type == 'relation'}
+	            #{crud.relationField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), field:field /}
+	        #{/if}
+	
+	        #{if field.type == 'boolean'}
+	            #{crud.checkField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	        #{/if}
+	
+	        #{if field.type == 'enum'}
+	            #{crud.enumField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), property:field /}
+	        #{/if}
+	
+	        #{if field.type == 'hidden'}
+	            #{crud.hiddenField name:fieldName, value:(currentObject ? currentObject[field.name] : null) /}
+	        #{/if}
+	#{/list}
 	
     #{if _fields}
         <input type="hidden" name="searchFields" class="form-control" value="${_fields.toString().substring(1, _fields.toString().length()-1).replace(',', '')}" />
     #{/if}
     <div class="box-tools">
-      <div class="input-group input-group-sm" style="width: 150px;">
+      <i class="glyphicon glyphicon-search"></i>
+      <div class="input-group input-group-sm">
         <input type="text" name="search" class="form-control pull-right" placeholder="Search" value="${params.search?.escape()?.raw()}">
         <div class="input-group-btn">
           	<input type="submit" class="btn btn-default" value="&{'crud.search'}" />

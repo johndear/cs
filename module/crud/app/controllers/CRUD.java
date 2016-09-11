@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
 import play.Play;
@@ -44,14 +48,29 @@ public abstract class CRUD extends Controller {
     }
 
     public static void list(int page, String search, String searchFields, String orderBy, String order) {
+//    	String where = (String) request.args.get("where");
+//    	String where = params.get("where");
+    	// liusu start
+    	Map<String, String[]> objectParams = params.getRootParamNode().originalParams;
+    	String where = "";
+    	for (Entry entry : objectParams.entrySet()) {
+    		String key = (String) entry.getKey();
+    		String val = ((String[])entry.getValue())[0];
+    		if(key.contains("object.") && StringUtils.isNotEmpty(val)){
+    			where +=  key.replace("object.", "") + " like '%" + val + "%' and ";
+    		}
+    	}
+    	where = StringUtils.isNotEmpty(where)? where.substring(0, where.lastIndexOf("and")) : null;
+    	// liusu end
+    	
         ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);
         if (page < 1) {
             page = 1;
         }
-        List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
-        Long count = type.count(search, searchFields, (String) request.args.get("where"));
-        Long totalCount = type.count(null, null, (String) request.args.get("where"));
+        List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
+        Long count = type.count(search, searchFields, where);
+        Long totalCount = type.count(null, null, where);
         try {
         	String[] listFieldArr = null;
         	String[] searchFieldArr = null;
@@ -61,7 +80,7 @@ public abstract class CRUD extends Controller {
         	}
         	if("Event".equals(type.modelName)){
         		listFieldArr = new String[]{"name","type","action"};
-        		searchFieldArr = new String[]{"name"};
+        		searchFieldArr = new String[]{"name","type","date","place"};
         	}
         	
             render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr);
