@@ -1,0 +1,36 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		Dashboard <small>Control panel</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li class="active">Dashboard</li>
+	</ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+	<div style="width:40%;float:left;"><table id="bt1" bs-table-control="bsTableControl"></table></div>
+	
+	<div style="width:60%;float:right;"><table id="bt2" bs-table-control="bsTableControl2"></table></div>
+
+	<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">所有资源</h3>
+        </div>
+        <div class="modal-body">
+			<ul tree class="ztree" ng-model="selectNode" node-data="resources"></ul>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+	</script>
+	<button type="button" class="btn btn-default" ng-click="saveRoleResourceAction()">保存</button>
+
+</section>
+<!-- /.content -->
+
+
