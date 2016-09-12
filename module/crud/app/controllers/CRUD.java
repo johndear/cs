@@ -80,7 +80,7 @@ public abstract class CRUD extends Controller {
         	}
         	if("Event".equals(type.modelName)){
         		listFieldArr = new String[]{"name","type","action"};
-        		searchFieldArr = new String[]{"name","type","date","place"};
+        		searchFieldArr = new String[]{"name","type"};
         	}
         	
             render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr);
