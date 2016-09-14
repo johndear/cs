@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import utils.QueryParam;
 
 /**
  * 功能描述：客服账号表
@@ -39,6 +40,7 @@ public class Account extends Model {
 	/**
      * 姓名
      */
+	@QueryParam
 	@Required
     @Column(name = "user_name", nullable = false, length = 255)
     public String userName;

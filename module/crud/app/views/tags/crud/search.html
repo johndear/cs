@@ -21,7 +21,8 @@
 
 #{form action:@list().remove('page'), method:'GET'}
 	
-	#{list items:_fields ?: currentType.fields*.name, as:'fieldName'}
+	<!-- {list items:_fields ?: currentType.fields*.name, as:'fieldName'} -->
+	#{list items:_fields, as:'fieldName'}
 			    %{
 			        am = ''
 			    }%
@@ -33,7 +34,7 @@
 	        #{/ifnot}
 	
         	%{
-        		// ×Ö¶ÎÈ«Ãû³Æ£¬Èç£ºevent.name ·½±ã¹ú¼Ê»¯
+        		// ï¿½Ö¶ï¿½È«ï¿½ï¿½Æ£ï¿½ï¿½ç£ºevent.name ï¿½ï¿½ï¿½ï¿½ï¿½Ê»ï¿½
         		def typeName = currentType.toString().toLowerCase();
         		def fullFieldName = typeName + '.' + field.name;
         	}%
@@ -84,15 +85,16 @@
     #{if _fields}
         <input type="hidden" name="searchFields" class="form-control" value="${_fields.toString().substring(1, _fields.toString().length()-1).replace(',', '')}" />
     #{/if}
-    <div class="box-tools">
-      <i class="glyphicon glyphicon-search"></i>
-      <div class="input-group input-group-sm">
+    
+    <!-- <div class="box-tools">
+      <div class="input-group input-group-sm col-md-3">
         <input type="text" name="search" class="form-control pull-right" placeholder="Search" value="${params.search?.escape()?.raw()}">
         <div class="input-group-btn">
-          	<input type="submit" class="btn btn-default" value="&{'crud.search'}" />
+	        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
         </div>
       </div>
-    </div>
+    </div> -->
+    <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i> &{'crud.search'}</button>
     
     #{if _caller.params.search}
         <a href="@{list()}" class="btn btn-info">&{'crud.list.totalSize', _caller.totalCount}</a>
@@ -100,4 +102,4 @@
     
 #{/form}
 
-%{ out.print(_fields) }%
+<!-- %{ out.print(_fields) }% -->

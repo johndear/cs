@@ -13,13 +13,16 @@ import org.hibernate.annotations.Where;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import utils.DateHelper;
+import utils.QueryParam;
 
 @Entity
 public class Event extends Model {
 
+	@QueryParam
 	@Required(message="You have to complete the event's name.")
 	public String name;
 	
+	@QueryParam
 	@Required(message="You have to select the type of the event.")
 	@ManyToOne
 	public EventType type;

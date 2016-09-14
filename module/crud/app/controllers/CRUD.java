@@ -31,6 +31,7 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.utils.Java;
+import utils.QueryParam;
 
 public abstract class CRUD extends Controller {
 
@@ -72,15 +73,22 @@ public abstract class CRUD extends Controller {
         Long count = type.count(search, searchFields, where);
         Long totalCount = type.count(null, null, where);
         try {
-        	String[] listFieldArr = null;
-        	String[] searchFieldArr = null;
-        	if("Account".equals(type.modelName)){
-        		listFieldArr = new String[]{"nickName","kfType","action"};
-        		searchFieldArr = new String[]{"nickName"};
+        	List<String> listFieldArr = new ArrayList<String>();
+        	List<String> searchFieldArr = new ArrayList<String>();
+        	Field[] fields = type.entityClass.getFields();
+        	for (Field field : fields) {
+        		listFieldArr.add(field.getName());
+        		QueryParam queryParam = field.getAnnotation(QueryParam.class);
+        		if(queryParam!=null){
+        			searchFieldArr.add(field.getName());
+        		}
+			}
+        	
+        	if(listFieldArr.contains("id")){
+        		listFieldArr.remove("id");
         	}
-        	if("Event".equals(type.modelName)){
-        		listFieldArr = new String[]{"name","type","action"};
-        		searchFieldArr = new String[]{"name","type"};
+        	if(listFieldArr.contains("willBeSaved")){
+        		listFieldArr.remove("willBeSaved");
         	}
         	
             render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr);
