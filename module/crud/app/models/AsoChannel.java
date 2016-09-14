@@ -24,13 +24,13 @@ public class AsoChannel extends Model {
 	public String channelCode;
 
 	@Column(name="channel_name")
-	private String channelName;
+	public String channelName;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_time")
-	private Date createTime;
+	public Date createTime;
 
-	private String createby;
+	public String createby;
 
 	private int deleted;
 

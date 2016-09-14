@@ -64,8 +64,170 @@ dateHelper.second=second
 dateHelper.seconds=seconds
 
 
-account.name = 英文名
-account.userName = 中文名
-account.nickName = 昵称
+asotaskpublish.taskId = task_id
+asotaskpublish.createTime = 创建时间
+asotaskpublish.keyword = 关键词
+asotaskpublish.createby = 创建人
+asotaskpublish.modifyby = 修改人
+asotaskpublish.endTime = 结束时间
+asotaskpublish.deleted = 是否已删除
+asotaskpublish.id = id
+asotaskpublish.startTime = 开始时间
+asotaskpublish.settingPiece = 设置份数
+asotaskpublish.orderNo = 排序
+asotaskpublish.taskStatus = 任务状态（0正常发布 1不发布 2已结束）
+asotaskpublish.joinPiece = 占用份数
+asotaskpublish.appOrder = 应用排名
+asotaskpublish.modifyTime = 修改时间
+
+
+
+
+tresource.id = tresource.id
+tresource.name = tresource.name
+
+
+customermodel.id = customermodel.id
+customermodel.customerId = customermodel.customerId
+customermodel.status = customermodel.status
+customermodel.nickName = customermodel.nickName
+customermodel.priority = customermodel.priority
+customermodel.deptId = customermodel.deptId
+customermodel.portalCode = customermodel.portalCode
+
+
+schedulemodel.startTime = schedulemodel.startTime
+schedulemodel.id = schedulemodel.id
+schedulemodel.endTime = schedulemodel.endTime
+schedulemodel.deptId = schedulemodel.deptId
+
+
+
+
+
+
+
+
+customeronlinemodel.id = customeronlinemodel.id
+customeronlinemodel.customerId = customeronlinemodel.customerId
+customeronlinemodel.status = customeronlinemodel.status
+customeronlinemodel.serverIp = customeronlinemodel.serverIp
+customeronlinemodel.lastActiveTime = customeronlinemodel.lastActiveTime
+
+
+account.createTime = account.createTime
+account.exceptCount = account.exceptCount
+account.accountId = account.accountId
+account.syncTime = account.syncTime
+account.status = account.status
+account.levelId = account.levelId
+account.nickname = account.nickname
+account.remarks = account.remarks
+account.checkCount = account.checkCount
+account.portalCode = account.portalCode
+account.id = account.id
+account.kfType = account.kfType
+account.email = account.email
+account.name = account.name
+account.handleLimit = account.handleLimit
+account.userName = account.userName
+account.modifyTime = account.modifyTime
+account.priorChoice = account.priorChoice
+
+
+
+
+
+
+skillgroupmodel.id = skillgroupmodel.id
+skillgroupmodel.skillgroupName = skillgroupmodel.skillgroupName
+
+
+tuser.id = tuser.id
+tuser.name = tuser.name
+tuser.filename = tuser.filename
+tuser.isAdmin = tuser.isAdmin
+tuser.password = tuser.password
+tuser.deleted = tuser.deleted
+
+
+sourcemodel.id = sourcemodel.id
+sourcemodel.sourceName = sourcemodel.sourceName
+
+
+changerecordmodel.id = changerecordmodel.id
+
+
+dialogmodel.uid = dialogmodel.uid
+dialogmodel.id = dialogmodel.id
+dialogmodel.customerId = dialogmodel.customerId
+dialogmodel.status = dialogmodel.status
+dialogmodel.assignTime = dialogmodel.assignTime
+dialogmodel.serverIp = dialogmodel.serverIp
+dialogmodel.responseCount = dialogmodel.responseCount
+dialogmodel.instance = dialogmodel.instance
+dialogmodel.createDate = dialogmodel.createDate
+dialogmodel.responseTime = dialogmodel.responseTime
+dialogmodel.sourceId = dialogmodel.sourceId
+
+
+
+
+trole.id = trole.id
+trole.description = trole.description
+trole.name = trole.name
+
+
+asochannel.id = id
+asochannel.createTime = 创建时间
+asochannel.channelName = 渠道名称
+asochannel.channelCode = 渠道编码
+asochannel.description = 描述
+asochannel.createby = 创建人
+asochannel.modifyby = 修改人
+asochannel.pid = 父级id
+asochannel.deleted = 是否删除 : 0未删除，1已删除
+asochannel.modifyTime = 修改时间
+
+
+asotask.createTime = 创建时间
+asotask.icon = 任务图标
+asotask.appId = 应用包名
+asotask.isForecast = 是否预告任务
+asotask.taskScore = 任务积分
+asotask.createby = 创建人
+asotask.taskType = 任务类型
+asotask.processName = 进程名称
+asotask.modifyby = 修改人
+asotask.deleted = 是否已删除
+asotask.forecastStartTime = 预告开始时间
+asotask.taskName = 任务名称
+asotask.taskTitle = 任务标题
+asotask.forecastEndTime = 预告结束时间
+asotask.id = id
+asotask.appName = 应用名称
+asotask.callbackUrl = 广告主回调地址
+asotask.scheme = scheme
+asotask.deepScore = 深度积分
+asotask.description = 任务描述
+asotask.deepDescription = 深度描述
+asotask.modifyTime = 修改时间
+
+
+
+
+customerschedulemodel.serviceNum = customerschedulemodel.serviceNum
+customerschedulemodel.id = customerschedulemodel.id
+customerschedulemodel.scheduleId = customerschedulemodel.scheduleId
+customerschedulemodel.changeCount = customerschedulemodel.changeCount
+customerschedulemodel.customerId = customerschedulemodel.customerId
+customerschedulemodel.offworkTime = customerschedulemodel.offworkTime
+customerschedulemodel.onlineTimelong = customerschedulemodel.onlineTimelong
+customerschedulemodel.restTimelong = customerschedulemodel.restTimelong
+customerschedulemodel.existTime = customerschedulemodel.existTime
+customerschedulemodel.onworkTime = customerschedulemodel.onworkTime
+customerschedulemodel.offlineTimelong = customerschedulemodel.offlineTimelong
+
+
 
 
