@@ -12,13 +12,19 @@ import play.test.Fixtures;
 public class BootstrapJob extends Job {
 
 	@Override
-	public void doJob() {
+	public void doJob() throws Exception {
 		Lang.set("zh");//设置为中文  
 		
 //		Fixtures.deleteAllModels();
 //		Fixtures.loadModels("data-" + Lang.get() + ".yml");
 
 		Logger.info("ran BootstrapJob, %s events loaded, %s types loaded", Event.count(), EventType.count());
+		
+		// 生成国际化配置
+		i18nConfigGenerator.generate();
+		// 发布rest服务
+		Rest2Route.publish();
+		
 	}
 	
 }

@@ -15,11 +15,9 @@ import play.mvc.Router;
 import play.mvc.Router.Route;
 import utils.Rest;
 
-@OnApplicationStart
-public class Rest2Route extends Job {
+public class Rest2Route {
 
-	@Override
-	public void doJob() {
+	public static void publish() {
 		List<ApplicationClass> clazzes = Play.classes.getAssignableClasses(Controller.class);
 		for (ApplicationClass applicationClass : clazzes) {
 			System.out.println(applicationClass.name);

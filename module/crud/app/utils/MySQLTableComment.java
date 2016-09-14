@@ -11,15 +11,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import play.Play;
+
 /**
  * 读取mysql某数据库下表的注释信息
  * 
  * @author xxx
  */
 public class MySQLTableComment {
+	
+	static String url=Play.configuration.getProperty("db.url","jdbc:mysql://yftest.ucweb.local:3306/mysql?characterEncoding=UTF-8&useUnicode=true&useOldAliasMetadataBehavior=true");
+	static String username=Play.configuration.getProperty("db.user","root");
+	static String password=Play.configuration.getProperty("db.pass","root");
+	
 	public static Connection getMySQLConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/csos-self", "root", "root");
+		Connection conn = DriverManager.getConnection(url, username, password);
 		return conn;
 	}
 	

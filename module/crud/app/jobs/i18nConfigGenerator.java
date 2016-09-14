@@ -22,11 +22,9 @@ import play.jobs.OnApplicationStart;
 import utils.MySQLTableComment;
 import utils.StringUtil;
 
-@OnApplicationStart
-public class i18nConfigJob extends Job {
+public class i18nConfigGenerator{
 	
-	@Override
-	public void doJob() throws Exception {
+	public static void generate() throws Exception {
 		Map<String, Map<String,Object>> map = MySQLTableComment.getColumnCommentByTableName(MySQLTableComment.getAllTableName());
 		
 		Map<String,String> tableEntityMap =new HashMap<String,String>(); 
