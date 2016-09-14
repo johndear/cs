@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+  <title>客服帮助中心</title>
+  <style>
+    .zoom-img-mask {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: #000;
+      overflow-y: scroll;
+    }
+
+    .zoom-img-mask img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+<img src="C:\Users\Administrator\Pictures/1.jpg" width="50px" height="50px" />
+<div class="zoom-img-mask" id="zoom-img-mask">
+  <img data-mask="true">
+</div>
+</body>
+<script>
+  (function (doc, win) {
+    'use strict';
+    var divEle = doc.getElementById('zoom-img-mask'),
+        innerImg = divEle.getElementsByTagName('img')[0],
+        ua = window.navigator.userAgent.toLowerCase(),
+        isAndroidUC = ua.indexOf('android') > 0 && ua.indexOf('ucbrowser') > 0;
+
+    doc.body.addEventListener('click', function (e) {
+
+      if (!isAndroidUC && e.target && e.target.nodeName.toUpperCase() == 'IMG' && !e.target.dataset.mask) {
+        var img = new Image(),
+            renderWidth = 0;
+        img.src = e.target.src;
+        innerImg.src = e.target.src;
+
+        img.onload = function () {
+          if(img.width > win.innerWidth){
+            innerImg.style.width = '100%';
+            renderWidth = win.innerWidth;
+          }else{
+            innerImg.style.width = img.width + 'px';
+            renderWidth = img.width;
+          }
+          if (img.height * renderWidth / img.width > win.innerHeight) {
+            innerImg.style.top = 0;
+            innerImg.style.webkitTransform = 'translate(-50%,0)';
+          } else {
+            innerImg.style.top = '50%';
+            innerImg.style.webkitTransform = 'translate(-50%,-50%)';
+          }
+        };
+
+        divEle.style.display = 'block';
+      }
+    }, false);
+
+    divEle.addEventListener('click', function () {
+      divEle.style.display = 'none';
+    }, false);
+
+  })(document, window);
+</script>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+
+.loading-msg {
+	text-align: center;
+	padding-left: 0
+}
+
+.loading-msg div {
+	display: inline-block;
+	background-color: #0054a3;
+	width: 10px;
+	height: 10px;
+	margin: 5px;
+	padding: 0!important;
+	opacity: 0;
+	-webkit-transform: scale(.2);
+	-webkit-animation: load2 1.2s infinite linear
+}
+
+.loading-msg div:first-child {
+	-webkit-animation: load1 1.2s infinite linear
+}
+
+.loading-msg div:last-child {
+	-webkit-animation: load3 1.2s infinite linear
+}
+
+@-webkit-keyframes load1 {
+	25% {
+		-webkit-transform: scale(1);
+		opacity: 1
+	}
+
+	50% {
+		-webkit-transform: scale(.2);
+		opacity: 0
+	}
+}
+
+@-webkit-keyframes load2 {
+	10% {
+		-webkit-transform: scale(.2);
+		opacity: 0
+	}
+
+	35% {
+		-webkit-transform: scale(1);
+		opacity: 1
+	}
+
+	60% {
+		-webkit-transform: scale(.2);
+		opacity: 0
+	}
+}
+
+@-webkit-keyframes load3 {
+	20% {
+		-webkit-transform: scale(.2);
+		opacity: 0
+	}
+
+	45% {
+		-webkit-transform: scale(1);
+		opacity: 1
+	}
+
+	70% {
+		-webkit-transform: scale(.2);
+		opacity: 0
+	}
+}
+
+.more .loading-msg,.suggestion_show .loading-msg {
+	padding: 10px
+}
+
+  </style>
+ </head>
+ <body>
+
+<div class="loading-msg"><div></div><div></div><div></div></div>
+  
+ </body>
+</html>
