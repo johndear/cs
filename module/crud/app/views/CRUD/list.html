@@ -8,21 +8,19 @@
     	#{crud.search fields: searchFieldArr /}
   </div>
   <div class="span4" style="padding:15px;">
-    <div class="btn-group pull-right">
-	      <button type="button" class="btn btn-default btn-flat"><span class="glyphicon glyphicon-save"></span> 导出</button>
-	      <button type="button" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-	        <span class="caret"></span>
-	        <span class="sr-only">Toggle Dropdown</span>
-	      </button>
-	      <ul class="dropdown-menu" role="menu">
-	        <li><a href="#">导出全部</a></li>
-	        <li><a href="#">导出当前页</a></li>
-	        <li class="divider"></li>
-	        <li><a href="#">未完待续</a></li>
-	      </ul>
-    </div>
+	  <div class="btn-group pull-right">
+		    <button  class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		      <span class="glyphicon glyphicon-save"></span> 导出 <span class="caret">
+		    </button>
+		    <ul class="dropdown-menu" role="menu">
+		      <li><a href="#">导出全部</a></li>
+			        <li><a href="#">导出当前页</a></li>
+			        <li class="divider"></li>
+			        <li><a href="#">未完待续</a></li>
+		    </ul>
+	  </div>
                 
-    <a href="@{blank()}" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> &{'crud.add', type.modelName}</a>
+    	<a href="@{blank()}" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> &{'crud.add', type.modelName}</a>
   </div>
 </div>
 

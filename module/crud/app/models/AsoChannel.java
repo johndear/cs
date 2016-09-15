@@ -1,8 +1,10 @@
 package models;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
+import controllers.CRUD.Exclude;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -26,20 +28,24 @@ public class AsoChannel extends Model {
 	@Column(name="channel_name")
 	public String channelName;
 
+	@Exclude
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_time")
 	public Date createTime;
 
+	@Exclude
 	public String createby;
 
 	private int deleted;
 
 	private String description;
 
+	@Exclude
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modify_time")
 	private Date modifyTime;
 
+	@Exclude
 	private String modifyby;
 
 	private BigInteger pid;
