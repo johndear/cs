@@ -40,12 +40,17 @@ public abstract class CRUD extends Controller {
         ObjectType type = ObjectType.get(getControllerClass());
         renderArgs.put("type", type);
     }
+    
+    public static void layout() {
+        render("custom/main.html");
+    }
 
     public static void index() {
         if (getControllerClass() == CRUD.class) {
             forbidden();
         }
         render("CRUD/index.html");
+//        render("custom/main.html");
     }
 
     public static void list(int page, String search, String searchFields, String orderBy, String order) {
