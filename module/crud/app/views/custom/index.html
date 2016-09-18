@@ -1,0 +1,70 @@
+%{
+messages = play.i18n.Messages;
+lang = play.i18n.Lang.get();
+%}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+         <!-- Tell the browser to be responsive to screen width -->
+  		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.6 -->
+    	<link rel="stylesheet" href="@{'public/bootstrap/css/bootstrap.min.css'}">
+    	<!-- Font Awesome -->
+		<link rel="stylesheet" href="@{'public/angularjs/bower_components/fontawesome/css/font-awesome.css'}">
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="@{'public/angularjs/bower_components/ionicons/ionicons.min.css'}">
+		<!-- Theme style -->
+        <link rel="stylesheet" href="@{'public/plugins/AdminLTE/css/AdminLTE.min.css'}">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+		       folder instead of downloading all of them to reduce the load. -->
+    	<link rel="stylesheet" href="@{'public/plugins/AdminLTE/css/skins/_all-skins.min.css'}">
+
+		<!-- jquery -->    	
+		<script src="@{'public/angularjs/bower_components/jquery/dist/jquery.js'}"></script>
+		<!-- jQuery UI 1.11.4 -->
+		<script src="@{'public/angularjs/bower_components/jquery-ui-1.11.4/jquery-ui.min.js'}"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+		  $.widget.bridge('uibutton', $.ui.button);
+		</script>
+	   	<!-- Bootstrap 3.3.6 -->
+		<script src="@{'public/angularjs/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+			
+	    <!-- AdminLTE App -->
+		<script src="@{'public/plugins/AdminLTE/js/app.min.js'}"></script>
+		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+		<!-- <script src="@{'public/plugins/AdminLTE/js/pages/dashboard.js'}"></script> -->
+		<!-- AdminLTE for demo purposes -->
+		<script src="@{'public/plugins/AdminLTE/js/demo.js'}"></script>
+		
+		<!-- default start -->
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        #{get 'moreStyles' /}
+       	<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        #{get 'moreScripts' /}
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        #{include 'custom/header.html' /}
+        #{include 'custom/left.html' /}
+        <div class="container">    
+            #{doLayout /}
+        </div> <!-- /container -->
+        #{include 'custom/footer.html' /}
+    </body>
+</html>
+<script type="text/javascript">
+    $('a.close').click( function() {
+        $(this).parent().fadeOut(1000);
+    })
+	$("body").bind("click", function (e) {
+    	$('.dropdown-toggle, .menu').parent("li").removeClass("open");
+	});
+	$(".dropdown-toggle, .menu").click(function (e) {
+	   var $li = $(this).parent("li").toggleClass('open');
+	return false;
+});
+
+</script>
