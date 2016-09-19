@@ -50,7 +50,6 @@ public abstract class CRUD extends Controller {
             forbidden();
         }
         render("CRUD/index.html");
-//        render("custom/main.html");
     }
 
     public static void list(int page, String search, String searchFields, String orderBy, String order) {

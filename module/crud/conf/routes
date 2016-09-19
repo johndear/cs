@@ -1,6 +1,10 @@
 # Routes for the CRUD module
 # ~~~~~~~~~~~
 
+# Map static resources from the /app/public folder to the /public path
+GET     	/public/                               		staticDir:public
+GET			/											CRUD.layout
+
 #{crud.types}
 GET			/?											${type.controllerClass.name.substring(12).replace('$','')}.index
 GET			/${type.controllerName}						${type.controllerClass.name.substring(12).replace('$','')}.list
@@ -12,4 +16,3 @@ POST		/${type.controllerName}						${type.controllerClass.name.substring(12).rep
 POST		/${type.controllerName}/{id}				${type.controllerClass.name.substring(12).replace('$','')}.save
 DELETE		/${type.controllerName}/{id}				${type.controllerClass.name.substring(12).replace('$','')}.delete
 #{/crud.types}
-GET			/											CRUD.index
