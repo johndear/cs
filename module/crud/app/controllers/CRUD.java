@@ -42,7 +42,7 @@ public abstract class CRUD extends Controller {
     }
     
     public static void layout() {
-        render("custom/index.html");
+        render("custom/welcome.html");
     }
 
     public static void index() {

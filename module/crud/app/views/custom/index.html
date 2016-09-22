@@ -47,12 +47,12 @@ lang = play.i18n.Lang.get();
         #{get 'moreScripts' /}
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
-        #{include 'custom/header.html' /}
-        #{include 'custom/left.html' /}
-        <div class="container">    
-            #{doLayout /}
-        </div> <!-- /container -->
-        #{include 'custom/footer.html' /}
+    	<div class="wrapper">
+	        #{include 'custom/header.html' /}
+	        #{include 'custom/left.html' /}
+	        #{doLayout /}
+	        #{include 'custom/footer.html' /}
+        </div>
     </body>
 </html>
 <script type="text/javascript">
