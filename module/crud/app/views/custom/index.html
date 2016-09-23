@@ -20,24 +20,6 @@ lang = play.i18n.Lang.get();
         <!-- AdminLTE Skins. Choose a skin from the css/skins
 		       folder instead of downloading all of them to reduce the load. -->
     	<link rel="stylesheet" href="@{'public/plugins/AdminLTE/css/skins/_all-skins.min.css'}">
-
-		<!-- jquery -->    	
-		<script src="@{'public/angularjs/bower_components/jquery/dist/jquery.js'}"></script>
-		<!-- jQuery UI 1.11.4 -->
-		<script src="@{'public/angularjs/bower_components/jquery-ui-1.11.4/jquery-ui.min.js'}"></script>
-		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-		<script>
-		  $.widget.bridge('uibutton', $.ui.button);
-		</script>
-	   	<!-- Bootstrap 3.3.6 -->
-		<script src="@{'public/angularjs/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
-			
-	    <!-- AdminLTE App -->
-		<script src="@{'public/plugins/AdminLTE/js/app.min.js'}"></script>
-		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-		<!-- <script src="@{'public/plugins/AdminLTE/js/pages/dashboard.js'}"></script> -->
-		<!-- AdminLTE for demo purposes -->
-		<script src="@{'public/plugins/AdminLTE/js/demo.js'}"></script>
 		
 		<!-- default start -->
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
@@ -46,6 +28,7 @@ lang = play.i18n.Lang.get();
         <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         #{get 'moreScripts' /}
     </head>
+    
     <body class="hold-transition skin-blue sidebar-mini">
     	<div class="wrapper">
 	        #{include 'custom/header.html' /}
@@ -54,6 +37,25 @@ lang = play.i18n.Lang.get();
 	        #{include 'custom/footer.html' /}
         </div>
     </body>
+    
+    <!-- jquery -->    	
+	<script src="@{'public/angularjs/bower_components/jquery/dist/jquery.js'}"></script>
+	<!-- jQuery UI 1.11.4 -->
+	<script src="@{'public/angularjs/bower_components/jquery-ui-1.11.4/jquery-ui.min.js'}"></script>
+	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+	<script>
+	  $.widget.bridge('uibutton', $.ui.button);
+	</script>
+   	<!-- Bootstrap 3.3.6 -->
+	<script src="@{'public/angularjs/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+		
+    <!-- AdminLTE App -->
+	<script src="@{'public/plugins/AdminLTE/js/app.min.js'}"></script>
+	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+	<!-- <script src="@{'public/plugins/AdminLTE/js/pages/dashboard.js'}"></script> -->
+	<!-- AdminLTE for demo purposes -->
+	<script src="@{'public/plugins/AdminLTE/js/demo.js'}"></script>
+	
 </html>
 <script type="text/javascript">
     $('a.close').click( function() {
