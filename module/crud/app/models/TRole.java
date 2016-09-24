@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import play.data.validation.MaxSize;
 import play.db.jpa.Model;
@@ -48,6 +49,11 @@ public class TRole extends Model implements Serializable {
 	
 	@MaxSize(value=101)
 	public String description;
+	
+	public int deleted;
+	
+	@Transient
+	public String action;
 
 	public TRole() {
 	}

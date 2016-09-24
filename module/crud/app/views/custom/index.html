@@ -33,7 +33,9 @@ lang = play.i18n.Lang.get();
     	<div class="wrapper">
 	        #{include 'custom/header.html' /}
 	        #{include 'custom/left.html' /}
-	        #{doLayout /}
+	        <div class="content-wrapper" style="min-height: 592px;">
+	        	#{doLayout /}
+	        </div>
 	        #{include 'custom/footer.html' /}
         </div>
     </body>

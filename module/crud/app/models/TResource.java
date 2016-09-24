@@ -19,7 +19,7 @@ import java.util.List;
 public class TResource extends Model implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String name;
+	public String name;
 
 	//bi-directional many-to-many association to TRole
 	@ManyToMany
@@ -33,6 +33,9 @@ public class TResource extends Model implements Serializable {
 			}
 		)
 	public List<TRole> TRoles;
+	
+	@Transient
+	public String action;
 
 	public TResource() {
 	}

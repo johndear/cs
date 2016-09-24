@@ -27,7 +27,7 @@
 	        am = ''
 	    }%
 	
-	    %{ def field = currentType.getField(fieldName); //out.print(field.type) }%
+	    %{ def field = currentType.getField(fieldName); //out.print(field) }%
 	
 	 #{if (count % 2) == 1}
 	<!-- <div class="form-group"> -->
@@ -51,8 +51,7 @@
 	        #{/ifnot}
 	
         	%{
-        		// 字段全名称，如：event.name 方便国际化
-        		def typeName = currentType.toString().toLowerCase();
+        		// 瀛楁鍏ㄥ悕绉帮紝濡傦細event.name 鏂逛究鍥介檯鍖�        		def typeName = currentType.toString().toLowerCase();
         		def fullFieldName = typeName + '.' + field.name;
         	}%
 	        	

@@ -11,6 +11,7 @@
     #{if _field.multiple}
         <input type="hidden" name="${pName}" value="" />
         <select id="${field.id}" name="${pName}" multiple="yes">
+        	<option>no selected</option>
             %{ _field.choices.each() { }%
             %{
                 selected = false;
@@ -26,9 +27,10 @@
                     }
                 }
             }%
-            <option value="${it._key()}" ${selected ? 'selected="true"'.raw() : ''}>${it}</option>
+            <option value="${it._key()}" style="display:${selected ? 'block':'none'};"  ${selected ? 'selected="true"'.raw() : ''}>${it}</option>
             %{ } }%
         </select>
+        <input type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" value="..." />
     #{/if}
     #{else}
         <select id="${field.id}" name="${pName}" class="form-control">
@@ -40,7 +42,7 @@
             #{/else}
             %{ _field.choices.each() { }%
             %{
-                selected = false
+                selected = false;
                 if(field.error?.message != 'validation.required') {
                     if(params[pName]) {
                         selected = (it._key().toString() == params[pName])
@@ -59,3 +61,87 @@
     #{/ifError}
     </div>
 #{/field}
+
+
+
+<!-- modal -->
+<div class="modal fade bs-example-modal-lg">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">X</span>
+				</button>
+				<h4 class="modal-title">Default Modal</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-bordered table-condensed table-hover" style="margin-bottom:0px;">
+					<thead>
+						<tr>
+						<td></td>
+						#{list items: _field.choices[0].getClass().fields*.name, as:'fieldName'}
+						<td>%{ def field = _field.choices[0].getClass().getField(fieldName); out.print(fieldName) }%</td>
+						#{/list}
+						</tr>
+					</thead>
+					<tbody>
+					%{ _field.choices.each() { }%
+						#{if _field.multiple}
+				            %{
+				                selected = false;
+				                if(field.error?.message != 'validation.required') {
+				                    if(params[pName]) {
+				                        selected = params.getAll(${pName}).contains(it._key().toString())
+				                    } else {
+				                        for (it2 in _value) {
+				                            if(it2._key() == it._key()) {
+				                                selected = true;
+				                            }
+				                        }
+				                    }
+				                }
+				            }%	
+						#{/if}
+						<tr>
+							<td><input type="checkbox" value="${it._key()}" ${selected ? 'checked="checked"'.raw() : ''}></td>
+				            #{list items: it.getClass().fields*.name, as:'fieldName'}
+							<td>%{ out.print(it[fieldName]) }%</td>
+							#{/list}
+						</tr>
+		            %{ } }%
+					</tbody>
+		        </table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left"
+					data-dismiss="modal">cancel</button>
+				<button type="button" class="btn btn-primary" onclick="modalSaveBtn(this)">Save</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<script>
+function modalSaveBtn(_self){
+	$('select').eq(0).find('option').each(function(){
+		$(this).css('display','none');
+		$(this).removeAttr('selected');
+	});
+	
+	$('.table').find('input[type=checkbox]:checked').each(function(){
+		var selectedRow = $(this).val();
+		$('select').eq(0).find('option').each(function(){
+			if(selectedRow == $(this).val()){
+				$(this).css('display','block');
+				$(this).attr('selected','selected');
+			}
+		});
+	});
+	
+	$(_self).prev().click();
+}
+</script>

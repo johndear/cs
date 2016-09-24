@@ -10,10 +10,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import play.data.binding.NoBinding;
 import play.data.validation.MaxSize;
 import play.data.validation.Password;
+import play.db.jpa.Blob;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
 
@@ -36,7 +38,7 @@ public class TUser extends Model implements Serializable {
 	@NoBinding
 	public boolean isAdmin;
 	
-	public FileAttachment icon;
+	public Blob icon;
 	
 	public int deleted;
 	
@@ -53,25 +55,9 @@ public class TUser extends Model implements Serializable {
 			}
 	)
 	public List<TRole> TRoles;
-
-	public TUser() {
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<TRole> getTRoles() {
-		return this.TRoles;
-	}
-
-	public void setTRoles(List<TRole> TRoles) {
-		this.TRoles = TRoles;
-	}
+	
+	@Transient
+	public String action;
 	
 	@Override
 	public String toString() {
