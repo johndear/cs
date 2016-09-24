@@ -17,3 +17,12 @@ https://github.com/jlmonteagudo/generator-angular-crud
 https://www.youtube.com/watch?v=O_AqjE7e_As
 https://github.com/ShivaliPatel/generator-angular-crud-custom-module
 https://github.com/MartyIce/generator-angular-fullstack-crud
+
+JPA注解对应javabean类型：参考JPAPlugin
+Object           List
+OneToOne        OneToMany
+ManyToOne       ManyToMany
+
+
+
+
