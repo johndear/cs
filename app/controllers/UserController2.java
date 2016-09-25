@@ -30,7 +30,7 @@ import models.enums.DialogState;
 import services.DialogService;
 import utils.DateUtil;
 
-public class UserController extends BaseController{
+public class UserController2 extends BaseController{
 
 	@Inject
 	static DialogAPI dialogAPI;
