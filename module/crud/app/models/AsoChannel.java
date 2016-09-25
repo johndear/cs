@@ -54,87 +54,8 @@ public class AsoChannel extends Model {
 	@ManyToMany(mappedBy="asoChannels")
 	private List<AsoTaskPublish> asoTaskPublishs;
 
-	public AsoChannel() {
-	}
-
-	public String getChannelCode() {
-		return this.channelCode;
-	}
-
-	public void setChannelCode(String channelCode) {
-		this.channelCode = channelCode;
-	}
-
-	public String getChannelName() {
+	@Override
+	public String toString() {
 		return this.channelName;
 	}
-
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
-	}
-
-	public Date getCreateTime() {
-		return this.createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getCreateby() {
-		return this.createby;
-	}
-
-	public void setCreateby(String createby) {
-		this.createby = createby;
-	}
-
-	public int getDeleted() {
-		return this.deleted;
-	}
-
-	public void setDeleted(int deleted) {
-		this.deleted = deleted;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getModifyTime() {
-		return this.modifyTime;
-	}
-
-	public void setModifyTime(Date modifyTime) {
-		this.modifyTime = modifyTime;
-	}
-
-	public String getModifyby() {
-		return this.modifyby;
-	}
-
-	public void setModifyby(String modifyby) {
-		this.modifyby = modifyby;
-	}
-
-	public BigInteger getPid() {
-		return this.pid;
-	}
-
-	public void setPid(BigInteger pid) {
-		this.pid = pid;
-	}
-
-	public List<AsoTaskPublish> getAsoTaskPublishs() {
-		return this.asoTaskPublishs;
-	}
-
-	public void setAsoTaskPublishs(List<AsoTaskPublish> asoTaskPublishs) {
-		this.asoTaskPublishs = asoTaskPublishs;
-	}
-
 }

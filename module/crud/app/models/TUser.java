@@ -18,6 +18,7 @@ import play.data.validation.Password;
 import play.db.jpa.Blob;
 import play.db.jpa.FileAttachment;
 import play.db.jpa.Model;
+import utils.QueryParam;
 
 
 /**
@@ -30,7 +31,8 @@ import play.db.jpa.Model;
 public class TUser extends Model implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String name;
+	@QueryParam
+	public String name;
 	
 	@Password
 	public String password;

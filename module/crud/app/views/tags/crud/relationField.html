@@ -63,7 +63,7 @@
 #{/field}
 
 
-
+#{if _field.multiple}
 <!-- modal -->
 <div class="modal fade bs-example-modal-lg">
 	<div class="modal-dialog modal-lg">
@@ -124,6 +124,7 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+#{/if}
 
 <script>
 function modalSaveBtn(_self){

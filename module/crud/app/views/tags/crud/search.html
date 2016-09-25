@@ -84,6 +84,7 @@
 	
     #{if _fields}
         <input type="hidden" name="searchFields" class="form-control" value="${_fields.toString().substring(1, _fields.toString().length()-1).replace(',', '')}" />
+	    <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i> &{'crud.search'}</button>
     #{/if}
     
     <!-- <div class="box-tools">
@@ -94,7 +95,6 @@
         </div>
       </div>
     </div> -->
-    <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i> &{'crud.search'}</button>
     
     #{if _caller.params.search}
         <a href="@{list()}" class="btn btn-info">&{'crud.list.totalSize', _caller.totalCount}</a>
