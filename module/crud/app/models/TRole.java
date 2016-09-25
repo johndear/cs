@@ -24,8 +24,7 @@ import play.db.jpa.Model;
 @Entity
 @Table(name="t_role")
 @NamedQuery(name="TRole.findAll", query="SELECT t FROM TRole t")
-public class TRole extends Model implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TRole extends BaseModel {
 
 	public String name;
 
@@ -50,36 +49,10 @@ public class TRole extends Model implements Serializable {
 	@MaxSize(value=101)
 	public String description;
 	
-	public int deleted;
-	
-	@Transient
-	public String action;
-
-	public TRole() {
-	}
-
-	public String getName() {
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
 		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-//	public List<TResource> getTResources() {
-//		return this.TResources;
-//	}
-//
-//	public void setTResources(List<TResource> TResources) {
-//		this.TResources = TResources;
-//	}
-
-	public List<TUser> getTusers() {
-		return Tusers;
-	}
-
-	public void setTusers(List<TUser> tusers) {
-		Tusers = tusers;
 	}
 
 }

@@ -28,8 +28,7 @@ import utils.QueryParam;
 @Entity
 @Table(name="t_user")
 @NamedQuery(name="TUser.findAll", query="SELECT t FROM TUser t")
-public class TUser extends Model implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TUser extends BaseModel {
 
 	@QueryParam
 	public String name;
@@ -41,8 +40,6 @@ public class TUser extends Model implements Serializable {
 	public boolean isAdmin;
 	
 	public Blob icon;
-	
-	public int deleted;
 	
 	//bi-directional many-to-many association to TRole
 //	@ManyToMany(mappedBy="TUsers")
@@ -57,9 +54,6 @@ public class TUser extends Model implements Serializable {
 			}
 	)
 	public List<TRole> TRoles;
-	
-	@Transient
-	public String action;
 	
 	@Override
 	public String toString() {
