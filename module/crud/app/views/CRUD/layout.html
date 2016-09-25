@@ -54,7 +54,7 @@
 		$(document).ready(
 			function()
 			{
-				//$('.redactor').redactor();
+				$('.redactor').redactor();
 			}
 		);
 		</script>
@@ -82,18 +82,19 @@
 		    <div class="row">
 		      <div class="col-md-3">
 		        <div class="well sidebar-nav">
-		        <ul class="nav nav-list">
-		            <li class="nav-header">&{'crud.index.objectType'}</li>
-		            #{crud.category}
-		            	=== &{category} ===
-			            #{crud.types}
-			                #{if category==type.categoryName}
-					            	<li><a href="${type.listAction}">&{type.showName}</a></li>
-			                #{/if}
-				        #{/crud.types}
-		            #{/crud.category}
-		            
-		        </ul>
+			        <ul class="nav nav-pills nav-stacked" role="tablist">
+			            &{'crud.index.objectType'}
+			            #{crud.category}
+			            	<li onclick="menu(this)"><a href="#">&{category}<i class="glyphicon glyphicon-chevron-right pull-right"></i></a></li>
+			            	<ul class="nav nav-pills nav-stacked" role="tablist" style="padding-left:30px;display:none;">
+				            #{crud.types}
+				                #{if category==type.categoryName}
+						            	<li><a href="${type.listAction}">&{type.showName}</a></li>
+				                #{/if}
+					        #{/crud.types}
+					        </ul>
+			            #{/crud.category}
+			        </ul>
 		        </div>
 		      </div>
 		      <div class="col-md-9">
@@ -130,6 +131,22 @@
 	    	$(function(){
 	    		$('.form_datetime').datetimepicker({format: 'yyyy-mm-dd hh:ii'});
 	    	});
+	    	
+	    	function menu(_self){
+	    		var display = $(_self).next().css('display');
+	    		if('none'==display){
+		    		$(_self).addClass('active');
+		    		$(_self).find('i').removeClass('glyphicon-chevron-right');
+		    		$(_self).find('i').addClass('glyphicon-chevron-down');
+		    		$(_self).next().css('display','block');
+	    		}else{
+	    			$(_self).removeClass('active');
+		    		$(_self).find('i').removeClass('glyphicon-chevron-down');
+		    		$(_self).find('i').addClass('glyphicon-chevron-right');
+		    		$(_self).next().css('display','none');
+	    		}
+	    	}
+	    	
 	    </script>
 	    
 </html>
