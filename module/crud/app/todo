@@ -1,3 +1,12 @@
+1、表格标题国际化
+2、导出
+3、navigation显示错误，支持国际化
+4、左侧菜单点击后，收缩
+5、顶部可定制化
+6、新增、编辑xxx，支持国际化
+
+
+
  @Email 校验email合法性 
 
 ·  @InFuture 检验是否将来的日期 
@@ -13,6 +22,14 @@
 ·  @Range 检验范围 
 
 ·  @URL 检验是否URL
+
+JPA注解对应javabean类型 ------参考JPAPlugin
+Object           List
+OneToOne        OneToMany
+ManyToOne       ManyToMany
+
+多条件查询 -- 可以动态扩展查询条件
+关联表查询 --- 不仅仅只是能看到名称，可以看到更具体的。比如给角色添加用户时，显示的用户有限，而且要对应用户所在部门
 
 public static void update(@As("dd/MM/yyyy") Date updatedAt) {
 
@@ -30,5 +47,15 @@ http://play-framework.herokuapp.com/zh/controllers
 http://play-framework.herokuapp.com/zh/templates
 http://play-framework.herokuapp.com/zh/validation
 
-多条件查询 -- 可以动态扩展查询条件
-关联表查询 --- 不仅仅只是能看到名称，可以看到更具体的。比如给角色添加用户时，显示的用户有限，而且要对应用户所在部门
+
+play-crud with bootstrap
+https://github.com/adrianhurt/play-bootstrap
+https://github.com/bielversallini/CRUD-Bootstrap
+https://github.com/marcosinigaglia/play-framework-crud-bootstrap
+
+Angular CRUD generator
+https://github.com/jlmonteagudo/generator-angular-crud
+https://www.youtube.com/watch?v=O_AqjE7e_As
+https://github.com/ShivaliPatel/generator-angular-crud-custom-module
+https://github.com/MartyIce/generator-angular-fullstack-crud
+

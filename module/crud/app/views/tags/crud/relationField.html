@@ -73,10 +73,11 @@
 					aria-label="Close">
 					<span aria-hidden="true">X</span>
 				</button>
-				<h4 class="modal-title">Default Modal</h4>
+				<h4 class="modal-title">列表</h4>
 			</div>
-			<div class="modal-body">
-				<table class="table table-bordered table-condensed table-hover" style="margin-bottom:0px;">
+			<div class="modal-body" style="width:100%;overflow-x: scroll;">
+				#{if  _field.choices}
+				<table class="table table-bordered table-condensed table-hover" style="">
 					<thead>
 						<tr>
 						<td></td>
@@ -112,11 +113,15 @@
 		            %{ } }%
 					</tbody>
 		        </table>
+		        #{/if}
+		        #{else}
+		        	暂无更多数据~
+		        #{/else}
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default pull-left"
-					data-dismiss="modal">cancel</button>
-				<button type="button" class="btn btn-primary" onclick="modalSaveBtn(this)">Save</button>
+					data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" onclick="modalSaveBtn(this)">确认</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->

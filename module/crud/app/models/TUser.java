@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,8 +43,8 @@ public class TUser extends BaseModel {
 	public Blob icon;
 	
 	//bi-directional many-to-many association to TRole
-//	@ManyToMany(mappedBy="TUsers")
-	@OneToMany
+	@ManyToMany(mappedBy="")
+//	@OneToMany
 	@JoinTable(
 		name="t_user_role"
 		, joinColumns={

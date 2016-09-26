@@ -33,8 +33,8 @@ public class TRole extends BaseModel {
 //	private List<TResource> TResources;
 
 	//bi-directional many-to-many association to TUser
-//	@ManyToMany
-	@OneToMany
+	@ManyToMany(mappedBy="")
+//	@OneToMany
 	@JoinTable(
 		name="t_user_role"
 		, joinColumns={
