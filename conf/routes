@@ -20,5 +20,6 @@ GET     /public/                                staticDir:public
 GET      /cs/index                              controllers.CustomerController.index
 
 # Catch all
+*       /{controller}                          {controller}.query
 *       /{controller}/{action}                  {controller}.{action}
 *       /{package}/{controller}/{action}        {package}.{controller}.{action}
