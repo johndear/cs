@@ -1,37 +1,32 @@
-1、表格标题国际化
-2、导出
+1、表格标题国际化、列排除（比如：是否已删除、是否管理员、id...等等）
+2、表格导出
 3、navigation显示错误，支持国际化
 4、左侧菜单点击后，收缩
 5、顶部可定制化
 6、新增、编辑xxx，支持国际化
 7、选择关联字段弹出框时，添加筛选条件及分页
 8、jpa实体关联配置  -- 重点！！！
-
-
-
- @Email 校验email合法性 
-
-·  @InFuture 检验是否将来的日期 
-
-·  @InPast 检验是否是过往的日期 
-
-·  @Match 对正则表达式的判断 
-
-·  @Max 最大值 
-
-·  @Min 最小值 
-
-·  @Range 检验范围 
-
-·  @URL 检验是否URL
+9、多条件查询 -- 可以动态扩展查询条件 -- 已完成
+10、关联表查询 --- 不仅仅只是能看到名称，可以看到更具体的。比如给角色添加用户时，显示的用户有限，而且要对应用户所在部门 -- 已完成
+11、列表字段值为数组的时候，优化显示格式
+12、优化页面模板--使用adminLTE
 
 JPA注解对应javabean类型 ------参考JPAPlugin
 Object           List
 OneToOne        OneToMany
 ManyToOne       ManyToMany
 
-多条件查询 -- 可以动态扩展查询条件
-关联表查询 --- 不仅仅只是能看到名称，可以看到更具体的。比如给角色添加用户时，显示的用户有限，而且要对应用户所在部门
+@Required 必填项
+@Email 校验email合法性 
+@InFuture 检验是否将来的日期 
+@InPast 检验是否是过往的日期 
+@Match 对正则表达式的判断 
+@Max 最大值 
+@Min 最小值 
+@Range 检验范围 
+@URL 检验是否URL
+
+
 
 public static void update(@As("dd/MM/yyyy") Date updatedAt) {
 
