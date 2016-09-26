@@ -1,0 +1,10 @@
+http://blog.csdn.net/xinguan1267/article/details/38422149
+http://ce.sysu.edu.cn/hope/Item/142999.aspx
+http://blog.csdn.net/lipeng_bigdata/article/details/50986749
+http://blog.csdn.net/lzlchangqi/article/details/42001255
+http://chenjingbo.iteye.com/blog/2039641
+http://www.wuzesheng.com/?p=2609
+http://blog.csdn.net/sunfeizhi/article/details/51926396
+http://090508tanjie.iteye.com/blog/2291865
+http://www.cnblogs.com/iliuyuet/p/5566376.html
+http://blog.csdn.net/java2000_wl 利用zookeeper实现job集群，参考分布式锁
