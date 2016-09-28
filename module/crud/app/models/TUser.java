@@ -42,20 +42,6 @@ public class TUser extends BaseModel {
 	
 	public Blob icon;
 	
-	//bi-directional many-to-many association to TRole
-	@ManyToMany(mappedBy="")
-//	@OneToMany
-	@JoinTable(
-		name="t_user_role"
-		, joinColumns={
-			@JoinColumn(name="user_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="role_id")
-			}
-	)
-	public List<TRole> TRoles;
-	
 	@Override
 	public String toString() {
 		return name;

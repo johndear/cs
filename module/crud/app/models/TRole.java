@@ -32,20 +32,6 @@ public class TRole extends BaseModel {
 //	@ManyToMany(mappedBy="TRoles")
 //	private List<TResource> TResources;
 
-	//bi-directional many-to-many association to TUser
-	@ManyToMany(mappedBy="")
-//	@OneToMany
-	@JoinTable(
-		name="t_user_role"
-		, joinColumns={
-			@JoinColumn(name="role_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="user_id")
-			}
-		)
-	public List<TUser> Tusers;
-	
 	@MaxSize(value=101)
 	public String description;
 	
