@@ -34,6 +34,18 @@ public class TResource extends Model implements Serializable {
 		)
 	public List<TRole> TRoles;
 	
+	@OneToMany
+	@JoinTable(
+		name="t_resource_action"
+		, joinColumns={
+			@JoinColumn(name="resource_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="action_id")
+			}
+		)
+	public List<TAction> TActions;
+	
 	@Transient
 	public String action;
 
