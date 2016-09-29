@@ -35,6 +35,11 @@ public class TResource extends Model implements Serializable {
 	
 	@Transient
 	public String action;
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
 	public TResource() {
 	}

@@ -17,6 +17,10 @@ public class TAction extends BaseModel {
     
 	public String description;
 	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 	
 }
 
