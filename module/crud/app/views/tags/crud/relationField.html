@@ -30,7 +30,7 @@
             <option value="${it._key()}" style="display:${selected ? 'block':'none'};"  ${selected ? 'selected="true"'.raw() : ''}>${it}</option>
             %{ } }%
         </select>
-        <input type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" value="..." />
+        <input type="button" class="btn btn-default" data-toggle="modal" data-target="#&{_name}" value="..." />
     #{/if}
     #{else}
         <select id="${field.id}" name="${pName}" class="form-control">
@@ -65,7 +65,7 @@
 
 #{if _field.multiple}
 <!-- modal -->
-<div class="modal fade bs-example-modal-lg">
+<div class="modal fade bs-example-modal-lg" id="&{_name}">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -121,7 +121,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default pull-left"
 					data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary" onclick="modalSaveBtn(this)">确认</button>
+				<button type="button" class="btn btn-primary" onclick="modalSaveBtn(this, '${field.id}', '&{_name}')">确认</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -132,15 +132,15 @@
 #{/if}
 
 <script>
-function modalSaveBtn(_self){
-	$('select').eq(0).find('option').each(function(){
+function modalSaveBtn(_self, targetId, targetModalId){
+	$('#'+targetId).find('option').each(function(){
 		$(this).css('display','none');
 		$(this).removeAttr('selected');
 	});
 	
-	$('.table').find('input[type=checkbox]:checked').each(function(){
+	$('#'+targetModalId).find('input[type=checkbox]:checked').each(function(){
 		var selectedRow = $(this).val();
-		$('select').eq(0).find('option').each(function(){
+		$('#'+targetId).find('option').each(function(){
 			if(selectedRow == $(this).val()){
 				$(this).css('display','block');
 				$(this).attr('selected','selected');

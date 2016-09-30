@@ -21,21 +21,25 @@ public class TResource extends Model implements Serializable {
 
 	public String name;
 
-	//bi-directional many-to-many association to TRole
-	@ManyToMany
+	@OneToMany
 	@JoinTable(
-		name="t_role_resource"
+		name="t_resource_action"
 		, joinColumns={
 			@JoinColumn(name="resource_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="role_id")
+			@JoinColumn(name="action_id")
 			}
 		)
-	public List<TRole> TRoles;
+	public List<TAction> TActions;
 	
 	@Transient
 	public String action;
+	
+	@Override
+	public String toString() {
+		return this.name;
+	}
 
 	public TResource() {
 	}
