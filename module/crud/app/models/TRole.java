@@ -37,7 +37,7 @@ public class TRole extends BaseModel {
 		, inverseJoinColumns={
 			@JoinColumn(name="resource_id")
 			})
-		public List<TResource> TResources;
+	public List<TResource> TResources;
 
 	@MaxSize(value=101)
 	public String description;

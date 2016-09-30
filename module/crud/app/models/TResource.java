@@ -15,11 +15,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="t_resource")
-@NamedQuery(name="TResource.findAll", query="SELECT t FROM TResource t")
-public class TResource extends Model implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TResource extends BaseModel{
 
 	public String name;
+	
+	public String code;
+	
+	public String url;
 
 	@OneToMany
 	@JoinTable(
@@ -32,9 +34,6 @@ public class TResource extends Model implements Serializable {
 			}
 		)
 	public List<TAction> TActions;
-	
-	@Transient
-	public String action;
 	
 	@Override
 	public String toString() {

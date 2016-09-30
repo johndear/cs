@@ -11,10 +11,12 @@ import java.util.*;
 @Table(name="t_action")
 public class TAction extends BaseModel {
 	
+	public String title;
+	
 	public String name;
 	
 	public Blob icon;
-    
+	
 	public String description;
 	
 	@Override

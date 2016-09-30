@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -32,19 +33,22 @@ import utils.QueryParam;
 public class TUser extends BaseModel {
 
 	@QueryParam
-	public String name;
+	public String user_name;
+	
+	public String login_name;
 	
 	@Password
 	public String password;
 	
 	@NoBinding
+	@Column(name="is_admin")
 	public boolean isAdmin;
 	
 	public Blob icon;
 	
 	@Override
 	public String toString() {
-		return name;
+		return user_name;
 	}
 
 }
