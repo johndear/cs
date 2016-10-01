@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+
 import play.db.jpa.Model;
 
 import java.util.HashSet;
@@ -25,7 +27,7 @@ public class TResource extends BaseModel{
 	
 	public String url;
 
-	@OneToMany
+	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(
 		name="t_resource_action"
 		, joinColumns={

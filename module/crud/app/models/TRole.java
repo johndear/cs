@@ -35,7 +35,7 @@ public class TRole extends BaseModel {
 			@JoinColumn(name="role_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="action_id")
+			@JoinColumn(name="resource_action_id")
 			})
 	public List<ResourceAction> TActions;
 
