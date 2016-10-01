@@ -6,7 +6,9 @@ import javax.persistence.*;
 
 import play.db.jpa.Model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -34,6 +36,10 @@ public class TResource extends BaseModel{
 			}
 		)
 	public List<TAction> TActions;
+	
+	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name="pid")
+	public TResource parent;
 	
 	@Override
 	public String toString() {

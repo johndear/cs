@@ -28,16 +28,16 @@ public class TRole extends BaseModel {
 
 	public String name;
 
-	@OneToMany
+	@ManyToMany
 	@JoinTable(
-		name="t_role_resource"
+		name="t_role_resource_action"
 		, joinColumns={
 			@JoinColumn(name="role_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="resource_id")
+			@JoinColumn(name="action_id")
 			})
-	public List<TResource> TResources;
+	public List<ResourceAction> TActions;
 
 	@MaxSize(value=101)
 	public String description;
