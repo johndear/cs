@@ -8,6 +8,7 @@ import org.hibernate.annotations.Cascade;
 
 import play.db.jpa.Model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class TResource extends BaseModel{
 	
 	public String url;
 
-	@ManyToMany(cascade=CascadeType.MERGE)
+	@ManyToMany
 	@JoinTable(
 		name="t_resource_action"
 		, joinColumns={
@@ -37,7 +38,7 @@ public class TResource extends BaseModel{
 			@JoinColumn(name="action_id")
 			}
 		)
-	public List<TAction> TActions;
+	public List<TAction> TActions = new ArrayList<TAction>();
 	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     @JoinColumn(name="pid")

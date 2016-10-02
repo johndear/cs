@@ -1,6 +1,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,16 +29,17 @@ public class TRole extends BaseModel {
 
 	public String name;
 
-	@ManyToMany
+	@OneToMany
 	@JoinTable(
 		name="t_role_resource_action"
 		, joinColumns={
 			@JoinColumn(name="role_id")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="resource_action_id")
+			@JoinColumn(name="resource_id",referencedColumnName="resource_id")
+			,@JoinColumn(name="action_id",referencedColumnName="action_id")
 			})
-	public List<ResourceAction> TActions;
+	public List<ResourceAction> TActions = new ArrayList<ResourceAction>();
 
 	@MaxSize(value=101)
 	public String description;
