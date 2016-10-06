@@ -1,17 +1,19 @@
 package models;
 
-import java.io.Serializable;
-
-import javax.persistence.*;
-
-import org.hibernate.annotations.Cascade;
-
-import play.db.jpa.Model;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -40,9 +42,12 @@ public class TResource extends BaseModel{
 		)
 	public List<TAction> TActions = new ArrayList<TAction>();
 	
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinColumn(name="pid")
 	public TResource parent;
+	
+//	@OneToMany(cascade=CascadeType.ALL,mappedBy="parent",fetch=FetchType.EAGER)
+//    private Set<TResource> children = new HashSet<TResource>(0);
 	
 	@Override
 	public String toString() {

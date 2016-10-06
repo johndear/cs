@@ -46,6 +46,11 @@ public class CRUDSecure extends Security {
 	 * @return
 	 */
 	static boolean check(String profile) {
+		String userName = session.get("username");
+		if("super".equals(userName)){ // 超级管理员
+			return true;
+		}
+		
 		// 加载用户权限
 		List<Resource> list = JPA.em()
 				.createNativeQuery(load_permission_sql, Resource.class)
