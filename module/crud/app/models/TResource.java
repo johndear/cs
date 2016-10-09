@@ -1,12 +1,19 @@
 package models;
 
-import java.io.Serializable;
-
-import javax.persistence.*;
-
-import play.db.jpa.Model;
-
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -15,13 +22,15 @@ import java.util.List;
  */
 @Entity
 @Table(name="t_resource")
-@NamedQuery(name="TResource.findAll", query="SELECT t FROM TResource t")
-public class TResource extends Model implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TResource extends BaseModel{
 
 	public String name;
+	
+	public String code;
+	
+	public String url;
 
-	@OneToMany
+	@ManyToMany
 	@JoinTable(
 		name="t_resource_action"
 		, joinColumns={
@@ -31,10 +40,14 @@ public class TResource extends Model implements Serializable {
 			@JoinColumn(name="action_id")
 			}
 		)
-	public List<TAction> TActions;
+	public List<TAction> TActions = new ArrayList<TAction>();
 	
-	@Transient
-	public String action;
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="pid")
+	public TResource parent;
+	
+//	@OneToMany(cascade=CascadeType.ALL,mappedBy="parent",fetch=FetchType.EAGER)
+//    private Set<TResource> children = new HashSet<TResource>(0);
 	
 	@Override
 	public String toString() {

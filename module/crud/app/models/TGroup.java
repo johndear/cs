@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,7 +19,7 @@ public class TGroup extends BaseModel {
 	
 	public String description;
 	
-	@OneToMany
+	@ManyToMany
 	@JoinTable(
 			name="t_group_user"
 			, joinColumns={
@@ -30,7 +31,7 @@ public class TGroup extends BaseModel {
 			)
 	public List<TUser> Tusers;
 	
-	@OneToMany
+	@ManyToMany
 	@JoinTable(
 			name="t_group_role"
 			, joinColumns={

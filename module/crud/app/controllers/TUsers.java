@@ -1,5 +1,6 @@
 package controllers;
 
+
 import java.io.IOException;
 
 import utils.Menu;
@@ -10,6 +11,7 @@ import utils.Rest;
 public class TUsers extends CRUD {
 	
 	@Rest(url="aa",method=Method.POST)
+	public static void aa(){
 	public static void aa() throws IOException{
 		System.out.println("aa.....");
 		response.setHeader("Content-Type", "text/html");

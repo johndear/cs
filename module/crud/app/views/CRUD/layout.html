@@ -89,7 +89,9 @@
 			            	<ul class="nav nav-pills nav-stacked" role="tablist" style="padding-left:30px;display:none;">
 				            #{crud.types}
 				                #{if category==type.categoryName}
+				                	#{secure.check type.modelName}
 						            	<li><a href="${type.listAction}">&{type.showName}</a></li>
+									#{/secure.check}						           
 				                #{/if}
 					        #{/crud.types}
 					        </ul>
