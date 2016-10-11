@@ -9,6 +9,11 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.apache.commons.io.IOUtils;
+
+import controllers.CRUD.ObjectType;
+import play.db.Model;
+import play.db.jpa.Blob;
 import models.HotswapBean;
 import utils.Menu;
 
@@ -17,8 +22,33 @@ import utils.Menu;
 public class HotswapController extends CRUD {
 	
 	//解压jar包中的文件到toDir目录  
-    public static void enabled(String sourceFilePath, String destFilePath) throws IOException{
-    	unJar(new File(sourceFilePath), new File(destFilePath));
+    public static void enabled(String id, String field) throws Exception{
+    	ObjectType type = ObjectType.get(getControllerClass());
+        notFoundIfNull(type);
+        Model object = type.findById(id);
+        notFoundIfNull(object);
+        Object att = object.getClass().getField(field).get(object);
+        Model.BinaryField attachment = null;
+        if(att instanceof Blob) {
+        	Blob tempattachment = (Blob)att;
+        	String fileName = tempattachment.getFile().getName();
+        }
+        if(att instanceof Model.BinaryField) {
+            attachment = (Model.BinaryField)att;
+            if (attachment == null || !attachment.exists()) {
+                notFound();
+            }
+        }
+        
+        File attachmentFolder = Blob.getStore();
+        File sourceFile = new File(attachmentFolder.getPath() + "/test.jar");
+        File targetFile = new File(attachmentFolder.getPath() + "/test");
+
+        InputStream is = attachment.get();
+        OutputStream os = new FileOutputStream(sourceFile);
+        IOUtils.copy(is, os);
+
+        unJar(sourceFile, targetFile);
     }
 	
 	//解压jar包中的文件到toDir目录  
