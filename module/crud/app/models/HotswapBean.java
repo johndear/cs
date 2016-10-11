@@ -13,7 +13,7 @@ public class HotswapBean extends BaseModel {
 	
 	public Blob jarfile;
 	
-	
+	public String jarfilename;
 	
 
 }
