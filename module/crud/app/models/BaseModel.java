@@ -1,6 +1,8 @@
 package models;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -33,8 +35,23 @@ public class BaseModel extends Model{
 	@Exclude
 	public int deleted;
 	
+	// 名称、url
 	@Transient
-	public String action;
+	public Map<String, String> outerTableAction;
+	
+	@Transient
+	public Map<String, String> innerTableAction;
+	
+	public BaseModel(){
+		outerTableAction = new HashMap<String, String>();
+		outerTableAction.put("add", "1");
+//		outerTableAction.put("adf", "234");
+		
+		innerTableAction = new HashMap<String, String>();
+		innerTableAction.put("edit", "2");
+		innerTableAction.put("delete", "3");
+//		innerTableAction.put("aa", "4");
+	}
 
 }
 

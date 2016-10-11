@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.persistence.Transient;
+
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
@@ -81,6 +83,10 @@ public abstract class CRUD extends Controller {
         	List<String> searchFieldArr = new ArrayList<String>();
         	Field[] fields = type.entityClass.getFields();
         	for (Field field : fields) {
+        		Transient transientAnnotation = field.getAnnotation(Transient.class);
+        		if(transientAnnotation != null && !"innerTableAction".equals(field.getName())){
+        			continue;
+        		}
         		listFieldArr.add(field.getName());
         		QueryParam queryParam = field.getAnnotation(QueryParam.class);
         		if(queryParam!=null){

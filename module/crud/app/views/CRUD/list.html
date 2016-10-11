@@ -19,19 +19,32 @@
 			        <li><a href="#">未完待续</a></li>
 		    </ul>
 	  </div>
-                
-    	<a href="@{blank()}" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> &{'crud.add', type.modelName}</a>
+              
+        %{ objects[0]['outerTableAction'].entrySet().each(){ }%
+			%{ if(it.getKey()=='add'){}%
+    			<a href="@{blank()}" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> &{'crud.add', type.modelName}</a>
+			%{ }else{ }%
+				<a href="%{out.print(it.getValue());}%" class="btn btn-default" style="margin-left:5px;float:left;">%{ out.print(it.getKey()); }%</a>
+			%{ }}%
+	    %{ } }%
   </div>
 </div>
 
 #{crud.table fields: listFieldArr}
 	<!-- liusu 解析action字段 -->
-	#{crud.custom 'action'} 
+	#{crud.custom 'innerTableAction'} 
 		<div style="height:30px;width:100px;">
-	        <a href="@{show(object._key())}" class="btn btn-info btn-small" style="float:left;"><i class="glyphicon glyphicon-edit"></i></a>
-	        #{form @delete(object._key())}
-		        <button class="btn btn-danger btn-small" style="margin-left:5px;"><i class="glyphicon glyphicon-remove"></i></button>
-		    #{/form}
+	    %{ objects[0]['innerTableAction'].entrySet().each(){ }%
+			%{ if(it.getKey()=='edit'){}%
+		        <a href="@{show(object._key())}" class="btn btn-info btn-small" style="margin-left:5px;float:left;"><i class="glyphicon glyphicon-edit"></i></a>
+			%{ }else if(it.getKey()=='delete'){}%
+		        #{form @delete(object._key())}
+			        <button class="btn btn-danger btn-small" style="margin-left:5px;float:left;" ><i class="glyphicon glyphicon-remove"></i></button>
+			    #{/form}
+			%{ }else{ }%
+				<a href="%{out.print(it.getValue());}%" class="btn btn-default" style="margin-left:5px;float:left;">%{ out.print(it.getKey()); }%</a>
+			%{ }}%
+	    %{ } }%
 	    </div>
     #{/crud.custom}
     

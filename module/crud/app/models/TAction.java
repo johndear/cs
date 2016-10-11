@@ -19,6 +19,11 @@ public class TAction extends BaseModel {
 	
 	public String description;
 	
+	public TAction(){
+		outerTableAction.put("adf", "234");
+		innerTableAction.put("aa", "4");
+	}
+	
 	@Override
 	public String toString() {
 		return this.name;

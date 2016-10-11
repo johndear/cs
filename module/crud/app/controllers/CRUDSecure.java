@@ -72,7 +72,7 @@ public class CRUDSecure extends Security {
 			if(StringUtils.isEmpty(resource.getAuthActions())){
 				continue;
 			}
-			String[] actions = resource.getAuthActions().split(";");
+			String[] actions = resource.getAuthActions().split(",");
 			for (String action : actions) {
 				permission = resource.getCode() + ':' + action + ',';
 				
