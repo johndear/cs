@@ -19,4 +19,9 @@ public class ResourceAction extends Model {
 	@JoinColumn(name = "action_id")
 	public TAction TAction;
 	
+	@Override
+	public String toString() {
+		return TResource.name + "-" + TAction.title;
+	}
+	
 }

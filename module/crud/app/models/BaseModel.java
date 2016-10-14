@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import annotation.TableExclude;
 import controllers.CRUD.Exclude;
 import play.db.jpa.Model;
 
@@ -24,14 +25,17 @@ public class BaseModel extends Model{
 	@Exclude
 	public String createby;
 	
+	@TableExclude
 	@Exclude
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="modify_time")
 	public Date modifyTime;
 	
+	@TableExclude
 	@Exclude
 	public String modifyby;
 
+	@TableExclude
 	@Exclude
 	public int deleted;
 	

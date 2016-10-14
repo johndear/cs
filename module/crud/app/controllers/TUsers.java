@@ -3,9 +3,9 @@ package controllers;
 
 import java.io.IOException;
 
-import utils.Menu;
+import annotation.Menu;
+import annotation.Rest;
 import utils.Method;
-import utils.Rest;
 
 @Menu(name="用户管理", category="权限管理")
 public class TUsers extends CRUD {

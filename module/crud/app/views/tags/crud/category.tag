@@ -7,7 +7,7 @@
     for(controllerClass in play.Play.classloader.getAssignableClasses(_('controllers.CRUD'))) {
         resourceModel = _('controllers.CRUD$ObjectType').get(controllerClass)
         		
-        utils.Menu menu = controllerClass.getAnnotation(utils.Menu.class);
+        annotation.Menu menu = controllerClass.getAnnotation(annotation.Menu.class);
         if (menu == null) {
             throw new Exception(controllerClass.name + "类缺少Menu注解定义！");
         }

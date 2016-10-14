@@ -1,10 +1,14 @@
-#{extends 'CRUD/layout.html' /}
+%{ if(isNew){ }%
+	#{extends 'custom/index.html' /}
+%{ }else{ }%
+	#{extends 'CRUD/layout.html' /}
+%{ } }%
 #{set title:messages.get('crud.blank.title', type.modelName) /}
 
 <div id="crudBlank" class="${type.name}">
 
-    <h2 id="crudBlankTitle">&{'crud.blank.title', type.modelName}</h2>
-    <hr>
+    <span style="font-weight:bold;font-size:20px;" id="crudBlankTitle">&{'crud.blank.title', type.modelName}</span>
+    <hr style="border:1px solid #ccc;">
 
     <div class="objectForm">
     #{form action:@create(), enctype:'multipart/form-data', class:'form-inline'}

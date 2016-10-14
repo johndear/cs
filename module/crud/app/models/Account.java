@@ -1,6 +1,5 @@
 package models;
 
-import java.io.File;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,9 +9,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import annotation.QueryParam;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import utils.QueryParam;
 
 /**
  * 功能描述：客服账号表

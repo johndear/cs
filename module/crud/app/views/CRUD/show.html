@@ -1,10 +1,16 @@
-#{extends 'CRUD/layout.html' /}
+%{ if(isNew){ }%
+	#{extends 'custom/index.html' /}
+%{ }else{ }%
+	#{extends 'CRUD/layout.html' /}
+%{ } }%
 #{set title:messages.get('crud.show.title', type.modelName) /}
 
 <div id="crudShow" class="${type.name}">
 
-    <h2 id="crudShowTitle">&{'crud.show.title', type.modelName}</h2>
-    <hr>
+	<span style="font-weight:bold;font-size:20px;" id="crudBlankTitle">&{'crud.show.title', type.modelName}</span>
+    <hr style="border:1px solid #ccc;">
+    <!-- <h2 id="crudShowTitle">&{'crud.show.title', type.modelName}</h2>
+    <hr> -->
 
     
     #{form action:@save(object._key()), enctype:'multipart/form-data', class:'form-inline'}

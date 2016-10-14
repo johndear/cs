@@ -11,17 +11,22 @@ import java.util.jar.JarFile;
 
 import org.apache.commons.io.IOUtils;
 
-import controllers.CRUD.ObjectType;
+import annotation.Action;
+import annotation.Menu;
+import models.HotswapBean;
 import play.db.Model;
 import play.db.jpa.Blob;
-import models.HotswapBean;
-import utils.Menu;
+import play.mvc.With;
+import utils.Position;
 
+@With(Secure.class)
 @Menu(name="热部署", category="demo")
 @CRUD.For(HotswapBean.class)
 public class HotswapController extends CRUD {
 	
 	//解压jar包中的文件到toDir目录  
+	@Check("HotswapBean:enabled")
+	@Action(code="enabled", name="启用", position=Position.INNER)
     public static void enabled(String id, String field) throws Exception{
     	ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);
@@ -38,7 +43,7 @@ public class HotswapController extends CRUD {
             if (attachment == null || !attachment.exists()) {
                 notFound();
             }
-        }
+        } 
         
         File attachmentFolder = Blob.getStore();
         File sourceFile = new File(attachmentFolder.getPath() + "/test.jar");
@@ -50,6 +55,13 @@ public class HotswapController extends CRUD {
 
         unJar(sourceFile, targetFile);
     }
+	
+	//解压jar包中的文件到toDir目录  
+	@Check("HotswapBean:unEnabled")
+	@Action(code="unEnabled", name="停用", position=Position.INNER)
+    public static void unEnabled(String id, String field) throws Exception{
+		System.out.println("do unenabled...");
+	}
 	
 	//解压jar包中的文件到toDir目录  
     private static void unJar(File jarFile, File toDir) throws IOException {  
@@ -89,6 +101,11 @@ public class HotswapController extends CRUD {
             jar.close();  
         }  
     }  
+    
+    @Action(name="测试")
+    public static void test(String id, String field) throws Exception{
+    	
+    }
 
 
 }

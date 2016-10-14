@@ -6,11 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,6 +21,9 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
+import annotation.Action;
+import annotation.QueryParam;
+import annotation.TableExclude;
 import play.Logger;
 import play.Play;
 import play.data.binding.Binder;
@@ -28,12 +33,12 @@ import play.data.validation.Required;
 import play.db.Model;
 import play.db.Model.Factory;
 import play.exceptions.TemplateNotFoundException;
-import play.i18n.Messages;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.utils.Java;
-import utils.QueryParam;
+import utils.Position;
+import utils.ReflectUtils;
 
 public abstract class CRUD extends Controller {
 
@@ -43,11 +48,14 @@ public abstract class CRUD extends Controller {
         renderArgs.put("type", type);
     }
     
+    public static boolean newCrud = true;
     public static void layout() {
+    	newCrud = true;
         render("custom/welcome.html");
     }
 
     public static void index() {
+    	newCrud = false;
         if (getControllerClass() == CRUD.class) {
             forbidden();
         }
@@ -87,7 +95,10 @@ public abstract class CRUD extends Controller {
         		if(transientAnnotation != null && !"innerTableAction".equals(field.getName())){
         			continue;
         		}
-        		listFieldArr.add(field.getName());
+        		TableExclude tableExclude = field.getAnnotation(TableExclude.class);
+        		if(tableExclude==null){
+        			listFieldArr.add(field.getName());
+        		}
         		QueryParam queryParam = field.getAnnotation(QueryParam.class);
         		if(queryParam!=null){
         			searchFieldArr.add(field.getName());
@@ -101,19 +112,44 @@ public abstract class CRUD extends Controller {
         		listFieldArr.remove("willBeSaved");
         	}
         	
-            render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr);
+        	Class controllerClass = getControllerClass();
+        	Method[] methods = ReflectUtils.getBeanPublicStaticMethods(controllerClass);
+        	Map<String, String> outerTableAction = null;
+        	Map<String, String> innerTableAction = null;
+        	for (Method method : methods) {
+        		if(",addType,index,layout,redirect,list,attachment,save,create,".contains(","+method.getName()+",")){
+        			continue;
+        		}
+        		if(outerTableAction==null){
+        			outerTableAction = new HashMap<String, String>();
+        		}
+        		if(innerTableAction==null){
+        			innerTableAction = new HashMap<String, String>();
+        		}
+        		Action action = method.getAnnotation(Action.class);
+        		String actionUrl = Router.getFullUrl(controllerClass.getName()+"."+method.getName());
+        		if(action!=null && Position.INNER == action.position()){
+        			innerTableAction.put(action.name(), actionUrl);
+        		}else{
+        			outerTableAction.put(action!=null ? action.name() : method.getName(), actionUrl);
+        		}
+			}
+        	boolean isNew = newCrud;
+            render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr, innerTableAction, outerTableAction, isNew);
         } catch (TemplateNotFoundException e) {
             render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
         }
     }
 
+    @Action(code="show", name="编辑", position=Position.INNER)
     public static void show(String id) throws Exception {
         ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);
         Model object = type.findById(id);
         notFoundIfNull(object);
         try {
-            render(type, object);
+        	boolean isNew = newCrud;
+            render(type, object, isNew);
         } catch (TemplateNotFoundException e) {
             render("CRUD/show.html", type, object);
         }
@@ -168,6 +204,7 @@ public abstract class CRUD extends Controller {
         redirect(request.controller + ".show", object._key());
     }
 
+    @Action(code="blank", name="添加", position=Position.OUTER)
     public static void blank() throws Exception {
         ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);
@@ -175,7 +212,8 @@ public abstract class CRUD extends Controller {
         constructor.setAccessible(true);
         Model object = (Model) constructor.newInstance();
         try {
-            render(type, object);
+        	boolean isNew = newCrud;
+            render(type, object, isNew);
         } catch (TemplateNotFoundException e) {
             render("CRUD/blank.html", type, object);
         }
@@ -208,6 +246,7 @@ public abstract class CRUD extends Controller {
         redirect(request.controller + ".show", object._key());
     }
 
+    @Action(code="delete", name="删除", position=Position.INNER)
     public static void delete(String id) throws Exception {
         ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);

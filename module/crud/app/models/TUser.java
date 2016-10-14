@@ -1,26 +1,14 @@
 package models;
 
-import java.io.File;
-import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
+import annotation.QueryParam;
 import play.data.binding.NoBinding;
-import play.data.validation.MaxSize;
 import play.data.validation.Password;
 import play.db.jpa.Blob;
-import play.db.jpa.FileAttachment;
-import play.db.jpa.Model;
-import utils.QueryParam;
 
 
 /**

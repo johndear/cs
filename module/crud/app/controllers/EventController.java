@@ -1,9 +1,9 @@
 package controllers;
 
+import annotation.Menu;
+import annotation.Rest;
 import models.Event;
-import utils.Menu;
 import utils.Method;
-import utils.Rest;
 
 
 @Menu(name="事件管理", category="demo")

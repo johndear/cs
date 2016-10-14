@@ -1,19 +1,15 @@
 package models;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Where;
-
+import annotation.QueryParam;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import utils.DateHelper;
-import utils.QueryParam;
 
 @Entity
 public class Event extends Model {

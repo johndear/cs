@@ -1,14 +1,13 @@
 package controllers;
 
-import controllers.CRUD.ObjectType;
+import annotation.Menu;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.With;
-import utils.Menu;
-import utils.Rest;
 
-@With(CRUDSecure.class)@Menu(name="角色管理", category="权限管理")
+@With(CRUDSecure.class)
+@Menu(name="角色管理", category="权限管理")
 public class TRoles extends CRUD {
 	
 	public static void save(String id) throws Exception {
