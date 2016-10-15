@@ -9,15 +9,16 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import models.HotswapBean;
+
 import org.apache.commons.io.IOUtils;
 
-import annotation.Action;
-import annotation.Menu;
-import models.HotswapBean;
 import play.db.Model;
 import play.db.jpa.Blob;
 import play.mvc.With;
 import utils.Position;
+import annotation.Action;
+import annotation.Menu;
 
 @With(Secure.class)
 @Menu(name="热部署", category="demo")

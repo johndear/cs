@@ -21,9 +21,6 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
 
-import annotation.Action;
-import annotation.QueryParam;
-import annotation.TableExclude;
 import play.Logger;
 import play.Play;
 import play.data.binding.Binder;
@@ -39,6 +36,9 @@ import play.mvc.Router;
 import play.utils.Java;
 import utils.Position;
 import utils.ReflectUtils;
+import annotation.Action;
+import annotation.QueryParam;
+import annotation.TableExclude;
 
 public abstract class CRUD extends Controller {
 

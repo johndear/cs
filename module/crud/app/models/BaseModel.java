@@ -10,9 +10,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import play.db.jpa.Model;
 import annotation.TableExclude;
 import controllers.CRUD.Exclude;
-import play.db.jpa.Model;
 
 @MappedSuperclass
 public class BaseModel extends Model{
