@@ -19,6 +19,8 @@ import java.util.Map.Entry;
 
 import javax.persistence.Transient;
 
+import models.TResource;
+
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
@@ -29,6 +31,7 @@ import play.data.validation.Password;
 import play.data.validation.Required;
 import play.db.Model;
 import play.db.Model.Factory;
+import play.db.jpa.GenericModel.JPAQuery;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -37,6 +40,7 @@ import play.utils.Java;
 import utils.Position;
 import utils.ReflectUtils;
 import annotation.Action;
+import annotation.Menu;
 import annotation.QueryParam;
 import annotation.TableExclude;
 
@@ -263,6 +267,7 @@ public abstract class CRUD extends Controller {
     }
 
     protected static ObjectType createObjectType(Class<? extends Model> entityClass) {
+    	
         return new ObjectType(entityClass);
     }
 
@@ -297,6 +302,7 @@ public abstract class CRUD extends Controller {
 		public Factory factory;
 		public String categoryName;
 		public String showName;
+		public int orderNo;
 
         public ObjectType(Class<? extends Model> modelClass) {
             this.modelName = modelClass.getSimpleName();
@@ -414,7 +420,23 @@ public abstract class CRUD extends Controller {
 
         @Override
         public int compareTo(ObjectType other) {
-            return modelName.compareTo(other.modelName);
+        	 // liusu 逻辑跟bootstrap job保持一致。用于菜单排序
+            Menu menu = controllerClass.getAnnotation(Menu.class);
+            CRUD.For foran = controllerClass.getAnnotation(CRUD.For.class);
+            Class<? extends Model> entityClass = getEntityClassForController(controllerClass);
+            String menuCode = StringUtils.isNotEmpty(menu.code()) ? menu.code() : (foran==null ? entityClass.getSimpleName():foran.value().getSimpleName()); 
+//            List list=TResource.findAll();
+            
+//            JPAQuery jpaquery = TResource.find("code=?", "TUser");
+//  	      if(jpaquery!=null){
+//  	      	TResource resource = jpaquery.first();
+//  	      	int orderNo = resource!=null ? resource.orderNo : 0;
+//  	      }
+//            Factory factory =  Model.Manager.factoryFor(entityClass);
+//            List<Model> list = factory.fetch(0, 1, null, null, new ArrayList<String>(0), null, null);
+            
+//            orderNo = TResource.setOrderNo(menuCode);
+            return String.valueOf(orderNo).compareTo(String.valueOf(other.orderNo));
         }
 
         @Override

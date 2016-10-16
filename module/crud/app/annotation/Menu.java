@@ -6,8 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.TYPE})
 public @interface Menu {
+	//接口名称
+    String code() default "";;
     //接口名称
     String name();
     //用法

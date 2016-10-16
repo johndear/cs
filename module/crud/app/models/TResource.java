@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -29,6 +30,9 @@ public class TResource extends BaseModel{
 	public String code;
 	
 	public String url;
+	
+	@Column(name="order_no")
+	public Integer orderNo;
 
 	@ManyToMany
 	@JoinTable(
@@ -63,6 +67,16 @@ public class TResource extends BaseModel{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public static int setOrderNo(String menuCode){
+      JPAQuery jpaquery = TResource.find("code=?", menuCode);
+      if(jpaquery!=null){
+      	TResource resource = jpaquery.first();
+      	int orderNo = resource!=null ? resource.orderNo : 0;
+      	return orderNo;
+      }
+      return 0;
 	}
 
 

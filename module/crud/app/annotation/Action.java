@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import utils.Position;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD})
 public @interface Action {
 	//接口名称
     String code() default "";
