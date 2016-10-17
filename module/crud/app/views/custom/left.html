@@ -33,7 +33,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">HEADER</li>
 			#{crud.category}
-			<li class="treeview">
+			<li class="treeview #{if category == menuCategory } active #{/if}">
 				<a href="#"><span>&{category}</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					#{crud.types} #{if category==type.categoryName}

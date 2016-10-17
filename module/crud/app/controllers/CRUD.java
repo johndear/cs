@@ -138,8 +138,14 @@ public abstract class CRUD extends Controller {
         			outerTableAction.put(action!=null ? action.name() : method.getName(), actionUrl);
         		}
 			}
+        	
+        	Menu menu = getControllerClass().getAnnotation(Menu.class);
+        	String menuCategory = "default";
+        	if(StringUtils.isNotEmpty(menu.category())){
+        		menuCategory = menu.category();
+        	}
         	boolean isNew = newCrud;
-            render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr, innerTableAction, outerTableAction, isNew);
+            render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr, innerTableAction, outerTableAction, isNew, menuCategory);
         } catch (TemplateNotFoundException e) {
             render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
         }
