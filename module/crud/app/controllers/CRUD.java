@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.FileNotFoundException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -31,19 +32,20 @@ import play.data.validation.Password;
 import play.data.validation.Required;
 import play.db.Model;
 import play.db.Model.Factory;
-import play.db.jpa.GenericModel.JPAQuery;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.utils.Java;
 import services.ResourceService;
+import utils.ExcelUtil;
 import utils.Position;
 import utils.ReflectUtils;
 import annotation.Action;
 import annotation.Menu;
 import annotation.QueryParam;
 import annotation.TableExclude;
+import controllers.CRUD.ObjectType.ObjectField;
 
 public abstract class CRUD extends Controller {
 	
@@ -153,6 +155,53 @@ public abstract class CRUD extends Controller {
         } catch (TemplateNotFoundException e) {
             render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
         }
+    }
+    
+    public static void exportExcel(int page, String search, String searchFields, String orderBy, String order) {
+//    	String where = (String) request.args.get("where");
+//    	String where = params.get("where");
+    	// liusu start
+    	Map<String, String[]> objectParams = params.getRootParamNode().originalParams;
+    	String where = "";
+    	for (Entry entry : objectParams.entrySet()) {
+    		String key = (String) entry.getKey();
+    		String val = ((String[])entry.getValue())[0];
+    		if(key.contains("object.") && StringUtils.isNotEmpty(val)){
+    			where +=  key.replace("object.", "") + " like '%" + val + "%' and ";
+    		}
+    	}
+    	where = StringUtils.isNotEmpty(where)? where.substring(0, where.lastIndexOf("and")) : null;
+    	// liusu end
+    	
+        ObjectType type = ObjectType.get(getControllerClass());
+        notFoundIfNull(type);
+        if (page < 1) {
+            page = 1;
+        }
+//        Field
+        List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
+        List<Map<String, String>> dataMapList = new ArrayList<Map<String,String>>();
+        for (Model model : objects) {
+        	List<ObjectField> fileds=type.getFields();
+        	Map<String, String> data =  new HashMap<String, String>();
+        	for (ObjectField objectField : fileds) {
+        		try {
+					Object value = objectField.property.field.get(model);
+					data.put(objectField.name, value.toString());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+        	dataMapList.add(data);
+		}
+        
+    	try {
+			renderBinary(ExcelUtil.generateExcel(response, "aa", dataMapList));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @Action(code="show", name="编辑", position=Position.INNER)
