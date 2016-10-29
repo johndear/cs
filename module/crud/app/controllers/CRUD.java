@@ -37,6 +37,7 @@ import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
 import play.utils.Java;
+import services.ResourceService;
 import utils.Position;
 import utils.ReflectUtils;
 import annotation.Action;
@@ -45,6 +46,8 @@ import annotation.QueryParam;
 import annotation.TableExclude;
 
 public abstract class CRUD extends Controller {
+	
+	private static List<TResource> resources = null;
 
     @Before
     public static void addType() throws Exception {
@@ -63,6 +66,7 @@ public abstract class CRUD extends Controller {
         if (getControllerClass() == CRUD.class) {
             forbidden();
         }
+        
         render("CRUD/index.html");
     }
 
@@ -341,6 +345,7 @@ public abstract class CRUD extends Controller {
             type.name = controllerClass.getSimpleName().replace("$", "");
             type.controllerName = controllerClass.getSimpleName().toLowerCase().replace("$", "");
             type.controllerClass = controllerClass;
+            type.orderNo = getOrderNo(type);
             return type;
         }
 
@@ -426,23 +431,27 @@ public abstract class CRUD extends Controller {
 
         @Override
         public int compareTo(ObjectType other) {
-        	 // liusu 逻辑跟bootstrap job保持一致。用于菜单排序
-            Menu menu = controllerClass.getAnnotation(Menu.class);
-            CRUD.For foran = controllerClass.getAnnotation(CRUD.For.class);
-            Class<? extends Model> entityClass = getEntityClassForController(controllerClass);
-            String menuCode = StringUtils.isNotEmpty(menu.code()) ? menu.code() : (foran==null ? entityClass.getSimpleName():foran.value().getSimpleName()); 
-//            List list=TResource.findAll();
-            
-//            JPAQuery jpaquery = TResource.find("code=?", "TUser");
-//  	      if(jpaquery!=null){
-//  	      	TResource resource = jpaquery.first();
-//  	      	int orderNo = resource!=null ? resource.orderNo : 0;
-//  	      }
-//            Factory factory =  Model.Manager.factoryFor(entityClass);
-//            List<Model> list = factory.fetch(0, 1, null, null, new ArrayList<String>(0), null, null);
-            
-//            orderNo = TResource.setOrderNo(menuCode);
-            return String.valueOf(orderNo).compareTo(String.valueOf(other.orderNo));
+            return String.valueOf(this.orderNo).compareTo(String.valueOf(other.orderNo));
+        }
+        
+        public static int getOrderNo(ObjectType other){
+        	Class<? extends Model> otherEntityClass =other.entityClass;
+            CRUD.For otherForan = other.controllerClass.getAnnotation(CRUD.For.class);
+            Menu menu = other.controllerClass.getAnnotation(Menu.class);
+            String otherMenuCode = StringUtils.isNotEmpty(menu.code()) ? menu.code() : (otherForan==null ? otherEntityClass.getSimpleName():otherForan.value().getSimpleName());
+//            TResource tr = TResource.find("code=?", otherMenuCode).first();
+            int orderNo  = 0;
+			try {
+	            List<Map<String, String>> list;
+				list = ResourceService.query(otherMenuCode);
+				if(list!=null && list.size()>0){
+					orderNo = Integer.parseInt(list.get(0).get("orderNo"));
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            return orderNo;
         }
 
         @Override
