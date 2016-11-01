@@ -20,7 +20,7 @@ import play.Play;
  */
 public class MySQLTableComment {
 	
-	static String url=Play.configuration.getProperty("db.url","jdbc:mysql://yftest.ucweb.local:3306/mysql?characterEncoding=UTF-8&useUnicode=true&useOldAliasMetadataBehavior=true");
+	static String url=Play.configuration.getProperty("db.url","jdbc:mysql://xxx:3306/mysql?characterEncoding=UTF-8&useUnicode=true&useOldAliasMetadataBehavior=true");
 	static String username=Play.configuration.getProperty("db.user","root");
 	static String password=Play.configuration.getProperty("db.pass","root");
 	

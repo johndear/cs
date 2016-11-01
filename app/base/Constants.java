@@ -194,16 +194,16 @@ public class Constants {
     /**
      * 用户请求客服的请求发起时间间隔
      */
-    public static final String FEEDBACK_DEFAULT_URL = Play.configuration.getProperty("feedback.default.url", "http://feedback.uc.cn/feedback/feedback/index?self_service=true&pf=%s&instance=%s&uc_param_str=einibicppfmivesifrutlantcunwsssvstjbst");
+    public static final String FEEDBACK_DEFAULT_URL = Play.configuration.getProperty("feedback.default.url", "http://feedbackuccn/feedback/feedback/index?self_service=true&pf=%s&instance=%s&uc_param_str=einibicppfmivesifrutlantcunwsssvstjbst");
 
     /**
      * csos系统文件在uae上压缩后的根路径
      */
-    public static final String UAE_COMPRESS_ROOT = Play.configuration.getProperty("uae_compress_root", "http://image.uc.cn/e/uaeext/c;08/csos");
+    public static final String UAE_COMPRESS_ROOT = Play.configuration.getProperty("uae_compress_root", "http://imageuccn/e/uaeext/c;08/csos");
     /**
      * csos系统文件再uae上未压缩的根路径
      */
-    public static final String UAE_UNCOMPRESS_ROOT = Play.configuration.getProperty("uae_uncompress_root", "http://image.uc.cn/s/uae/g/08/csos");
+    public static final String UAE_UNCOMPRESS_ROOT = Play.configuration.getProperty("uae_uncompress_root", "http://imageuccn/s/uae/g/08/csos");
 
     /**
      * 是否为开发模式
