@@ -26,7 +26,7 @@ public class CRUDSecure extends Security {
 	 * @param password
 	 * @return 
 	 * @author <a href="mailto:clyqqcom">刘苏 </a>
-	 * @version 在线客服二期
+	 * @version 客服二期
 	 * create on: 2016年6月25日
 	 */
 	static boolean authenticate(String username, String password) {

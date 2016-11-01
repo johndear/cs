@@ -144,7 +144,7 @@ public class Account extends Model {
      * @param sqlParams	
      * @return
      * @author <a href="mailto:lqb.lqbqq">罗权邦 </a>
-     * @version 交易猫接入在线客服一期
+     * @version 交易猫接入客服一期
      * create on: 2015.12.21
      */
     public void update(Account account,Date time){

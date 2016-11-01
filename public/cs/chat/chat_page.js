@@ -147,7 +147,7 @@
 		 * 转交任务	add by liaostr 2015-12<br>
 		 * forwardSkillGroup ：转交技能组<br>
 		 * forwardReason ： 转交原因<br>
-		 * prdType ：csos_sys=在线客服；feedback_sys=意见反馈<br>
+		 * prdType ：csos_sys=客服；feedback_sys=意见反馈<br>
 		 */
         $scope.changeCustomer = function (forwardSkillGroup,forwardReason,prdType) {
         	//转交意见反馈单
@@ -159,7 +159,7 @@
         }
         
         /**
-		 * 转交任务-在线客服用	add by liaostr 2015-12<br>
+		 * 转交任务-客服用	add by liaostr 2015-12<br>
 		 * forwardSkillGroup ：转交技能组<br>
 		 * forwardReason ： 转交原因<br>
 		 */
@@ -178,7 +178,7 @@
                 });
                 return;
             }
-            console.log('在线客服发起转单...');
+            console.log('客服发起转单...');
             $http({
                 method: 'POST',
                 url: '../cs/WorkBenchController/changeCustomer',

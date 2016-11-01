@@ -118,7 +118,7 @@
             '</div>' +
             '</div>' +
             '<form style="display:inherit" ng-submit="vm.submitFunction()">' +
-            //在线客服
+            //客服
             '<div ng-if="vm.user.prdType!=\'feedback_sys\'" class="input-group">' +
             '<textarea rows="3" class="form-control input-sm chat-input" placeholder="{{vm.inputPlaceholderText}}" ng-keydown="vm.send($event)" ng-model="vm.writingMessage.msg" />' +
             '<span class="input-group-btn">' +
@@ -263,7 +263,7 @@
             var imgFile = $scope.inputFile;
 
             if (imgFile) {
-            	if(vm.user.prdType == 'csos_sys'){//在线客服直接发送
+            	if(vm.user.prdType == 'csos_sys'){//客服直接发送
             		vm.messages.push({
                         'role': 'kf',
                         'username': vm.username,
@@ -290,7 +290,7 @@
                         }
                     	if(vm.user.prdType == 'feedback_sys'){//意见反馈直接增加到输入款
                     		vm.quickSendFunction(' '+imgUrl+' ');
-                    	}else{//在线客服
+                    	}else{//客服
 	                        $scope.sendImg({url: imgUrl});
 	                        vm.messages[index - 1].content = imgUrl;
                     	}
