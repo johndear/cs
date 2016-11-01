@@ -3,15 +3,6 @@ package models.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 功能描述：
- * <p> 版权所有：优视科技 </p>
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
- *
- * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡</a>
- * @version 1.0.0
- * create on: 2015-05-29
- */
 public enum ServicerStatus {
 
     /**
@@ -85,14 +76,6 @@ public enum ServicerStatus {
 		return null;
 	}
     
-    /**
-     * 功能描述：获取不在线的状态
-     *
-     * @return 
-     * @author <a href="mailto:caily@ucweb.com">蔡龙颜 </a>
-     * @version 在线客服接入交易猫
-     * create on: 2016-1-26  
-     */
     public static List<String> getOfflineServicerStatus(){
     	List<String> servicerStatus = new ArrayList<String>();
     	servicerStatus.add(String.valueOf(ServicerStatus.OFFLINE.index));

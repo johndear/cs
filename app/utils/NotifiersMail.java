@@ -13,15 +13,6 @@ import play.cache.Cache;
 import play.mvc.Mailer;
 import cn.uc.common.util.BlankUtil;
 
-/**
- * 功能描述：通知预警邮件类,用于打印日志并向用户发送预警邮件
- * <p> 版权所有：优视科技
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 <p>
- *
- * @author <a href="mailto:caily@ucweb.com">蔡龙颜</a>
- * @version 在线客服一期
- * create on: 2015-5-27
- */
 public class NotifiersMail extends Mailer {
 
     /**
@@ -66,19 +57,6 @@ public class NotifiersMail extends Mailer {
         }
         return valid;
     }
-    /**
-     * 功能描述：将错误日志打印并发送邮件
-     *
-     * @param action  action方法
-     * @param id      调用id
-     * @param e       异常信息
-     * @param subject 邮件标题 [[CustomersApi.index]]
-     * @param message 邮件内容 新建会话参数异常recordId=%s,sourceId=%s
-     * @param args    邮件内容变量
-     * @author <a href="mailto:caily@ucweb.com">蔡龙颜 </a>
-     * @version 在线客服一期
-     * create on: 2015-5-27
-     */
     public static void error(String action, String id, Exception e, String subject, String message, Object... args) {
         Logger.error(e, subject + message, args);
         if (valid(action, id)) {
@@ -87,18 +65,7 @@ public class NotifiersMail extends Mailer {
             send(message);
         }
     }
-    /**
-     * 功能描述：错误日志
-     *
-     * @param action  action方法
-     * @param id      调用id
-     * @param subject 邮件标题 [[CustomersApi.index]]
-     * @param message 邮件内容 新建会话参数异常recordId=%s,sourceId=%s
-     * @param args    邮件内容变量
-     * @author <a href="mailto:caily@ucweb.com">蔡龙颜 </a>
-     * @version 在线客服一期
-     * create on: 2015-5-27
-     */
+
     public static void error(String action, String id, String subject, String message, Object... args) {
         Logger.error(subject + message, args);
         if (valid(action, id)) {
@@ -108,18 +75,6 @@ public class NotifiersMail extends Mailer {
         }
     }
 
-    /**
-     * 功能描述：设置邮件信息并生成邮件内容
-     *
-     * @param from    邮件发件人前缀
-     * @param subject 邮件标题
-     * @param message 带变量邮件内容
-     * @param args    变量
-     * @return 邮件内容
-     * @author <a href="mailto:caily@ucweb.com">蔡龙颜 </a>
-     * @version 在线客服一期
-     * create on: 2015-5-27
-     */
     private static String getMailMessage(String from, String subject, String message, Object... args) {
         setFrom(from + "<" + MAIL_ADRESS_FROM + ">");
         setSubject(subject + IP_STRING);

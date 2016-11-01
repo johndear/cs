@@ -20,15 +20,6 @@ import java.util.TreeMap;
 import static javax.crypto.Cipher.DECRYPT_MODE;
 import static javax.crypto.Cipher.ENCRYPT_MODE;
 
-/**
- * 功能描述：csim加密类
- * <p> 版权所有：优视科技 </p>
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
- *
- * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡</a>
- * @version 1.0.0
- * create on: 2015-06-04
- */
 public abstract class Crypto {
     
     private static final SecretKeyFactory keyFactory;

@@ -135,15 +135,6 @@ public class DateUtil {
 	}
 
 
-    /**
-     * 功能描述：(描述方法的作用,有复杂逻辑要描述一下关键逻辑)
-     *
-     * @param date
-     * @param differMinutes 加减的分钟数，整数表示+，负数表示-
-     * @author <a href="mailto:sufangfang.sff@alibaba-inc.com">粟芳芳</a>
-     * @version 在线客服二期
-     * create on: 2015-10-20
-     */
     public static Date getDateByDifferMinutes(Date date,int differMinutes){
         Calendar calendar=Calendar.getInstance();
         calendar.setTime(date);
@@ -151,51 +142,15 @@ public class DateUtil {
         return  calendar.getTime();
     }
 
-    /**
-     * 功能描述：(描述方法的作用,有复杂逻辑要描述一下关键逻辑)compareDate-date
-     *
-     * @param date
-     * @param compareDate 加减的分钟数，整数表示+，负数表示-
-     * @author <a href="mailto:sufangfang.sff@alibaba-inc.com">粟芳芳</a>
-     * @version 在线客服二期
-     * create on: 2015-10-20
-     */
     public static Long getDifferMinutes(Date date,Date compareDate){
         return (compareDate.getTime()-date.getTime())/(60*1000);
     }
-    /**
-     * 功能描述:计算两个date类型间隔的秒数compareDate-date
-     *
-     * @param date
-     * @param compareDate 加减的分钟数，整数表示+，负数表示-
-     * @author <a href="mailto:sufangfang.sff@alibaba-inc.com">粟芳芳</a>
-     * @version 在线客服二期
-     * create on: 2015-10-20
-     */
     public static Long getDifferSeconds(Date date,Date compareDate){
         return (compareDate.getTime()-date.getTime())/(1000);
     }
-    /**
-     * 功能描述：(描述方法的作用,有复杂逻辑要描述一下关键逻辑)
-     *
-     * @param date
-     * @param compareDate 加减的分钟数，整数表示+，负数表示-
-     * @author <a href="mailto:sufangfang.sff@alibaba-inc.com">粟芳芳</a>
-     * @version 在线客服二期
-     * create on: 2015-10-20
-     */
     public static Long getDifferHours(Date date,Date compareDate){
         return (compareDate.getTime()-date.getTime())/(60*60*1000);
     }
-    /**
-     * 功能描述：(描述方法的作用,有复杂逻辑要描述一下关键逻辑)
-     *
-     * @param date
-     * @param compareDate 加减的分钟数，整数表示+，负数表示-
-     * @author <a href="mailto:sufangfang.sff@alibaba-inc.com">粟芳芳</a>
-     * @version 在线客服二期
-     * create on: 2015-10-20
-     */
     public static Long getDifferMinutes(Timestamp date,Timestamp compareDate){
         return (compareDate.getTime()-date.getTime())/(60*1000);
     }
@@ -227,15 +182,6 @@ public class DateUtil {
         return cal.getTime();
     }
 
-
-    /**
-     * 功能描述：(描述方法的作用,有复杂逻辑要描述一下关键逻辑)
-     *
-     * @param wday
-     * @author <a href="mailto:sufangfang.sff@alibaba-inc.com">粟芳芳</a>
-     * @version 在线客服二期
-     * create on: 2015-10-20
-     */
     public static String getWeekDayFormat(int wday){
         switch (wday){
             case 1:return "星期一";

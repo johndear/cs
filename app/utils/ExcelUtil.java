@@ -26,33 +26,14 @@ import play.Logger;
 import play.Play;
 import play.mvc.Http;
 
-/**
- * 功能描述：数据统计
- * <p> 版权所有：优视科技
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 <p>
- *
- * @author <a href="mailto:luoquanbang.lqb@alibaba-inc.com">罗权邦</a>
- * @version 在线客服三期
- * create on: 2015/11/18
- */
 public class ExcelUtil {
     
 	/**
 	 * Excel中，当数字的长度大于等于12时，会转成科学技术法，这里定义最长长度，用于数字长度判断
 	 */
 	public static final int MAX_LENGTH = 12;
-    /**
-     * 功能描述：生成数据统计报表临时文件
-     * @param response
-     * @param exlName 文件名
-     * @param dataMapList 数据list。因不同需求不同数据格式要求不同，所以先各自转化为String再调用该方法
-     * @return
-     * @throws FileNotFoundException
-     * @author <a href="mailto:luoquanbang.lqb@alibaba-inc.com">罗权邦</a>
-     * @version 在线客服三期
-     * create on: 2015.11.17
-     */
-    public static File generateExcel(Http.Response response, String exlName,
+
+	public static File generateExcel(Http.Response response, String exlName,
                                      List<Map<String, String>> dataMapList) throws FileNotFoundException {
         response.contentType = "text/plain";
         try {
