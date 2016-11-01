@@ -18,7 +18,7 @@ import play.db.jpa.Model;
  * <p> 版权所有：优视科技 </p>
  * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
  *
- * @author <a href="mailto:luoquanbang.lqb@alibaba-inc.com">罗权邦</a>
+ * @author <a href="mailto:lqb.lqbqq">罗权邦</a>
  * @version 1.0.0
  * create on: 2015.12.16
  */
@@ -143,7 +143,7 @@ public class Account extends Model {
      *
      * @param sqlParams	
      * @return
-     * @author <a href="mailto:luoquanbang.lqb@alibaba-inc.com">罗权邦 </a>
+     * @author <a href="mailto:lqb.lqbqq">罗权邦 </a>
      * @version 交易猫接入在线客服一期
      * create on: 2015.12.21
      */

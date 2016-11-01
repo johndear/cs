@@ -7,7 +7,7 @@
  * 未经本公司许可，不得以任何方式复制或使用本程序任何部分
  * </p>
  * 
- * @author <a href="mailto:ljh104230@ucweb.com">廖金洪</a>
+ * @author <a href="mailto:ljh104230qqcom">廖金洪</a>
  * @version 交易猫接入版本 create on: 2015-12-15
  */
 JymService = ({

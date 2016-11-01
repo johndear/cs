@@ -18,8 +18,8 @@ public class NotifiersMail extends Mailer {
     /**
      * 邮件提醒对象地址
      */
-    public static String EMAIL_WARNING_USER = Play.configuration.getProperty("NotifiersMail.to", "caily@ucweb.com").trim();
-    public static String MAIL_ADRESS_FROM = Play.configuration.getProperty("mail.smtp.user", "dev3-support@ucweb.com").trim();
+    public static String EMAIL_WARNING_USER = Play.configuration.getProperty("NotifiersMail.to", "cly@qq.com").trim();
+    public static String MAIL_ADRESS_FROM = Play.configuration.getProperty("mail.smtp.user", "dev3-support@qq.com").trim();
 
     /**
      * 告警邮件缓存标识存储时间

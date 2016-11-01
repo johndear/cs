@@ -25,7 +25,7 @@ public class CRUDSecure extends Security {
 	 * @param username
 	 * @param password
 	 * @return 
-	 * @author <a href="mailto:caily@ucweb.com">刘苏 </a>
+	 * @author <a href="mailto:clyqqcom">刘苏 </a>
 	 * @version 在线客服二期
 	 * create on: 2016年6月25日
 	 */
