@@ -124,7 +124,7 @@ public class ChatController extends Job{
 	    		String customerId = getCustomerId(conn);
 	    		// TODO liusu 1、2、3、4
 	    		for (WebSocket websocket : userSockets.values()) {
-	    			// 提示用户，客服已经掉线，并转交给其他在线客服
+	    			// 提示用户，客服已经掉线，并转交给其他客服
 	    			Map<String,Object> welcomeMap = new HashMap<String,Object>();
 		    		welcomeMap.put("type", "break");
 	    			websocket.send(JSONObject.toJSONString(welcomeMap));

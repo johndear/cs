@@ -33,7 +33,7 @@ import base.SecureController;
  */
 public class CustomerController extends SecureController{
 	
-	// 在线客服--需要在启动的时候初始化（防止服务器重启将在线客服丢失，造成重新上班的情况）
+	// 客服--需要在启动的时候初始化（防止服务器重启将客服丢失，造成重新上班的情况）
 	static Map<Long, Customer> customers = new HashMap<Long, Customer>();
 	
 	@Inject

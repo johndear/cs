@@ -25,8 +25,8 @@ public class LocalSecure extends Security {
 	 * @param username
 	 * @param password
 	 * @return 
-	 * @author <a href="mailto:caily@ucweb.com">刘苏 </a>
-	 * @version 在线客服二期
+	 * @author <a href="mailto:clyqqcom">刘苏 </a>
+	 * @version 客服二期
 	 * create on: 2016年6月25日
 	 */
 	static boolean authenticate(String username, String password) {

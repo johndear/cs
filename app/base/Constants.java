@@ -2,15 +2,6 @@ package base;
 
 import play.Play;
 
-/**
- * 功能描述：常量类
- * <p> 版权所有：优视科技
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 <p>
- * 
- * @author <a href="mailto:caily@ucweb.com">蔡龙颜</a>
- * @version 在线客服一期
- * create on: 2015-5-29 
- */
 public class Constants {
 	
 	/**
@@ -203,16 +194,16 @@ public class Constants {
     /**
      * 用户请求客服的请求发起时间间隔
      */
-    public static final String FEEDBACK_DEFAULT_URL = Play.configuration.getProperty("feedback.default.url", "http://feedback.uc.cn/feedback/feedback/index?self_service=true&pf=%s&instance=%s&uc_param_str=einibicppfmivesifrutlantcunwsssvstjbst");
+    public static final String FEEDBACK_DEFAULT_URL = Play.configuration.getProperty("feedback.default.url", "http://feedbackuccn/feedback/feedback/index?self_service=true&pf=%s&instance=%s&uc_param_str=einibicppfmivesifrutlantcunwsssvstjbst");
 
     /**
      * csos系统文件在uae上压缩后的根路径
      */
-    public static final String UAE_COMPRESS_ROOT = Play.configuration.getProperty("uae_compress_root", "http://image.uc.cn/e/uaeext/c;08/csos");
+    public static final String UAE_COMPRESS_ROOT = Play.configuration.getProperty("uae_compress_root", "http://imageuccn/e/uaeext/c;08/csos");
     /**
      * csos系统文件再uae上未压缩的根路径
      */
-    public static final String UAE_UNCOMPRESS_ROOT = Play.configuration.getProperty("uae_uncompress_root", "http://image.uc.cn/s/uae/g/08/csos");
+    public static final String UAE_UNCOMPRESS_ROOT = Play.configuration.getProperty("uae_uncompress_root", "http://imageuccn/s/uae/g/08/csos");
 
     /**
      * 是否为开发模式

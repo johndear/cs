@@ -18,7 +18,7 @@ window.FastClick.attach(document.body);
 // var templateProp = eval('('+$('#templateProp').val()+')');
 
 var messages = {
-	title : 'UC在线客服',
+	title : 'UC客服',
 	welcome : '您好，请一句话完整描述您的问题，以便我们为您安排专业的客服。',
 	notlogin : '',
 	connecting : '亲，正在为您连接客服，请耐心等待。',

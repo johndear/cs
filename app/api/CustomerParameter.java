@@ -3,15 +3,6 @@ package api;
 import base.Constants;
 import cn.uc.common.util.BlankUtil;
 
-/**
- * 功能描述：用户端配置参数对象
- * <p> 版权所有：优视科技 </p>
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
- *
- * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡</a>
- * @version 1.0.0
- * create on: 2015-06-09
- */
 public class CustomerParameter {
     private static final int waitMinute = Constants.CUSTOMER_ONLINE_TIMEOUT;
     private static final int delaySecond = Constants.CUSTOMER_TIMEOUT_COUNTDOWN;
@@ -38,7 +29,6 @@ public class CustomerParameter {
         
 //        if(Constants.JYM_SYS_FLAG.equals(sys)){
 //        	this.senstiveWords = GlobalCacheUtil.getSysParamValue(FeedbackConstants.SYS_PARAMS_KEY.JYM_SENSITIVE_WORDS);
-//        	//写死交易猫的意见反馈路径
 //        	if(!BlankUtil.isBlank(Constants.JYM_FEEDBACK_URL)){
 //        		this.feedbackUrl = Constants.JYM_FEEDBACK_URL;
 //        	}

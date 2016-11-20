@@ -1,16 +1,5 @@
 package models;
 
-/**
- * 
- * 功能描述：
- *	转单扩展信息javabean封装类
- * <p> 版权所有：优视科技
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 <p>
- * 
- * @author <a href="mailto:caily@ucweb.com">刘苏</a>
- * @version 在线客服二期-4
- * create on: 2015年12月29日
- */
 public class NotifyExtendMsgDTO {
 	
 	/**

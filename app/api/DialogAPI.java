@@ -19,15 +19,6 @@ import com.google.gson.JsonObject;
 
 import base.Constants;
 
-/**
- * 功能描述：csim对话执行相关服务类（后期优化，规范发送请求管理）
- * <p> 版权所有：优视科技 </p>
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
- *
- * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡</a>
- * @version 1.0.0
- * create on: 2015-06-01
- */
 public class DialogAPI {
 
     /**
@@ -56,18 +47,6 @@ public class DialogAPI {
      */
     private static final String SYS_TIMEOUT = Play.configuration.getProperty("im.timeout", "1");
 
-    /**
-     * 功能描述：调用csim服务端接口创建会话
-     *
-     * @param dialogId      创建的会话id
-     * @param customerId    会话用户id
-     * @param servicerId    会话客服id
-     * @param nickName      客服昵称
-     * @return csim接口返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-3
-     */
     public String create(long dialogId, String customerId, long servicerId, String nickName) {
         Map<String, String> params = new HashMap<String, String>(9);
         params.put("dialogId", String.valueOf(dialogId));
@@ -88,17 +67,6 @@ public class DialogAPI {
         }
     }
 
-    /**
-     * 功能描述：触发事件
-     *
-     * @param userId    接受事件的对象id
-     * @param userType  接受时间的对象类型
-     * @param content   触发内容
-     * @return csim返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-3
-     */
     public String fireEvent(String userId, String userType, String content){
         Map<String, String> params = new HashMap<String, String>(5);
         params.put("userId", String.valueOf(userId));
@@ -114,17 +82,6 @@ public class DialogAPI {
             return "{'status':'" + result.get("status") + "','message':'{" + String.format("触发事件失败，对象id=%s, 对象类型userType=%s, 发送内容content=%s，状态返回码=%s", userId, userType, content, result.get("status")) + "}'}";
         }
     }
-    /**
-     * 功能描述：关闭指定会话参与者id的会话
-     *
-     * @param userId    用户/客服id
-     * @param dialogId  会话id
-     * @param userType  用户/客服类型
-     * @return csim返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-3
-     */
     public String close(long userId, long dialogId, String userType){
         Map<String, String> params = new HashMap<String, String>(5);
         params.put("userId", String.valueOf(userId));
@@ -140,16 +97,6 @@ public class DialogAPI {
             return "{'status':'" + result.get("status") + "','message':'{" + String.format("关闭对话失败，userId=%s, 对象类型userType=%s, 对话id=%d，状态返回码=%s", userId, userType, dialogId, result.get("status")) + "}'}";
         }
     }
-    /**
-     * 功能描述：关闭指定id的用户会话
-     *
-     * @param customerId    用户id
-     * @param dialogId  会话id
-     * @return csim返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-3
-     */
     public String customerClose(String customerId, long dialogId){
         Map<String, String> params = new HashMap<String, String>(5);
         params.put("userId", String.valueOf(customerId));
@@ -165,16 +112,6 @@ public class DialogAPI {
             return "{'status':'" + result.get("status") + "','message':'{" + String.format("关闭用户对话失败，userId=%s, 对话id=%d，状态返回码=%s", customerId, dialogId, result.get("status")) + "}'}";
         }
     }
-    /**
-     * 功能描述：关闭指定id的客服会话
-     *
-     * @param servicerId    客服id
-     * @param dialogId  会话id
-     * @return csim返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-3
-     */
     public String servicerClose(long servicerId, long dialogId){
 //    	// 重试3次
 //        int count = 0;
@@ -201,16 +138,6 @@ public class DialogAPI {
 //        }
     }
     
-    /**
-     * 功能描述：关闭指定id的客服会话
-     *
-     * @param servicerId    客服id
-     * @param dialogId  会话id
-     * @return csim返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-3
-     */
     public String servicerChange(long currServicerId, long nextServicerId, long dialogId){
 //     	 AccountAssignment aa = AccountAssignment.find("servicerId=?", nextServicerId).first();
 //        String nickName=aa.getNickname();
@@ -234,17 +161,6 @@ public class DialogAPI {
     	return null;
     }
     
-    /**
-     * 功能描述：webservice请求url
-     *
-     * @param url       调用的接口链接
-     * @param params    传入的请求参数
-     * @return
-     * @return csim返回json内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-11
-     */
     private Map<String, String> webServiceInvoke(String url, Map<String, String> params) {
         Map<String, String> result = new HashMap<String, String>(3);
         result.put("success", "false");
@@ -267,15 +183,6 @@ public class DialogAPI {
         }
         return result;
     }
-    /**
-     * 功能描述：调用csim服务端时的签名方法
-     *
-     * @param params    发送内容
-     * @return 签名内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-4
-     */
     public String signService(Map<String, Object> params){
         return Crypto.sign(new TreeMap<String, Object>(params){
             {
@@ -285,15 +192,6 @@ public class DialogAPI {
         });
     }
 
-    /**
-     * 功能描述：调用csim服务端时的签名方法
-     *
-     * @param params    发送内容
-     * @return 签名内容
-     * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡 </a>
-     * @version 在线客服一期
-     * create on: 2015-6-4
-     */
     public String signCustomer(Map<String, Object> params){
         return Crypto.sign(new TreeMap<String, Object>(params){
             {
@@ -303,19 +201,6 @@ public class DialogAPI {
         });
     }
     
-    /**
-     * 
-     * 功能描述：
-     *	调用csim通知用户
-     * @param servicerId
-     * @param dialogId
-     * @param receiverId
-     * @param type
-     * @param extendMsg 
-     * @author <a href="mailto:caily@ucweb.com">刘苏 </a>
-     * @version 在线客服二期-4
-     * create on: 2015年12月28日
-     */
     public void notifyUser(Long servicerId, Long dialogId, String receiverId, String type, NotifyExtendMsgDTO extendMsg){
     	// 通知用户已经断线
 	    DialogResult dialogResult = new DialogResult();
@@ -329,19 +214,6 @@ public class DialogAPI {
 	    this.fireEvent(String.valueOf(receiverId), Constants.IM_CUSTOMER_TYPE, JSONObject.toJSONString(dialogResult));
     }
     
-    /**
-     * 
-     * 功能描述：
-     *	调用csim通知客服
-     * @param servicerId
-     * @param dialogId
-     * @param receiverId
-     * @param type
-     * @param extendMsg 
-     * @author <a href="mailto:caily@ucweb.com">刘苏 </a>
-     * @version 在线客服二期-4
-     * create on: 2015年12月28日
-     */
     public void notifyServicer(Long servicerId, Long dialogId, String receiverId, String type, NotifyExtendMsgDTO extendMsg){
     	DialogResult dialogResult = new DialogResult();
 	    dialogResult.setHandlerId(servicerId);
@@ -359,18 +231,6 @@ public class DialogAPI {
         return null;
     }
 
-    /**
-     * 功能描述：
-     *  调用csim服务端发送消息
-     * @param customerId
-     * @param dialogId
-     * @param messageType
-     * @param content
-     * @param sceneKey
-     * @return
-     * @author <a href="mailto:guoqj_wb@os.ucweb.com">郭巧佳</a>
-     * @version 在线客服二期-4 create on: 2016年3月14日
-     */
     public String send(String customerId,long dialogId,String messageType,String content,String sceneKey){
 
     	Map<String, String> params = new HashMap<String, String>(5);

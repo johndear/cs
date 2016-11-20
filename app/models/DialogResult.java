@@ -1,14 +1,5 @@
 package models;
 
-/**
- * 功能描述：会话相关的json对象
- * <p> 版权所有：优视科技 </p>
- * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
- *
- * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡</a>
- * @version 1.0.0
- * create on: 2015-05-21
- */
 public class DialogResult {
     /**
      * 会话操作是否成功

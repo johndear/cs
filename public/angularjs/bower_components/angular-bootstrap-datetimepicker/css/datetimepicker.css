@@ -4,7 +4,7 @@
  * License: MIT
  */
 
-/* 不使用默认width,添加min-width add by chenwj@ucweb.com - 2014.11.19*/
+/* 不使用默认width,添加min-width add by chenwjqqcom - 2014.11.19*/
 .datetimepicker {
     padding: 4px;
     margin-top: 1px;
@@ -387,7 +387,7 @@
     background: #eeeeee;
 }
 
-/* 自定义table样式，不使用bootstrap的样式 add by chenwj@ucweb.com - 2014.11.19*/
+/* 自定义table样式，不使用bootstrap的样式 add by chenwjqqcom - 2014.11.19*/
 .table>thead>tr>th,.table>tbody>tr>th,.table>tfoot>tr>th,.table>thead>tr>td,.table>tbody>tr>td,.table>tfoot>tr>td {
     padding: 5px;
     line-height: 1.42857143;

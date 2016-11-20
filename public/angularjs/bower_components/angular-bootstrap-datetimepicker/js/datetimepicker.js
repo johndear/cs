@@ -39,7 +39,7 @@
 
         this.dateValue = new Date().getTime();
         this.selectable = true;
-        /* add 'is_today' to make it valid  -- add by chenwj@ucweb.com*/
+        /* add 'is_today' to make it valid  -- add by chenwjqqcom*/
         var validProperties = ['dateValue', 'display', 'active', 'selectable', 'past', 'future', 'is_today'];
 
         for (var prop in arguments[0]) {
@@ -142,7 +142,7 @@
         },
         replace: true,
         link: function link(scope, element, attrs, ngModelController) {
-            /* today compare, use by day view  -- add by chenwj@ucweb.com */
+            /* today compare, use by day view  -- add by chenwjqqcom */
             var today = moment.utc(new Date());
             var is_same_day = function (src, dest) {
                 return src.toDate().toDateString() === dest.toDate().toDateString();
@@ -166,7 +166,7 @@
 
           validateConfiguration(configuration);
 
-          // today, clear button visiable controll - add by chenwj@ucweb.com
+          // today, clear button visiable controll - add by chenwjqqcom
           scope.todayBtn = configuration.todayBtn;
           scope.clearBtn = configuration.clearBtn;
           scope.tomorrowBtn = configuration.tomorrowBtn;

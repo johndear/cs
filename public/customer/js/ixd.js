@@ -3,7 +3,7 @@
     * <p> 版权所有：优视科技 </p>
     * <p> 未经本公司许可，不得以任何方式复制或使用本程序任何部分 </p>
     *
-    * @author <a href="mailto:zhangxf3@ucweb.com">张晓凡</a>
+    * @author <a href="mailto:zxf3qqcom">张晓凡</a>
     * @version 1.0.0
     * create on: 2015-05-21
     */
@@ -388,7 +388,7 @@ function customerMonitor(data) {
             success : function(r) {
                 //alert('已经断开连接了.......');
                 console.log(r);
-                //清除会话id、用户id,去掉这段代码,与晓凡确认不需要了--caily
+                //清除会话id、用户id,去掉这段代码,与晓凡确认不需要了--cly
                 //$("#dialogId").val('');
                 //$("#userId").val('');
                 //$("#serving").val('false');
@@ -410,7 +410,7 @@ function customerMonitor(data) {
             success : function(r) {
                 //alert('已经断开连接了.......');
                 console.log(r);
-                //清除会话id、用户id,去掉这段代码,与晓凡确认不需要了--caily
+                //清除会话id、用户id,去掉这段代码,与晓凡确认不需要了--cly
                 //$("#dialogId").val('');
                 //$("#userId").val('');
                 //$("#serving").val('false');

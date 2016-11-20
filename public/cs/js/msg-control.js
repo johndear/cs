@@ -769,7 +769,7 @@ chatApp.controller('csosCtrl', function ($rootScope, $scope, $http, closeDivFact
 //        if(user.prdType == feedback_sys){
 //        	sendMagForFeedback(user, dispalyContent.split("\n").join("<br>"));//意见反馈发送消息
 //        }else{
-//        	$scope.sendMsg(user, content);//在线客服发送消息
+//        	$scope.sendMsg(user, content);//客服发送消息
 //        }
         
     };
