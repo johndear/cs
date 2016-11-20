@@ -77,9 +77,9 @@
 	
 	function exportCurrentPageData(url){
 		var formData = $('form').eq(0).serialize();
-		formData +='&page='+ getQuery(page);
-		alert(formData);
-		// location.href= url + "?"+ formData;
+		formData +='&page='+ getQuery('page');
+		//alert(formData);
+		location.href= url + "?"+ formData;
 	}
 	
 	function getQuery(para){ 
