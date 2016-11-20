@@ -61,7 +61,11 @@
                                 
                              %{ } }%
                         %{ } else { }%
-                            ${object[field]?.escape()?.raw()}
+                    		%{ if(field.indexOf('.')==-1){ }%    	
+                            	${object[field]?.escape()?.raw()}
+                            %{ } else { }%
+                       			${object[field.tokenize(".")[0]][field.tokenize(".")[1]]?.escape()?.raw()}     	
+                            %{ } }%
                         %{ } }%
                     %{ } }%
                 %{ } }%

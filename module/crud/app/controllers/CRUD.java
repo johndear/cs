@@ -42,6 +42,7 @@ import utils.ExcelUtil;
 import utils.Position;
 import utils.ReflectUtils;
 import annotation.Action;
+import annotation.ListColumn;
 import annotation.Menu;
 import annotation.QueryParam;
 import annotation.TableExclude;
@@ -107,7 +108,15 @@ public abstract class CRUD extends Controller {
         		}
         		TableExclude tableExclude = field.getAnnotation(TableExclude.class);
         		if(tableExclude==null){
-        			listFieldArr.add(field.getName());
+        			ListColumn listColumn = field.getAnnotation(ListColumn.class);	
+        			if(listColumn!=null){
+        				String[] fieldNames = listColumn.fields().split(",");
+        				for (String fieldName : fieldNames) {
+        					listFieldArr.add(field.getName() +"."+ fieldName);
+						}
+        			}else{
+        				listFieldArr.add(field.getName());
+        			}
         		}
         		QueryParam queryParam = field.getAnnotation(QueryParam.class);
         		if(queryParam!=null){
@@ -157,7 +166,7 @@ public abstract class CRUD extends Controller {
         }
     }
     
-    public static void exportExcel(int page, String search, String searchFields, String orderBy, String order) {
+    public static void exportExcel(Integer page, String search, String searchFields, String orderBy, String order) {
 //    	String where = (String) request.args.get("where");
 //    	String where = params.get("where");
     	// liusu start
@@ -175,11 +184,17 @@ public abstract class CRUD extends Controller {
     	
         ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);
-        if (page < 1) {
-            page = 1;
+        
+        List<Model> objects =  null;
+        if(page == null){
+        	objects = type.findAll(search, searchFields, orderBy, order, where);
+        }else{
+        	if (page < 1) {
+        		page = 1;
+        	}
+        	objects = type.findPage(page, search, searchFields, orderBy, order, where);
         }
 //        Field
-        List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
         List<Map<String, String>> dataMapList = new ArrayList<Map<String,String>>();
         for (Model model : objects) {
         	List<ObjectField> fileds=type.getFields();
@@ -438,6 +453,13 @@ public abstract class CRUD extends Controller {
             int offset = (page - 1) * getPageSize();
             List<String> properties = searchFields == null ? new ArrayList<String>(0) : Arrays.asList(searchFields.split("[ ]"));
             return Model.Manager.factoryFor(entityClass).fetch(offset, getPageSize(), orderBy, order, properties, search, where);
+        }
+        
+        @SuppressWarnings("unchecked")
+        public List<Model> findAll(String search, String searchFields, String orderBy, String order, String where) {
+            int count = this.count(search, searchFields, where).intValue();
+        	List<String> properties = searchFields == null ? new ArrayList<String>(0) : Arrays.asList(searchFields.split("[ ]"));
+            return Model.Manager.factoryFor(entityClass).fetch(0, count, orderBy, order, properties, search, where);
         }
 
         public Model findById(String id) throws Exception {

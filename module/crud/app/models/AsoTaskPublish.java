@@ -1,8 +1,10 @@
 package models;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
+import annotation.ListColumn;
 import play.db.jpa.Model;
 
 import java.util.Date;
@@ -57,6 +59,7 @@ public class AsoTaskPublish extends BaseModel {
 	public List<AsoChannel> asoChannels;
 
 	//bi-directional many-to-one association to AsoTask
+	@ListColumn(fields="taskType,taskName,taskScore")
 	@ManyToOne
 	@JoinColumn(name="task_id")
 	public AsoTask asoTask;

@@ -20,7 +20,7 @@
 	          </a>
 	          <ul class="dropdown-menu" role="menu">
 		      		<li><a href="javascript:void(0);" onclick="exportAllPageData('@{exportExcel()}')">导出全部</a></li>
-			        <li><a href="javascript:void(0);" onclick="exportCurrentPageData()">导出当前页</a></li>
+			        <li><a href="javascript:void(0);" onclick="exportCurrentPageData('@{exportExcel()}')">导出当前页</a></li>
 			        <li class="divider"></li>
 			        <li><a href="#">未完待续</a></li>
 		    	</ul>
@@ -59,7 +59,6 @@
 	    </div>
     #{/crud.custom}
     
-
     
 #{/crud.table}
 
@@ -76,10 +75,19 @@
 		location.href= url + "?"+ formData;
 	}
 	
-	function exportCurrentPageData(){
+	function exportCurrentPageData(url){
 		var formData = $('form').eq(0).serialize();
-		formData +='&pageSize=20&page='+ 1;
+		formData +='&page='+ getQuery(page);
 		alert(formData);
-		
+		// location.href= url + "?"+ formData;
 	}
+	
+	function getQuery(para){ 
+		var reg = new RegExp("(^|&)"+para +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if(r!=null){ 
+		return unescape(r[2]); 
+		} 
+		return null; 
+	} 
 </script>
