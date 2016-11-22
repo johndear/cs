@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import annotation.QueryParam;
 import play.data.validation.MaxSize;
 import play.db.jpa.Model;
 
@@ -27,8 +28,10 @@ import play.db.jpa.Model;
 @NamedQuery(name="TRole.findAll", query="SELECT t FROM TRole t")
 public class TRole extends BaseModel {
 
+	@QueryParam
 	public String name;
 
+	@QueryParam
 	@OneToMany
 	@JoinTable(
 		name="t_role_resource_action"
