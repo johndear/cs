@@ -4,6 +4,7 @@
 # Map static resources from the /app/public folder to the /public path
 GET     	/public/                               		staticDir:public
 GET			/											CRUD.layout
+GET			/test											CRUD.layout2
 
 #{crud.types}
 GET			/?											${type.controllerClass.name.substring(12).replace('$','')}.index

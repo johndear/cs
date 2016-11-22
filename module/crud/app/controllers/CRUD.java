@@ -59,11 +59,19 @@ public abstract class CRUD extends Controller {
     }
     
     public static boolean newCrud = true;
+    //  adminLTE左侧菜单导航
     public static void layout() {
     	newCrud = true;
         render("custom/welcome.html");
     }
+    
+    // adminLTE横向菜单导航
+    public static void layout2() {
+    	newCrud = true;
+        render("adminLTE/welcome.html");
+    }
 
+    // 旧版
     public static void index() {
     	newCrud = false;
         if (getControllerClass() == CRUD.class) {
