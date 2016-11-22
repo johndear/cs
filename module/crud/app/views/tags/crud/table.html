@@ -17,9 +17,16 @@
         %{ if(_fields) { }%
             %{ _fields.each() { }%
             <th>
-                %{ if(!_sort || _sort.contains(it)) { }%
+                %{ if(!_sort || _sort.contains(it)) {
+                    def title = '';
+                    if(it.contains('.')){
+                        title = it.tokenize('.')[0].toLowerCase() + '.' + it.tokenize('.')[1];
+                    }else{
+                        title = _caller.objects[0].getClass().getSimpleName().toLowerCase() + '.' + it;
+                    }
+                    }%
                 <a class="${_caller.orderBy == it ? (_caller.order == 'DESC' ? 'crudSortedDesc' : 'crudSortedAsc') : ''}" href="@{list().remove('page').add('search', params.search).add('orderBy', it).add('order', (_caller.orderBy == it && _caller.order == 'ASC' ? 'DESC' : 'ASC'))}">
-                    &{it}
+                    &{title}
                 </a>
                 %{ } else { }%
                     &{it}

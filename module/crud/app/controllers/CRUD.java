@@ -136,7 +136,7 @@ public abstract class CRUD extends Controller {
         	Map<String, String> outerTableAction = null;
         	Map<String, String> innerTableAction = null;
         	for (Method method : methods) {
-        		if(",addType,index,layout,redirect,list,attachment,save,create,".contains(","+method.getName()+",")){
+        		if(",addType,index,layout,redirect,list,attachment,save,create,exportExcel,".contains(","+method.getName()+",")){
         			continue;
         		}
         		if(outerTableAction==null){

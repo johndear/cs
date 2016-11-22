@@ -1,5 +1,7 @@
 package models;
 
+import annotation.ListColumn;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +36,7 @@ public class TResource extends BaseModel{
 	@Column(name="order_no")
 	public Integer orderNo;
 
+	@ListColumn(fields = "title")
 	@ManyToMany
 	@JoinTable(
 		name="t_resource_action"
