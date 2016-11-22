@@ -19,6 +19,18 @@ import java.util.List;
 @NamedQuery(name="AsoTask.findAll", query="SELECT a FROM AsoTask a")
 public class AsoTask extends BaseModel {
 
+	@Column(name="task_title")
+	public String taskTitle;
+
+	@Column(name="task_name")
+	public String taskName;
+
+	@Column(name="task_score")
+	public int taskScore;
+
+	@Column(name="task_type")
+	public String taskType;
+
 	@Column(name="app_id")
 	public String appId;
 
@@ -56,17 +68,7 @@ public class AsoTask extends BaseModel {
 
 	public String scheme;
 
-	@Column(name="task_name")
-	public String taskName;
 
-	@Column(name="task_score")
-	public int taskScore;
-
-	@Column(name="task_title")
-	public String taskTitle;
-
-	@Column(name="task_type")
-	public String taskType;
 
 	//bi-directional many-to-one association to AsoTaskPublish
 	@OneToMany(mappedBy="asoTask")
