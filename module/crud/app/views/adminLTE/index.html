@@ -16,10 +16,10 @@ lang = play.i18n.Lang.get();
 		<!-- Ionicons -->
 		<link rel="stylesheet" href="@{'public/angularjs/bower_components/ionicons/ionicons.min.css'}">
 		<!-- Theme style -->
-        <link rel="stylesheet" href="@{'public/plugins/AdminLTE/css/AdminLTE.min.css'}">
+        <link rel="stylesheet" href="@{'public/AdminLTE/css/AdminLTE.min.css'}">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
 		       folder instead of downloading all of them to reduce the load. -->
-    	<link rel="stylesheet" href="@{'public/plugins/AdminLTE/css/skins/_all-skins.min.css'}">
+    	<link rel="stylesheet" href="@{'public/AdminLTE/css/skins/_all-skins.min.css'}">
 		
 		<!-- default start -->
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
@@ -31,15 +31,17 @@ lang = play.i18n.Lang.get();
     
     <body class="hold-transition skin-blue sidebar-mini">
     	<div class="wrapper">
-			#{include 'adminLTE/header.html' /}
-	        #{include 'custom/left.html' /}
-	        #{doLayout /}
-	        #{include 'custom/footer.html' /}
+	        #{include 'adminLTE/custom/header.html' /}
+	        #{include 'adminLTE/left.html' /}
+	        <div class="content-wrapper" style="min-height: 592px;padding:10px;">
+	        	#{doLayout /}
+	        </div>
+	        #{include 'adminLTE/footer.html' /}
         </div>
     </body>
     
     <!-- jquery -->    	
-	<script src="@{'public/angularjs/bower_components/jquery/dist/jquery.js'}"></script>
+	<script src="@{'public/angularjs/bower_components/jquery/jquery.js'}"></script>
 	<!-- jQuery UI 1.11.4 -->
 	<script src="@{'public/angularjs/bower_components/jquery-ui-1.11.4/jquery-ui.min.js'}"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -50,11 +52,9 @@ lang = play.i18n.Lang.get();
 	<script src="@{'public/angularjs/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
 		
     <!-- AdminLTE App -->
-	<script src="@{'public/plugins/AdminLTE/js/app.min.js'}"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-	<!-- <script src="@{'public/plugins/AdminLTE/js/pages/dashboard.js'}"></script> -->
+	<script src="@{'public/AdminLTE/js/app.min.js'}"></script>
 	<!-- AdminLTE for demo purposes -->
-	<script src="@{'public/plugins/AdminLTE/js/demo.js'}"></script>
+	<script src="@{'public/AdminLTE/js/demo.js'}"></script>
 	
 </html>
 <script type="text/javascript">

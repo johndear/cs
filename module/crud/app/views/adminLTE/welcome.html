@@ -1,20 +1,63 @@
 #{extends 'adminLTE/index.html' /}
 
-<div class="content-wrapper" style="min-height: 592px;">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			Dashboard <small>Control panel</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Dashboard</li>
-		</ol>
-	</section>
+<style>
+.example-modal .modal {
+	position: relative;
+	top: auto;
+	bottom: auto;
+	right: auto;
+	left: auto;
+	display: block;
+	z-index: 1;
+}
 
-	<!-- Main content -->
-	<section class="content body">
+.example-modal .modal {
+	background: transparent !important;
+}
+</style>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+	<h1>
+		Dashboard <small>Control panel</small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li class="active">Dashboard</li>
+	</ol>
+</section>
 
-		welcome...welcome...welcome...welcome...welcome...welcome...</section>
-	<!-- /.content -->
-</div>
+<!-- Main content -->
+<section class="content body">
+
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary btn-lg"
+		data-toggle="modal" data-target=".bs-example-modal-sm">modal
+	</button>
+	<!-- modal -->
+	<div class="modal fade bs-example-modal-sm">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">X</span>
+					</button>
+					<h4 class="modal-title">Default Modal</h4>
+				</div>
+				<div class="modal-body">
+					<p>One fine body</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+</section>
+<!-- /.content -->
