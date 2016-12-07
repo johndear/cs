@@ -26,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
 import play.Play;
+import play.classloading.enhancers.ControllersEnhancer.ControllerInstrumentation;
 import play.data.binding.Binder;
 import play.data.validation.MaxSize;
 import play.data.validation.Password;
@@ -33,6 +34,7 @@ import play.data.validation.Required;
 import play.db.Model;
 import play.db.Model.Factory;
 import play.exceptions.TemplateNotFoundException;
+import play.mvc.ActionInvoker;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.Router;
@@ -46,6 +48,7 @@ import annotation.ListColumn;
 import annotation.Menu;
 import annotation.QueryParam;
 import annotation.TableExclude;
+import controllers.CRUD.ObjectType;
 import controllers.CRUD.ObjectType.ObjectField;
 
 public abstract class CRUD extends Controller {
@@ -82,10 +85,22 @@ public abstract class CRUD extends Controller {
     }
 
     public static void list(int page, String search, String searchFields, String orderBy, String order) {
-//    	String where = (String) request.args.get("where");
-//    	String where = params.get("where");
     	// liusu start
-    	Map<String, String[]> objectParams = params.getRootParamNode().originalParams;
+    	try{
+//	    	_list(page, search, searchFields, orderBy, order);
+    		
+    		// 防止302跳转
+    		ControllerInstrumentation.initActionCall();
+    		Method method = CRUD.class.getDeclaredMethod("_list", new Class[]{int.class, String.class, String.class,String.class,String.class});
+			ActionInvoker.invokeControllerMethod(method, new Object[]{page, search, searchFields, orderBy, order});
+        } catch (Exception e) {
+        	ControllerInstrumentation.stopActionCall();
+        }
+    	render("CRUD/list.html");
+    }
+    
+    public static void _list(int page, String search, String searchFields, String orderBy, String order) throws Exception{
+		Map<String, String[]> objectParams = params.getRootParamNode().originalParams;
     	String where = "";
     	for (Entry entry : objectParams.entrySet()) {
     		String key = (String) entry.getKey();
@@ -144,7 +159,7 @@ public abstract class CRUD extends Controller {
         	Map<String, String> outerTableAction = null;
         	Map<String, String> innerTableAction = null;
         	for (Method method : methods) {
-        		if(",addType,index,layout,redirect,list,attachment,save,create,exportExcel,".contains(","+method.getName()+",")){
+        		if(",addType,index,layout,redirect,list,attachment,save,create,exportExcel,_list,layout2,".contains(","+method.getName()+",")){
         			continue;
         		}
         		if(outerTableAction==null){
@@ -168,11 +183,31 @@ public abstract class CRUD extends Controller {
         		menuCategory = menu.category();
         	}
         	boolean isNew = newCrud;
-            render(type, objects, count, totalCount, page, orderBy, order, searchFieldArr, listFieldArr, innerTableAction, outerTableAction, isNew, menuCategory);
+        	
+        	renderArgs.put("type", type);
+        	renderArgs.put("objects", objects);
+        	renderArgs.put("count", count);
+        	renderArgs.put("totalCount", totalCount);
+        	renderArgs.put("page", page);
+        	renderArgs.put("orderBy", orderBy);
+        	renderArgs.put("order", order);
+        	renderArgs.put("searchFieldArr", searchFieldArr);
+        	renderArgs.put("listFieldArr", listFieldArr);
+        	renderArgs.put("innerTableAction", innerTableAction);
+        	renderArgs.put("outerTableAction", outerTableAction);
+        	renderArgs.put("isNew", isNew);
+        	renderArgs.put("menuCategory", menuCategory);
         } catch (TemplateNotFoundException e) {
-            render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+        	renderArgs.put("type", type);
+        	renderArgs.put("objects", objects);
+        	renderArgs.put("count", count);
+        	renderArgs.put("totalCount", totalCount);
+        	renderArgs.put("page", page);
+        	renderArgs.put("orderBy", orderBy);
+        	renderArgs.put("order", order);
+        	throw new Exception();
         }
-    }
+	}
     
     public static void exportExcel(Integer page, String search, String searchFields, String orderBy, String order) {
 //    	String where = (String) request.args.get("where");

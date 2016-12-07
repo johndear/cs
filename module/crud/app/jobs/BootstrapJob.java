@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import controllers.CRUD;
 import controllers.CRUD.For;
+import controllers.CRUD.ObjectType;
 import annotation.Action;
 import annotation.Menu;
 import annotation.Rest;
@@ -80,11 +81,18 @@ public class BootstrapJob extends Job {
 			CRUD.For foran = applicationClass.javaClass.getAnnotation(CRUD.For.class);
 			if(menu==null && foran == null){
 			}else{
+				String menuCode = "";
 				if(menu!=null && StringUtils.isEmpty(menu.code()) && foran==null){
+					ObjectType type = ObjectType.get((Class<? extends Controller>) applicationClass.javaClass);
+					menuCode = type.modelName;
+				}else{
+					menuCode = StringUtils.isNotEmpty(menu.code()) ? menu.code() : foran.value().getSimpleName();
+				}
+				if(StringUtils.isEmpty(menuCode)){
 					System.out.println("请指定菜单code" + applicationClass.name);
 					continue;
 				}
-				String menuCode = StringUtils.isNotEmpty(menu.code()) ? menu.code() : foran.value().getSimpleName(); 
+				
 				TResource tresource = TResource.find("code=?", menuCode).first();
 				if(tresource!=null){
 					System.out.println(tresource.name+ " 已经存在.");
