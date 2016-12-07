@@ -22,7 +22,8 @@
                     if(it.contains('.')){
                         title = it.tokenize('.')[0].toLowerCase() + '.' + it.tokenize('.')[1];
                     }else{
-                        title = _caller.objects[0].getClass().getSimpleName().toLowerCase() + '.' + it;
+                        // _caller.objects[0].getClass().getSimpleName().toLowerCase()
+                        title = _caller.type.toString().toLowerCase() + '.' + it;
                     }
                     }%
                 <a class="${_caller.orderBy == it ? (_caller.order == 'DESC' ? 'crudSortedDesc' : 'crudSortedAsc') : ''}" href="@{list().remove('page').add('search', params.search).add('orderBy', it).add('order', (_caller.orderBy == it && _caller.order == 'ASC' ? 'DESC' : 'ASC'))}">
