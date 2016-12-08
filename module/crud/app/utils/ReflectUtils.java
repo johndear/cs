@@ -20,7 +20,15 @@ public class ReflectUtils {
                     continue;
                 }
 
-                methodList.add(method);
+                boolean exist = false;
+                for (Method existMethod : methodList) {
+                	if(existMethod.getName().equals(method.getName())){
+                		exist = true;
+                	}
+				}
+                if(!exist){
+                	methodList.add(method);
+                }
             }
         }
 

@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -170,12 +171,21 @@ public abstract class CRUD extends Controller {
         		}
         		Action action = method.getAnnotation(Action.class);
         		String actionUrl = Router.getFullUrl(controllerClass.getName()+"."+method.getName());
-        		if(action!=null && Position.INNER == action.position()){
-        			innerTableAction.put(action.name(), actionUrl);
+        		if(action!=null){
+        			if(Position.INNER == action.position()){
+        				innerTableAction.put(action.name(), actionUrl);
+        			}else{
+        				outerTableAction.put(action!=null ? action.name() : method.getName(), actionUrl);
+        			}
         		}else{
-        			outerTableAction.put(action!=null ? action.name() : method.getName(), actionUrl);
+        			// 没有使用action注解方法，默认不展示
         		}
 			}
+        	
+        	// 只有当有行内操作时，才显示
+        	if(innerTableAction==null || innerTableAction.size()==0){
+        		listFieldArr.remove("innerTableAction");
+        	}
         	
         	Menu menu = getControllerClass().getAnnotation(Menu.class);
         	String menuCategory = "default";
