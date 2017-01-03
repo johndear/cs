@@ -11,6 +11,8 @@ lang = play.i18n.Lang.get();
   		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
     	<link rel="stylesheet" href="@{'public/bootstrap/css/bootstrap.min.css'}">
+    	<script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+    	<script  type="text/javascript" src="@{'public/bootstrap/js/bootstrap.js'}"></script>
     	<!-- Font Awesome -->
 		<link rel="stylesheet" href="@{'public/angularjs/bower_components/fontawesome/css/font-awesome.css'}">
 		<!-- Ionicons -->
@@ -25,12 +27,38 @@ lang = play.i18n.Lang.get();
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
        	<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         #{get 'moreScripts' /}
+        
+        <script type="text/javascript" src="@{'public/angularjs/bower_components/angular/angular.js'}"></script>
+	    <script type="text/javascript" src="@{'public/angularjs/bower_components/angular-route/angular-route.js'}"></script>
+	    <script type="text/javascript" src="@{'public/angularjs/bower_components/angular-resource/angular-resource.js'}"></script>
+		
+		<!-- fileUpload -->
+		<script type="text/javascript" src="@{'public/angularjs/ng-file-upload-shim.min.js'}"></script>
+	    <script type="text/javascript" src="@{'public/angularjs/ng-file-upload.min.js'}"></script>
+	
+		<!-- custom js -->
+		<script src="@{'/public/javascripts/DateUtil.js'}"></script>
+		<script src="@{'/public/audit/app.js'}"></script>
+		
+	    <script type="text/javascript">
+		    $('a.close').click( function() {
+		        $(this).parent().fadeOut(1000);
+		    })
+			$("body").bind("click", function (e) {
+		    	$('.dropdown-toggle, .menu').parent("li").removeClass("open");
+			});
+			$(".dropdown-toggle, .menu").click(function (e) {
+			   var $li = $(this).parent("li").toggleClass('open');
+				return false;
+			});
+		
+		</script>
+		
     </head>
     
     <body class="hold-transition skin-blue sidebar-mini">
-    	<div class="wrapper">
+    	<div class="wrapper" ng-app="auditApp">
 	        #{include 'adminLTE/custom/header.html' /}
 	        #{include 'adminLTE/left.html' /}
 	        <div class="content-wrapper" style="min-height: 592px;padding:10px;">
@@ -40,8 +68,6 @@ lang = play.i18n.Lang.get();
         </div>
     </body>
     
-    <!-- jquery -->    	
-	<script src="@{'public/angularjs/bower_components/jquery/jquery.js'}"></script>
 	<!-- jQuery UI 1.11.4 -->
 	<script src="@{'public/angularjs/bower_components/jquery-ui-1.11.4/jquery-ui.min.js'}"></script>
 	<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -56,17 +82,30 @@ lang = play.i18n.Lang.get();
 	<!-- AdminLTE for demo purposes -->
 	<script src="@{'public/AdminLTE/js/demo.js'}"></script>
 	
-</html>
-<script type="text/javascript">
-    $('a.close').click( function() {
-        $(this).parent().fadeOut(1000);
-    })
-	$("body").bind("click", function (e) {
-    	$('.dropdown-toggle, .menu').parent("li").removeClass("open");
-	});
-	$(".dropdown-toggle, .menu").click(function (e) {
-	   var $li = $(this).parent("li").toggleClass('open');
-	return false;
-});
 
-</script>
+	<!-- 放前面不生效！ -->
+	<!-- bootstrap date -->
+	<link rel="stylesheet" href="@{'/public/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css'}">
+	<script src="@{'/public/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'}"></script>
+	<script type="text/javascript" src="@{'/public/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'}"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		// bootstrap-datetimepicker控件选项
+    		var options = {
+ 	      		    language:  'zh-CN',
+ 	      		    format: 'yyyy-mm-dd',
+ 	      		    weekStart: 3,
+ 	      	        todayBtn:  1,
+ 	      			autoclose: 1,
+ 	      			todayHighlight: 1,
+ 	      			startView: 2,
+ 	      			minView: 2,
+ 	      			maxView: 1,
+ 	      			forceParse: 0
+ 	        	  };
+    		$('.form_datetime').datetimepicker(options);
+    	});
+    </script>
+
+</html>
+

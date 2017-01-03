@@ -13,7 +13,10 @@
 <table class="table table-bordered table-condensed table-hover" style="margin-bottom:0px;border:0px;">
     <thead>
         <tr>
-             <th>#</th>
+        <th>#</th>
+        %{if(_fields.contains('id')){}%
+             <th>id</th>
+        %{}}%
         %{ if(_fields) { }%
             %{ _fields.each() { }%
             <th>
@@ -22,7 +25,7 @@
                     if(it.contains('.')){
                         title = it.tokenize('.')[0].toLowerCase() + '.' + it.tokenize('.')[1];
                     }else{
-                        // _caller.objects[0].getClass().getSimpleName().toLowerCase()
+                    	// out.print(_caller.type.toString().toLowerCase());
                         title = _caller.type.toString().toLowerCase() + '.' + it;
                     }
                     }%
@@ -45,7 +48,10 @@
     </thead>
     %{ _caller.objects.eachWithIndex() { object, k -> }%
     <tr class="${k % 2 ? 'even' : 'odd'}">
+    	<td>${k+1}</td>
+    	%{if(_fields.contains('id')){}%
         <td>${object.id.raw() ?: '(no value)'}</td>
+        %{}}%
         %{ if(_fields) { }%
             %{ _fields.eachWithIndex() { field, i -> }%
             <td>
@@ -60,7 +66,12 @@
                     }%
                 %{ } else { }%
                     %{ if(i == 0) { }%
-                        ${object[field]?.toString()?.escape()?.raw() ?: '(no value)'}
+                        %{ if(field.indexOf('.')==-1){ }%    	
+	                        ${object[field]?.toString()?.escape()?.raw() ?: '(no value)'}
+                        %{ } else { }%
+                   			${object[field.tokenize(".")[0]][field.tokenize(".")[1]]?.escape()?.raw()}     	
+                        %{ } }%
+                            
                     %{ } else { }%
                         %{ if(_caller.type.getField(field) != null && _caller.type.getField(field).type == 'file') { }%
                             %{ if(object[field]) { }%

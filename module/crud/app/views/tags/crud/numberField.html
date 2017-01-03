@@ -6,7 +6,7 @@
     </div>
     <div class="col-md-4">
     	<div class="#{ifError field.name} has-error #{/ifError}">
-		    <input id="${field.id}" type="text" name="${field.name}" class="form-control" value="${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}"/>
+		    <input id="${field.id}" type="number" name="${field.name}" class="form-control" value="${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}"/>
 		    #{ifError field.name}
 		        <span class="error">${field.error.raw()}</span>
 		    #{/ifError}

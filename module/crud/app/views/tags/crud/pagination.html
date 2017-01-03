@@ -4,7 +4,7 @@
 #{if nbPages > 1}
     <div class="vertical-align:center;">
 		
-		<div style="float:left;">Showing 1 to ${nbPages} of ${_caller.count} entries</div>
+		<div style="float:left;padding-left:15px;">${controllers.CRUD.getPageSize()}条/页, 总共${_caller.count}条, 共${nbPages}页</div>
         <ul class="pagination pull-right">
         %{
             limit = (_limit != null ? _limit : 10)
@@ -24,36 +24,42 @@
 
         #{if _caller.page > 1}
             <li>
-                #{a @list().add('page', _caller.page-1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.previous'}#{/a}
+            	<a onclick="submitByPage(${_caller.page-1})">&{'crud.pagination.previous'}</a>
+                <!-- #{a @list().add('page', _caller.page-1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.previous'}#{/a} -->
             </li>
         #{/if}
 
         #{if start > 1}
             <li>
-                #{a @list().add('page', 1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.first'}#{/a}
+            	<a onclick="submitByPage(1)">&{'crud.pagination.first'}</a>
+                <!-- #{a @list().add('page', 1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.first'}#{/a} -->
             </li>
         #{/if}
 
         %{ for (i in start..end) { }%
             <li>
                 #{if _caller.page == i}
-                    #{a @list().add('page', i).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}<b>${i}</b>#{/a}
+                	<a onclick="submitByPage(${i})"><b>${i}</b></a>
+                    <!-- #{a @list().add('page', i).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}<b>${i}</b>#{/a} -->
                 #{/if}
                 #{else}
-                    #{a @list().add('page', i).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}${i}#{/a}
+                	<a onclick="submitByPage(${i})">${i}</a>
+                    <!-- #{a @list().add('page', i).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}${i}#{/a} -->
                 #{/else}
             </li>
         %{ } }%
 
         #{if end < nbPages}
             <li>
-                #{a @list().add('page', nbPages).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.last'}#{/a}
+            	<a onclick="submitByPage(${nbPages})">&{'crud.pagination.last'}</a>
+                <!-- #{a @list().add('page', nbPages).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.last'}#{/a} -->
             </li>
         #{/if}
 
         #{if _caller.page < nbPages}
             <li>
-                #{a @list().add('page', _caller.page+1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.next'}#{/a}
+            	<a onclick="submitByPage(${_caller.page+1})">&{'crud.pagination.next'}</a>
+                <!-- #{a @list().add('page', _caller.page+1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.next'}#{/a} -->
             </li>
         #{/if}
 		

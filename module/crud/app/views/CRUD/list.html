@@ -11,29 +11,35 @@
   <div class="span5">
     	#{crud.search fields: searchFieldArr /}
   </div>
-  <div class="span4" style="padding:15px;">
-	  <div class="nav navbar-nav navbar-right">
-	  	<ul class="btn btn-default" style="list-style: none;">
-	  	  <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	          	<span class="glyphicon glyphicon-save"></span> 导出 <span class="caret"></span>
-	          </a>
-	          <ul class="dropdown-menu" role="menu">
-		      		<li><a href="javascript:void(0);" onclick="exportAllPageData('@{exportExcel()}')">导出全部</a></li>
-			        <li><a href="javascript:void(0);" onclick="exportCurrentPageData('@{exportExcel()}')">导出当前页</a></li>
-			        <li class="divider"></li>
-			        <li><a href="#">未完待续</a></li>
-		    	</ul>
-	        </li>
-        </ul>
-        
-	</div>
+  <div class="span4" style="padding:10px;">
+   %{ if(outerTableAction!=null){ }%
+	   	%{ outerTableAction.entrySet().each(){ }%
+	   		<!-- %{ if(it.getKey()=='exportExcel'){}%
+			  <div class="nav navbar-nav navbar-right" style="padding-right:20px;">
+			  	<ul class="btn btn-default" style="list-style: none;">
+			  	  <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			          	<span class="glyphicon glyphicon-save"></span> 导出 <span class="caret"></span>
+			          </a>
+					          <ul class="dropdown-menu" role="menu">
+						      		<li><a href="javascript:void(0);" onclick="exportAllPageData('@{exportExcel()}')">导出全部</a></li>
+							        <li><a href="javascript:void(0);" onclick="exportCurrentPageData('@{exportExcel()}')">导出当前页</a></li>
+							        <li class="divider"></li>
+							        <li><a href="#">未完待续</a></li>
+						    	</ul>
+			        </li>
+		        </ul>
+			</div>
+		    %{ }}% -->
+	   	%{ } }%
+	%{ } }%
+	
       %{ if(outerTableAction!=null){ }%
 	        %{ outerTableAction.entrySet().each(){ }%
 					%{ if(it.getKey()=='add'){}%
 		    			<a href="@{blank()}" class="btn btn-primary pull-left"><i class="glyphicon glyphicon-plus"></i> &{'crud.add', type.modelName}</a>
-					%{ }else{ }%
-						<a href="%{out.print(it.getValue());}%" class="btn btn-default" style="margin-left:5px;float:left;">%{ out.print(it.getKey()); }%</a>
+					%{ }else if(it.getKey()=='exportExcel'){}else{ }%
+						<a href="%{out.print(it.getValue().url);}%" class="btn btn-default" style="margin-left:5px;float:left;">%{ out.print(it.getValue().name); }%</a>
 					%{ }}%
 		    %{ } }%
 	  %{ } }%
@@ -45,14 +51,14 @@
 	#{crud.custom 'innerTableAction'} 
 		%{ if(innerTableAction!=null){ }%
 			    %{ innerTableAction.entrySet().each(){ }%
-						%{ if(it.getKey()=='编辑'){}%
+						%{ if(it.getKey()=='show'){}%
 					        <a href="@{show(object._key())}" class="btn btn-info btn-small" style="margin-left:5px;float:left;"><i class="glyphicon glyphicon-edit"></i></a>
-						%{ }else if(it.getKey()=='删除'){}%
+						%{ }else if(it.getKey()=='delete'){}%
 					        #{form @delete(object._key())}
 						        <button class="btn btn-danger btn-small" style="margin-left:5px;float:left;" ><i class="glyphicon glyphicon-remove"></i></button>
 						    #{/form}
 						%{ }else{ }%
-							<a href="%{out.print(it.getValue());}%" class="btn btn-default" style="margin-left:5px;float:left;">%{ out.print(it.getKey()); }%</a>
+							<a href="%{out.print(it.getValue().url + '?key=' + object._key());}%" class="btn btn-default" style="margin-left:5px;float:left;">%{ out.print(it.getValue().name); }%</a>
 						%{ }}%
 			    %{ } }%
 	    %{ } }%
@@ -62,7 +68,9 @@
     
 #{/crud.table}
 
+<div class="row">
 #{crud.pagination /}
+</div>
 
     <!-- #{crud.custom 'TActions'}
         ${object.TActions.TResource.name}
@@ -90,4 +98,10 @@
 		} 
 		return null; 
 	} 
+	
+	function submitByPage(page){
+		$('#page').val(page);
+		var form = $('form').eq(0);
+		form.submit();
+	}
 </script>

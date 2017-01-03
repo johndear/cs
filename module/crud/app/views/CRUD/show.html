@@ -1,5 +1,5 @@
 %{ if(isNew){ }%
-	#{extends 'custom/index.html' /}
+	#{extends 'adminLTE/index.html' /}
 %{ }else{ }%
 	#{extends 'CRUD/layout.html' /}
 %{ } }%
@@ -18,7 +18,7 @@
         <div class="form-actions">
             <input type="submit" class="btn btn-primary" name="_save" value="&{'crud.save', type.modelName}" />
             <input type="submit" class="btn btn-primary" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" />
-            <a href="@{list()}" class="btn">&{'crud.cancel', type.modelName}</a>
+            <a href="@{list()}" class="btn btn-default">&{'crud.cancel', type.modelName}</a>
    		</div>
 
    

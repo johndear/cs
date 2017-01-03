@@ -6,11 +6,13 @@
 </div>
 <div class="col-md-4">
 <select id="${field.id}" name="${field.name}" class="form-control">
+        <option value="">全部</option>
         %{ _property.choices.each() { }%
         %{
                 selected = false;
                 if(field.error?.message != 'validation.required') {
-                    selected = it == _value;
+//                    selected = it == _value;
+                	selected = it.name() == params[field.name];
                 }
                 label = it.toString()
 

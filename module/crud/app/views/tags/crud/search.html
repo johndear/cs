@@ -20,6 +20,7 @@
 }%
 
 #{form action:@list().remove('page'), method:'GET'}
+    <input type="hidden" name="page" id="page" value="1">
 	
 	<!-- {list items:_fields ?: currentType.fields*.name, as:'fieldName'} -->
 	#{list items:_fields, as:'fieldName'}
@@ -61,7 +62,7 @@
 	        #{/if}
 	
 	        #{if field.type == 'date'}
-	            #{crud.dateField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null) /}
+	            #{crud.dateField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : (currentType.entityClass.newInstance()[field.name] ? currentType.entityClass.newInstance()[field.name] : null))  /}
 	            %{ am = messages.get('crud.help.dateformat',play.libs.I18N.getDateFormat()) }%
 	        #{/if}
 	
@@ -84,7 +85,7 @@
 	
     #{if _fields}
         <input type="hidden" name="searchFields" class="form-control" value="${_fields.toString().substring(1, _fields.toString().length()-1).replace(',', '')}" />
-	    <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i> &{'crud.search'}</button>
+	    <button class="btn btn-default" style="margin-left:15px;"><i class="glyphicon glyphicon-search"></i> &{'crud.search'}</button>
     #{/if}
     
     <!-- <div class="box-tools">
