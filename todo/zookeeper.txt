@@ -7,4 +7,7 @@ http://www.wuzesheng.com/?p=2609
 http://blog.csdn.net/sunfeizhi/article/details/51926396
 http://090508tanjie.iteye.com/blog/2291865
 http://www.cnblogs.com/iliuyuet/p/5566376.html
-http://blog.csdn.net/java2000_wl 利用zookeeper实现job集群，参考分布式锁
+
+利用zookeeper实现job集群，参考分布式锁
+http://blog.csdn.net/java2000_wl 
+http://www.cnblogs.com/davidwang456/p/5161047.html
