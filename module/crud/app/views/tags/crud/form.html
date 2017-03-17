@@ -19,6 +19,13 @@
     
 }%
 
+<style>
+.error {
+	color: #c00;
+	font-size: 80%;
+}
+</style>
+
 <div role="form" class="form-group">
 
 	#{set count:1 /}
@@ -91,7 +98,7 @@
 	        #{/if}
 	
 	        #{if field.type == 'enum'}
-	            #{crud.enumField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), property:field /}
+	            #{crud.enumField fullFieldName:fullFieldName, name:field.name, value:(currentObject ? currentObject[field.name] : null), property:field, enumName:(currentObject ? currentObject[field.name]?.name() : null)  /}
 	        #{/if}
 	
 	        #{if field.type == 'hidden'}

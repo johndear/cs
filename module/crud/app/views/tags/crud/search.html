@@ -21,6 +21,7 @@
 
 #{form action:@list().remove('page'), method:'GET'}
     <input type="hidden" name="page" id="page" value="1">
+	<input type="hidden" name="pageSize" id="pageSize" value="10">
 	
 	<!-- {list items:_fields ?: currentType.fields*.name, as:'fieldName'} -->
 	#{list items:_fields, as:'fieldName'}

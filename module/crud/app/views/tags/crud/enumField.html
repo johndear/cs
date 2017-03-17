@@ -12,7 +12,8 @@
                 selected = false;
                 if(field.error?.message != 'validation.required') {
 //                    selected = it == _value;
-                	selected = it.name() == params[field.name];
+                	//selected = it.name() == params[field.name];
+					selected = it.name() == _enumName;
                 }
                 label = it.toString()
 
