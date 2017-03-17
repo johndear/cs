@@ -439,6 +439,12 @@ public abstract class CRUD extends Controller {
         Model object = type.findById(id);
         notFoundIfNull(object);
         Binder.bindBean(params.getRootParamNode(), "object", object);
+		// TODO 这样写不太规范，需要依赖Application
+        if(object instanceof BaseModel){
+        	BaseModel baseBean = (BaseModel)object;
+        	baseBean.modifyTime = new Date();
+        	baseBean.modifyby = Application.getCurrentUser().userName;
+        }
         validation.valid(object);
         if (validation.hasErrors()) {
             renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
@@ -478,6 +484,12 @@ public abstract class CRUD extends Controller {
         constructor.setAccessible(true);
         Model object = (Model) constructor.newInstance();
         Binder.bindBean(params.getRootParamNode(), "object", object);
+		// TODO 这样写不太规范，需要依赖Application
+        if(object instanceof BaseModel){
+        	BaseModel baseBean = (BaseModel)object;
+        	baseBean.createTime = new Date();
+        	baseBean.createby = Application.getCurrentUser().userName;
+        }
         validation.valid(object);
         if (validation.hasErrors()) {
             renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
@@ -536,7 +548,24 @@ public abstract class CRUD extends Controller {
 
     // ~~~~~~~~~~~~~
     public static int getPageSize() {
-        return Integer.parseInt(Play.configuration.getProperty("crud.pageSize", "5"));
+        try {
+	    	Class controllerClass = getControllerClass();
+	    	Method[] methods = ReflectUtils.getBeanPublicStaticMethods(controllerClass);
+	    	for (Method method : methods) {
+				if("getPageSize".equals(method.getName())){
+					int pageSize = Integer.parseInt(String.valueOf(method.invoke(controllerClass.newInstance(), new Object[]{})));
+					if(pageSize == 0){
+						return Integer.parseInt(Play.configuration.getProperty("crud.pageSize", "5"));
+					}else{
+						return pageSize;
+					}
+				}
+			}
+    	} catch (Exception e) {
+    		return Integer.parseInt(Play.configuration.getProperty("crud.pageSize", "5"));
+    	}
+    	
+    	return Integer.parseInt(Play.configuration.getProperty("crud.pageSize", "5"));
     }
 
     public static class ObjectType implements Comparable<ObjectType> {
@@ -583,6 +612,9 @@ public abstract class CRUD extends Controller {
             } catch (Exception e) {
                 Logger.error(e, "Couldn't create an ObjectType. Use default one.");
                 type = new ObjectType(entityClass);
+            }
+			if (controllerClass.isAnnotationPresent(Menu.class)) {
+                type.showName = controllerClass.getAnnotation(Menu.class).name();
             }
             type.name = controllerClass.getSimpleName().replace("$", "");
             type.controllerName = controllerClass.getSimpleName().toLowerCase().replace("$", "");
